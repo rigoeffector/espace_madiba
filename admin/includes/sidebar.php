@@ -33,7 +33,14 @@
 				<li class="nav-item books" id="books" >
 					<a href="books.php">
 						<i class="flaticon-folder"></i>
-						<p>Books</p>
+						<p>Books Category</p>
+
+					</a>
+				</li>
+				<li class="nav-item books" id="allbooks" >
+					<a href="allbooks.php">
+						<i class="flaticon-shopping-bag"></i>
+						<p>All Books</p>
 
 					</a>
 				</li>

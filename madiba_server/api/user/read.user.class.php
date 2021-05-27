@@ -24,9 +24,9 @@ $result = $user_class->read();
 
 
 $num = $result->rowCount();
-
+$user_class_arr = array();
 if ($num > 0) {
-    $user_class_arr = array();
+    
     $user_class_arr['data'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {

@@ -13,14 +13,16 @@ class BookCategory
     // UserCategory properties
 
 
-    public $id ;
+    public $id;
     public $title;
     public $number_of_books;
     public $languages;
     public $icon_image;
     public $created_time;
-   
-    
+    public $userClass;
+    public $age_range;
+
+
 
     // initialize a constructor to map with connection 
 
@@ -55,33 +57,24 @@ class BookCategory
     }
 
 
-    public function readSingleBook()
+    public function readSingleBookCat()
     {
         $query = "SELECT b.id, b.title,
-        b.numbers, b.authors, b.image,
-        b.summary,bc.title as book_category,
-        bc.number_of_books, 
-        bc.languages,
-        b.isAvailable as thisBookIsAvailable,
-        uc.title as user_class,
-        uc.age_range 
-        from 
-            $this->table b
+        b.languages, b.number_of_books, b.icon_image,
+        uc.title as userClass, uc.age_range,
+        b.created_time 
+        from book_category b
         LEFT JOIN user_classes uc
         ON
-        b.user_classesId = uc.id
-        LEFT JOIN 
-        book_category bc
-        ON
-        b.book_categoryId = bc.id 
+        b.user_classesId = uc.id 
          WHERE b.id = ?";
-      
+
 
         //  bind id 
 
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1,$this->id);
+        $stmt->bindParam(1, $this->id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -90,21 +83,13 @@ class BookCategory
 
 
         $this->id = $row['id'];
-        $this->numbers = $row['numbers'];
         $this->title = $row['title'];
-        $this->authors = $row['authors'];
-        $this->image = $row['image'];
-        $this->summary = $row['summary'];
-        $this->languages = $row['languages'];
-        $this->book_category = $row['bbook_category'];
         $this->number_of_books = $row['number_of_books'];
-        $this->thisBookIsAvailable = $row['thisBookIsAvailable'];
-        $this->user_class = $row['user_class'];
+        $this->languages = $row['languages'];
+        $this->userClass = $row['userClass'];
         $this->age_range = $row['age_range'];
-
-      
-
-        
+        $this->icon_image = $row['icon_image    '];
+        $this->created_time = $row['created_time'];
     }
 
     public function create()
@@ -118,8 +103,22 @@ class BookCategory
         // Deprecated TO OTHER FILES 
     }
 
-    public function viewBooksByCategory(){
-        $query ="";
+    public function viewBooksByCategory()
+    {
+        $query = "";
+    }
+
+    public function viewBooksByCategoryByUserClass($age_range)
+    {
+        $query = "SELECT b.id,b.title as bookCatTitle,b.number_of_books,b.languages,b.icon_image,
+        u.title as userClassTitle,u.user_categoryId, u.age_range
+         FROM book_category b LEFT JOIN 
+        user_classes u ON 
+        b.user_classesId = u.id WHERE u.age_range LIKE '$age_range%'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
     }
 
     public function delete()

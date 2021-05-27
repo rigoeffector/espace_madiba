@@ -13,7 +13,7 @@ class BookInformation
     // UserCategory properties
 
 
-    public $id ;
+    public $id;
     public $title;
     public $numbers;
     public $authors;
@@ -87,13 +87,13 @@ class BookInformation
         ON
         b.book_categoryId = bc.id 
          WHERE b.id = ?";
-      
+
 
         //  bind id 
 
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1,$this->id);
+        $stmt->bindParam(1, $this->id);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -113,10 +113,6 @@ class BookInformation
         $this->thisBookIsAvailable = $row['thisBookIsAvailable'];
         $this->user_class = $row['user_class'];
         $this->age_range = $row['age_range'];
-
-      
-
-        
     }
 
     public function create()
@@ -124,6 +120,11 @@ class BookInformation
         // Deprecated to other files 
     }
 
+
+
+    public function getBookByCategory()
+    {
+    }
 
     public function update()
     {

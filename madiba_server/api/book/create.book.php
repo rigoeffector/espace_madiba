@@ -21,11 +21,10 @@ $server_url = 'http://127.0.0.1:8000';
 if (
     !empty($_POST['title']) &&
     !empty($_POST['language']) &&
-    !empty($_POST['numbers']) &&  !empty($_POST['authors']) &&
-    !empty($_POST['summary'])
-    && !empty($_POST['book_categoryId']
-        && !empty($_POST['user_classesId'])) &&
-    !empty($_POST['isAvailable'])
+    !empty($_POST['numbers']) &&  !empty($_POST['authors'])
+
+
+
 ) {
 
     $avatar_name = $_FILES["avatar"]["name"];

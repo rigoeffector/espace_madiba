@@ -25,4 +25,4 @@
 		</div>
 	</footer>
 	   <!-- Main JS-->
-	   
+	   <script src="../assets/js/plugin/datatables/datatables.min.js"></script>

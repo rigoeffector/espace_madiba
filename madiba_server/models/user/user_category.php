@@ -47,9 +47,9 @@ class UserCategory
     public function readSingleCategory()
     {
         $query = 'SELECT id, title, 
-        membership_fees
+        membership_fees,created_time
          FROM ' . $this->table . ' 
-         WHERE id = ? LIMIT O,1';
+         WHERE id = ? ';
         $stmt = $this->conn->prepare($query);
 
         //  bind id 
