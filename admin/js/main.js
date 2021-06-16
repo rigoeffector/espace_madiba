@@ -2,7 +2,7 @@ $(document).ready(function () {
   var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
   const urlPath = "http://localhost/madiba_panel/admin/";
 
-  let tableAllBooks;
+  let tableAllBooks, allEvents;
   // $("#all_books_table").DataTable();
   // codes to activate active link
 
@@ -46,13 +46,13 @@ $(document).ready(function () {
       for (let r in res) {
         $("select#selectUserClass").append(
           '<option value="' +
-            res[r].id +
-            '">' +
-            res[r].classe_title +
-            "[" +
-            res[r].age_range +
-            "]" +
-            "</option>"
+          res[r].id +
+          '">' +
+          res[r].classe_title +
+          "[" +
+          res[r].age_range +
+          "]" +
+          "</option>"
         );
       }
     },
@@ -73,13 +73,13 @@ $(document).ready(function () {
       for (let r in res) {
         $("select#selectBookCategory").append(
           '<option value="' +
-            res[r].id +
-            '">' +
-            res[r].title +
-            "[" +
-            res[r].age_range +
-            "]" +
-            "</option>"
+          res[r].id +
+          '">' +
+          res[r].title +
+          "[" +
+          res[r].age_range +
+          "]" +
+          "</option>"
         );
       }
     },
@@ -92,6 +92,7 @@ $(document).ready(function () {
 
   const booksCategoryIconUrl = serverUrl + "book/";
   const allBookIconUrl = serverUrl + "book/";
+  const allEventsIconUrl = serverUrl + "events/";
 
   $.ajax({
     type: "GET",
@@ -110,59 +111,59 @@ $(document).ready(function () {
       for (r in res) {
         $("div#books_catgeory").append(
           ' <div class="col-sm-6 col-md-3"   >\n' +
-            '<div class="card card-stats card card-round"  >\n' +
-            '<div class="card-body">\n' +
-            '<div class="row">\n' +
-            '<div class="col-5">\n' +
-            '<div class="icon-big text-center">\n' +
-            "<img src = " +
-            booksCategoryIconUrl +
-            res[r].icon_image +
-            " style= 'height: 150px;width: 150px; margin:15px 0px;'>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-7 col-stats">\n' +
-            '<div class="numbers">\n' +
-            '<p class="card-category">' +
-            res[r].title +
-            "</p>\n" +
-            '<p class="card-category">' +
-            res[r].age_range +
-            "</p>\n" +
-            '<p class="card-category">' +
-            res[r].userClass +
-            "</p>\n" +
-            '<h4 class="card-title">' +
-            res[r].number_of_books +
-            " Books</h4>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "<div class='col-md-12'>\n" +
-            "<div class='row'>\n" +
-            "<div class='col-md-4'>\n" +
-            '<a href="allbooks.php" class="btn btn-primary btn-border btn-round" data-catidview ="' +
-            res[r].id +
-            '" id="book_category_card">View </a>\n' +
-            "</div>\n" +
-            "<div class='col-md-4'>\n" +
-            '<button class="btn btn-info btn-border btn-round" data-catid ="' +
-            res[r].id +
-            '" id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory">Edit</button\n>' +
-            "</div>\n" +
-            "<div class='col-md-4'>\n" +
-            '<button class="btn btn-danger btn-border btn-round" data-catid ="' +
-            res[r].id +
-            '" id="book_category_cardDelete">Delete</button\n>' +
-            '<center><br/><div class="spinner-border text-primary" role="status" id="loaderDelete" style="display:none;">\n' +
-            '<span class="sr-only">Loading...</span>\n' +
-            "</center></div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>"
+          '<div class="card card-stats card card-round"  >\n' +
+          '<div class="card-body">\n' +
+          '<div class="row">\n' +
+          '<div class="col-5">\n' +
+          '<div class="icon-big text-center">\n' +
+          "<img src = " +
+          booksCategoryIconUrl +
+          res[r].icon_image +
+          " style= 'height: 150px;width: 150px; margin:15px 0px;'>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-7 col-stats">\n' +
+          '<div class="numbers">\n' +
+          '<p class="card-category">' +
+          res[r].title +
+          "</p>\n" +
+          '<p class="card-category">' +
+          res[r].age_range +
+          "</p>\n" +
+          '<p class="card-category">' +
+          res[r].userClass +
+          "</p>\n" +
+          '<h4 class="card-title">' +
+          res[r].number_of_books +
+          " Books</h4>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "<div class='col-md-12'>\n" +
+          "<div class='row'>\n" +
+          "<div class='col-md-4'>\n" +
+          '<a href="allbooks.php" class="btn btn-primary btn-border btn-round" data-catidview ="' +
+          res[r].id +
+          '" id="book_category_card">View </a>\n' +
+          "</div>\n" +
+          "<div class='col-md-4'>\n" +
+          '<button class="btn btn-info btn-border btn-round" data-catid ="' +
+          res[r].id +
+          '" id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory">Edit</button\n>' +
+          "</div>\n" +
+          "<div class='col-md-4'>\n" +
+          '<button class="btn btn-danger btn-border btn-round" data-catid ="' +
+          res[r].id +
+          '" id="book_category_cardDelete">Delete</button\n>' +
+          '<center><br/><div class="spinner-border text-primary" role="status" id="loaderDelete" style="display:none;">\n' +
+          '<span class="sr-only">Loading...</span>\n' +
+          "</center></div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>"
         );
       }
     },
@@ -299,55 +300,55 @@ $(document).ready(function () {
 
           $("form#my-form-update").html(
             '<div class="row">\n' +
-              '<div class="col-sm-12">\n' +
-              '<div class="form-group form-floating-label"><br/>\n' +
-              '<input id="categoryTitles" type="text"  value="' +
-              res.title +
-              '" class="form-control input-border-bottom"  >\n' +
-              '<label for="inputFloatingLabel" class="placeholder">Title</label>\n' +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="col-md-6 pr-0">\n' +
-              '<div class="form-group form-floating-label"><br/>\n' +
-              '<input id="categoryBookNumberss" type="number"  value="' +
-              res.number_of_books +
-              '"class="form-control input-border-bottom" required>\n' +
-              '<label for="inputFloatingLabel" class="placeholder">Number of Books</label>\n' +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="col-md-6">\n' +
-              '<div class="form-group form-floating-label"></br>\n' +
-              '<input id="categoryLangs" type="text" value="' +
-              res.languages +
-              '" class="form-control input-border-bottom" required>\n' +
-              '<label for="inputFloatingLabel" class="placeholder">Languages</label>\n' +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="col-md-6">\n' +
-              '<div class="form-group form-floating-label"></br>\n' +
-              '<select class="form-control input-border-bottom" id="selectUserClass" required>\n' +
-              '<option value="0">Select User Class</option>\n' +
-              "</select>\n" +
-              '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="col-md-6">\n' +
-              '<div class="form-group form-floating-label"></br>\n' +
-              '<input id="categoryIconz" type="file" class="form-control input-border-bottom" required>\n' +
-              '<label for="inputFloatingLabel" class="placeholder">Icon Image</label>\n' +
-              "</div>\n" +
-              "</div>\n" +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="modal-footer no-bd">\n' +
-              '<input id="updateCategory" class="btn btn-primary" type="submit" value="Update">\n' +
-              '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
-              "</div>\n" +
-              "<center>\n" +
-              '<div class="spinner-border text-primary" role="status" id="loaderUpd" style="display: none;">\n' +
-              '<span class="sr-only">Loading...</span>\n' +
-              "</div>\n" +
-              "</center>"
+            '<div class="col-sm-12">\n' +
+            '<div class="form-group form-floating-label"><br/>\n' +
+            '<input id="categoryTitles" type="text"  value="' +
+            res.title +
+            '" class="form-control input-border-bottom"  >\n' +
+            '<label for="inputFloatingLabel" class="placeholder">Title</label>\n' +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="col-md-6 pr-0">\n' +
+            '<div class="form-group form-floating-label"><br/>\n' +
+            '<input id="categoryBookNumberss" type="number"  value="' +
+            res.number_of_books +
+            '"class="form-control input-border-bottom" required>\n' +
+            '<label for="inputFloatingLabel" class="placeholder">Number of Books</label>\n' +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="col-md-6">\n' +
+            '<div class="form-group form-floating-label"></br>\n' +
+            '<input id="categoryLangs" type="text" value="' +
+            res.languages +
+            '" class="form-control input-border-bottom" required>\n' +
+            '<label for="inputFloatingLabel" class="placeholder">Languages</label>\n' +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="col-md-6">\n' +
+            '<div class="form-group form-floating-label"></br>\n' +
+            '<select class="form-control input-border-bottom" id="selectUserClass" required>\n' +
+            '<option value="0">Select User Class</option>\n' +
+            "</select>\n" +
+            '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="col-md-6">\n' +
+            '<div class="form-group form-floating-label"></br>\n' +
+            '<input id="categoryIconz" type="file" class="form-control input-border-bottom" required>\n' +
+            '<label for="inputFloatingLabel" class="placeholder">Icon Image</label>\n' +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="modal-footer no-bd">\n' +
+            '<input id="updateCategory" class="btn btn-primary" type="submit" value="Update">\n' +
+            '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
+            "</div>\n" +
+            "<center>\n" +
+            '<div class="spinner-border text-primary" role="status" id="loaderUpd" style="display: none;">\n' +
+            '<span class="sr-only">Loading...</span>\n' +
+            "</div>\n" +
+            "</center>"
           );
 
           $.ajax({
@@ -360,13 +361,13 @@ $(document).ready(function () {
               for (let r in res) {
                 $("select#selectUserClass").append(
                   '<option value="' +
-                    res[r].id +
-                    '">' +
-                    res[r].classe_title +
-                    "[" +
-                    res[r].age_range +
-                    "]" +
-                    "</option>"
+                  res[r].id +
+                  '">' +
+                  res[r].classe_title +
+                  "[" +
+                  res[r].age_range +
+                  "]" +
+                  "</option>"
                 );
               }
             },
@@ -525,11 +526,11 @@ $(document).ready(function () {
         console.log("all books classes", res);
         tableAllBooks.row.add([
           '<div class="avatar ">\n' +
-            '<img src="' +
-            allBookIconUrl +
-            res[r].image +
-            '" alt="..." class="avatar-img rounded-circle">\n' +
-            "</div>\n",
+          '<img src="' +
+          allBookIconUrl +
+          res[r].image +
+          '" alt="..." class="avatar-img rounded-circle">\n' +
+          "</div>\n",
           res[r].title,
           res[r].numbers,
           res[r].authors,
@@ -538,18 +539,18 @@ $(document).ready(function () {
           res[r].user_class + "(" + res[r].age_range + ")",
           availabilityBook,
           '<button type="button"  data-bookId = "' +
-            res[r].id +
-            '"  id="viewBookDetail" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#viewSingleBook">\n' +
-            '<i class="fa fa-eye"></i>\n' +
-            "</button>\n" +
-            '<button type="button"  id="updateSingleBookbtn" data-bookId= "' +
-            res[r].id +
-            '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook">\n' +
-            '<i class="fa fa-pen"></i>\n' +
-            "</button>\n" +
-            '<button type="button" class="btn btn-icon btn-round btn-danger ">\n' +
-            '<i class="fa fa-trash"></i>\n' +
-            "</button>",
+          res[r].id +
+          '"  id="viewBookDetail" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#viewSingleBook">\n' +
+          '<i class="fa fa-eye"></i>\n' +
+          "</button>\n" +
+          '<button type="button"  id="updateSingleBookbtn" data-bookId= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook">\n' +
+          '<i class="fa fa-pen"></i>\n' +
+          "</button>\n" +
+          '<button type="button" class="btn btn-icon btn-round btn-danger ">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>",
         ]);
       }
       tableAllBooks.draw();
@@ -571,43 +572,43 @@ $(document).ready(function () {
         $("p#book_title").html(res.title);
         $("div#book_detail_div").html(
           '<div class="avatar avatar-xxl">\n' +
-            "<img src=" +
-            allBookIconUrl +
-            res.image +
-            ' alt="..." class="avatar-img rounded">\n' +
-            "</div>\n" +
-            '<ul class="specification-list">\n' +
-            "<li>\n" +
-            '<span class="name-specification">Number of Books:</span>\n' +
-            '<span class="status-specification">' +
-            res.numbers +
-            "</span>\n" +
-            "</li>\n" +
-            "<li>\n" +
-            '<span class="name-specification">Authors:</span>\n' +
-            '<span class="status-specification">' +
-            res.authors +
-            "</span>\n" +
-            "</li>\n" +
-            "<li>\n" +
-            '<span class="name-specification">Languages</span>\n' +
-            '<span class="status-specification">' +
-            res.languages +
-            "</span>\n" +
-            "</li>\n" +
-            "<li>\n" +
-            '<span class="name-specification">Class:</span>\n' +
-            '<span class="status-specification">' +
-            res.user_class +
-            "</span>\n" +
-            "</li>\n" +
-            "<li>\n" +
-            '<span class="name-specification">Age:</span>\n' +
-            '<span class="status-specification">' +
-            res.age_range +
-            "</span>\n" +
-            "</li>\n" +
-            "</ul>"
+          "<img src=" +
+          allBookIconUrl +
+          res.image +
+          ' alt="..." class="avatar-img rounded">\n' +
+          "</div>\n" +
+          '<ul class="specification-list">\n' +
+          "<li>\n" +
+          '<span class="name-specification">Number of Books:</span>\n' +
+          '<span class="status-specification">' +
+          res.numbers +
+          "</span>\n" +
+          "</li>\n" +
+          "<li>\n" +
+          '<span class="name-specification">Authors:</span>\n' +
+          '<span class="status-specification">' +
+          res.authors +
+          "</span>\n" +
+          "</li>\n" +
+          "<li>\n" +
+          '<span class="name-specification">Languages</span>\n' +
+          '<span class="status-specification">' +
+          res.languages +
+          "</span>\n" +
+          "</li>\n" +
+          "<li>\n" +
+          '<span class="name-specification">Class:</span>\n' +
+          '<span class="status-specification">' +
+          res.user_class +
+          "</span>\n" +
+          "</li>\n" +
+          "<li>\n" +
+          '<span class="name-specification">Age:</span>\n' +
+          '<span class="status-specification">' +
+          res.age_range +
+          "</span>\n" +
+          "</li>\n" +
+          "</ul>"
         );
       },
     });
@@ -632,13 +633,13 @@ $(document).ready(function () {
         for (let r in res) {
           $("select#selectUserClass").append(
             '<option value="' +
-              res[r].id +
-              '">' +
-              res[r].classe_title +
-              "[" +
-              res[r].age_range +
-              "]" +
-              "</option>"
+            res[r].id +
+            '">' +
+            res[r].classe_title +
+            "[" +
+            res[r].age_range +
+            "]" +
+            "</option>"
           );
         }
       },
@@ -658,79 +659,79 @@ $(document).ready(function () {
         console.log("single book info", response);
         $("form#my-form-update-book").html(
           '<div class="row">\n' +
-            '<div class="col-sm-12">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="inputFloatingLabel" class="placeholder">Title</label>\n' +
-            '<input id="bookTitle" type="text" value= "' +
-            response.title +
-            '" class="form-control input-border-bottom" required>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-6 pr-0">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="inputFloatingLabel" class="placeholder">Number of Books</label>\n' +
-            '<input id="bookNumbers" value= "' +
-            response.numbers +
-            '" type="number" class="form-control input-border-bottom" required>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-6">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="inputFloatingLabel" class="placeholder">Authors</label>\n' +
-            '<input id="authors" type="text"   value="' +
-            response.authors +
-            '"  class="form-control input-border-bottom" required>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-6">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="inputFloatingLabel" class="placeholder">Icon Image</label>\n' +
-            '<input id="bookIcon" type="file" class="form-control input-border-bottom" required>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-6">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
-            '<select class="form-control input-border-bottom" id="selectUserClass" required>\n' +
-            '<option value="0">Select User Class</option>\n' +
-            "</select>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-6">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="selectFloatingLabel" class="placeholder">Book Category</label>\n' +
-            '<select class="form-control input-border-bottom" id="selectBookCategory" required>\n' +
-            '<option value="0">Select Book Category</option>\n' +
-            "</select>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-6">\n' +
-            '<div class="form-group ">\n' +
-            '<label for="inputFloatingLabel" class="placeholder">Languages</label>\n' +
-            '<input id="bookLang" value="' +
-            response.languages +
-            '" type="text" class="form-control input-border-bottom" required>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="col-md-12">\n' +
-            '<div class="form-group">\n' +
-            '<label for="comment">Summary</label>\n' +
-            '<textarea class="form-control" id="summary" rows="5">' +
-            response.summary +
-            "</textarea>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="modal-footer no-bd">\n' +
-            '<input id="addBook" class="btn btn-primary" type="submit" value="Add">\n' +
-            '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
-            "</div>\n" +
-            "<center>\n" +
-            '<div class="spinner-border text-primary" role="status" id="loaderAddBook" style="display: none;">\n' +
-            '<span class="sr-only">Loading...</span>\n' +
-            "</div>\n" +
-            "</center>"
+          '<div class="col-sm-12">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="inputFloatingLabel" class="placeholder">Title</label>\n' +
+          '<input id="bookTitle" type="text" value= "' +
+          response.title +
+          '" class="form-control input-border-bottom" required>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-6 pr-0">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="inputFloatingLabel" class="placeholder">Number of Books</label>\n' +
+          '<input id="bookNumbers" value= "' +
+          response.numbers +
+          '" type="number" class="form-control input-border-bottom" required>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-6">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="inputFloatingLabel" class="placeholder">Authors</label>\n' +
+          '<input id="authors" type="text"   value="' +
+          response.authors +
+          '"  class="form-control input-border-bottom" required>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-6">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="inputFloatingLabel" class="placeholder">Icon Image</label>\n' +
+          '<input id="bookIcon" type="file" class="form-control input-border-bottom" required>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-6">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
+          '<select class="form-control input-border-bottom" id="selectUserClass" required>\n' +
+          '<option value="0">Select User Class</option>\n' +
+          "</select>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-6">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="selectFloatingLabel" class="placeholder">Book Category</label>\n' +
+          '<select class="form-control input-border-bottom" id="selectBookCategory" required>\n' +
+          '<option value="0">Select Book Category</option>\n' +
+          "</select>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-6">\n' +
+          '<div class="form-group ">\n' +
+          '<label for="inputFloatingLabel" class="placeholder">Languages</label>\n' +
+          '<input id="bookLang" value="' +
+          response.languages +
+          '" type="text" class="form-control input-border-bottom" required>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="col-md-12">\n' +
+          '<div class="form-group">\n' +
+          '<label for="comment">Summary</label>\n' +
+          '<textarea class="form-control" id="summary" rows="5">' +
+          response.summary +
+          "</textarea>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="modal-footer no-bd">\n' +
+          '<input id="addBook" class="btn btn-primary" type="submit" value="Add">\n' +
+          '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
+          "</div>\n" +
+          "<center>\n" +
+          '<div class="spinner-border text-primary" role="status" id="loaderAddBook" style="display: none;">\n' +
+          '<span class="sr-only">Loading...</span>\n' +
+          "</div>\n" +
+          "</center>"
         );
       },
     });
@@ -782,35 +783,35 @@ $(document).ready(function () {
       for (let r in res) {
         $("div#all_user_categories").append(
           '<div class="col-6 col-sm-4 col-lg-2">\n' +
-            '<div class="card">\n' +
-            '<div class="dropdown">\n' +
-            '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
-            "</button>\n" +
-            '<div class="dropdown-menu" aria-labelledby="dropdownMenu2">\n' +
-            '<button data-userCatId= "' +
-            res[r].id +
-            '" class="dropdown-item" type="button" id="userCategoryDel">Delete</button>\n' +
-            '<button data-userCatId= "' +
-            res[r].id +
-            '" class="dropdown-item" type="button" id="userCategoryEdit" data-toggle="modal" data-target="#updateNewUserCat">Edit</button>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            '<div class="card-body p-5 text-center">\n' +
-            '<div class="text-center text-success">\n' +
-            "<p> Rwf /Month</p></div>\n" +
-            '<div class="h1 m-0">' +
-            res[r].membership_fees +
-            "</div>\n" +
-            '<div class="text-muted mb-3">' +
-            res[r].title +
-            "</div>\n" +
-            '<input type="text" value="' +
-            res[r].id +
-            '"  id="userCatId" hidden>\n' +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>\n" +
-            "</div>"
+          '<div class="card">\n' +
+          '<div class="dropdown">\n' +
+          '<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
+          "</button>\n" +
+          '<div class="dropdown-menu" aria-labelledby="dropdownMenu2">\n' +
+          '<button data-userCatId= "' +
+          res[r].id +
+          '" class="dropdown-item" type="button" id="userCategoryDel">Delete</button>\n' +
+          '<button data-userCatId= "' +
+          res[r].id +
+          '" class="dropdown-item" type="button" id="userCategoryEdit" data-toggle="modal" data-target="#updateNewUserCat">Edit</button>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          '<div class="card-body p-5 text-center">\n' +
+          '<div class="text-center text-success">\n' +
+          "<p> Rwf /Month</p></div>\n" +
+          '<div class="h1 m-0">' +
+          res[r].membership_fees +
+          "</div>\n" +
+          '<div class="text-muted mb-3">' +
+          res[r].title +
+          "</div>\n" +
+          '<input type="text" value="' +
+          res[r].id +
+          '"  id="userCatId" hidden>\n' +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>\n" +
+          "</div>"
         );
       }
     },
@@ -904,35 +905,35 @@ $(document).ready(function () {
           console.log("res", res);
           $("form#updateUserCategoryForm").html(
             '<div class="row">\n' +
-              '<input id="userCatId" value="' +
-              res.id +
-              '" type="text" class="form-control" placeholder="fill title" hidden>\n' +
-              '<div class="col-md-6 pr-0">\n' +
-              '<div class="form-group form-group-default">\n' +
-              "<label>Title</label>\n" +
-              '<input id="UpduserCatTitle" value="' +
-              res.title +
-              '" type="text" class="form-control" placeholder="fill title">\n' +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="col-md-6 pr-0">\n' +
-              '<div class="form-group form-group-default">\n' +
-              "<label>Membership fees</label>\n" +
-              '<input id="UpduserCatMembershipFees" value="' +
-              res.membership_fees +
-              '" type="number" class="form-control" placeholder="fill membership">\n' +
-              "</div>\n" +
-              "</div>\n" +
-              "</div>\n" +
-              '<div class="modal-footer no-bd">\n' +
-              '<input type="submit" id="UpdNewUserCat" class="btn btn-primary" value="Update">\n' +
-              '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
-              "</div>\n" +
-              "<center>\n" +
-              '<div class="spinner-border text-primary" role="status" id="loaderupdateUserCategory" style="display: none;">\n' +
-              '<span class="sr-only">Loading...</span>\n' +
-              "</div>\n" +
-              "</center>"
+            '<input id="userCatId" value="' +
+            res.id +
+            '" type="text" class="form-control" placeholder="fill title" hidden>\n' +
+            '<div class="col-md-6 pr-0">\n' +
+            '<div class="form-group form-group-default">\n' +
+            "<label>Title</label>\n" +
+            '<input id="UpduserCatTitle" value="' +
+            res.title +
+            '" type="text" class="form-control" placeholder="fill title">\n' +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="col-md-6 pr-0">\n' +
+            '<div class="form-group form-group-default">\n' +
+            "<label>Membership fees</label>\n" +
+            '<input id="UpduserCatMembershipFees" value="' +
+            res.membership_fees +
+            '" type="number" class="form-control" placeholder="fill membership">\n' +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="modal-footer no-bd">\n' +
+            '<input type="submit" id="UpdNewUserCat" class="btn btn-primary" value="Update">\n' +
+            '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
+            "</div>\n" +
+            "<center>\n" +
+            '<div class="spinner-border text-primary" role="status" id="loaderupdateUserCategory" style="display: none;">\n' +
+            '<span class="sr-only">Loading...</span>\n' +
+            "</div>\n" +
+            "</center>"
           );
         },
       });
@@ -998,33 +999,33 @@ $(document).ready(function () {
       for (let u in res) {
         $("div#all_user_classes").append(
           '<div class="col-md-4">\n' +
-            '<div class="card card-dark bg-secondary2">\n' +
-            '<div class="card-body curves-shadow" id="user_class_card">\n' +
-            "<h1>" +
-            res[u].classe_title +
-            "</h1>\n" +
-            '<h5 class="op-8">User Category:' +
-            res[u].user_category_title +
-            "</h5>\n" +
-            '<h5 class="op-8">Age:' +
-            res[u].age_range +
-            "</h5>\n" +
-            '<div class="pull-right">\n' +
-            '<h3 class="fw-bold op-8">' +
-            res[u].membership_fees +
-            " RWF</h3>\n" +
-            "</div>\n" +
-            '<button type="button" class="btn btn-icon btn-round btn-danger" data-classid= "' +
-            res[u].id +
-            '" id="delete_user_class">\n' +
-            '<i class="fa fa-trash"></i>\n' +
-            "</button>\n" +
-            "</div>\n" +
-            '<center><br/><div class="spinner-border text-info" role="status" id="loaderDeleteUserCat" style="display:none;">\n' +
-            '<span class="sr-only">Loading...</span>\n' +
-            "</center>\n" +
-            "</div>\n" +
-            "</div>"
+          '<div class="card card-dark bg-secondary2">\n' +
+          '<div class="card-body curves-shadow" id="user_class_card">\n' +
+          "<h1>" +
+          res[u].classe_title +
+          "</h1>\n" +
+          '<h5 class="op-8">User Category:' +
+          res[u].user_category_title +
+          "</h5>\n" +
+          '<h5 class="op-8">Age:' +
+          res[u].age_range +
+          "</h5>\n" +
+          '<div class="pull-right">\n' +
+          '<h3 class="fw-bold op-8">' +
+          res[u].membership_fees +
+          " RWF</h3>\n" +
+          "</div>\n" +
+          '<button type="button" class="btn btn-icon btn-round btn-danger" data-classid= "' +
+          res[u].id +
+          '" id="delete_user_class">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>\n" +
+          "</div>\n" +
+          '<center><br/><div class="spinner-border text-info" role="status" id="loaderDeleteUserCat" style="display:none;">\n' +
+          '<span class="sr-only">Loading...</span>\n' +
+          "</center>\n" +
+          "</div>\n" +
+          "</div>"
         );
       }
     },
@@ -1079,6 +1080,8 @@ $(document).ready(function () {
     },
   });
 
+
+  // add new user class 
   $("form#newUserClassForm").on(
     "click",
     "input#addNewUserClassButton",
@@ -1108,10 +1111,369 @@ $(document).ready(function () {
         },
         success: function (response) {
           const res = response;
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
+
         },
       });
     }
   );
+
+  // events stuff 
+
+  tableAllEventsData = $("#allEvents").DataTable();
+
+  // read all events 
+  $.ajax({
+    type: "GET",
+    url: serverUrl + "events/read.events.php",
+    dataType: "JSON",
+    cache: false,
+    beforeSend: function () {
+      $("div#loaderAllEvents").show();
+    },
+    complete: function () {
+      $("div#loaderAllEvents").hide();
+    },
+    success: function (response) {
+      const res = response.data;
+      console.log('Events=', res)
+      for (let r in res) {
+        tableAllEventsData.row.add([
+          '<div class="avatar ">\n' +
+          '<img src="' +
+          allEventsIconUrl +
+          res[r].image +
+          '" alt="..." class="avatar-img rounded-circle">\n' +
+          "</div>\n",
+          res[r].title,
+          res[r].description,
+          res[r].location,
+          res[r].time,
+          res[r].date,
+          res[r].price,
+          res[r].available_places,
+          '<button type="button"  data-eventId = "' +
+          res[r].id +
+          '"  id="viewEventDetail" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#singleEventInfo">\n' +
+          '<i class="fa fa-eye"></i>\n' +
+          "</button>\n" +
+          '<button type="button"  id="updateSingleBookbtn" data-eventId= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleEvent">\n' +
+          '<i class="fa fa-pen"></i>\n' +
+          "</button>\n" +
+          '<button type="button"  id="deleteEventDetail"  class="btn btn-icon btn-round btn-danger " data-eventId= "' + res[r].id + '">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>",
+        ]);
+        tableAllEventsData.draw();
+      }
+
+    }
+
+  });
+
+  // end read all evenst 
+
+  // create events 
+
+  // get all events categories first 
+  $.ajax({
+    type: "POST",
+    url: serverUrl + "events/read.events.categories.php",
+    dataType: "JSON",
+    cache: false,
+
+    success: function (response) {
+      const res = response.data;
+      for (let r in res) {
+        $("select#evCategory").append("<option value=" + res[r].id + ">" + res[r].title + "</option>")
+      }
+    },
+  });
+
+
+
+  $("button#addNewEvent").click(function (e) {
+    e.preventDefault();
+    var form = $("#my-form-event")[0];
+    const evTitle = $("input#evTitle").val();
+    const evCat = $("select#evCategory").val();
+    const evLoc = $("input#eveLocation").val();
+    const evTime = $("input#evTime").val();
+    const evDate = $("input#eveDate").val();
+    const evFree = $("select#evFree").val();
+    const evPrice = $("input#evePrice").val();
+    const evPlaces = $("input#eveAvailable_places").val();
+    const files = $("input#evIcon")[0].files[0];
+    const evDesc = $("textarea#evdescription").val();
+
+    // FormData object
+    var newEvent = new FormData(form);
+
+    newEvent.append("title", evTitle);
+    newEvent.append("description", evDesc);
+    newEvent.append("categoryId", evCat);
+    newEvent.append("avatar", files);
+    newEvent.append("location", evLoc);
+    newEvent.append("time", evTime);
+    newEvent.append("date", evDate);
+    newEvent.append("is_free", evFree);
+    newEvent.append("price", evPrice);
+    newEvent.append("available_places", evPlaces);
+
+
+    $.ajax({
+      url: serverUrl + "events/create.event.php",
+      data: newEvent,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: "POST",
+      beforeSend: function () {
+        $("div#addNewEventLoader").show();
+      },
+      complete: function () {
+        $("div#addNewEventLoader").hide();
+      },
+      success: function (data) {
+        // swal("Done!", "Event was succesfully created !", "success");
+        $("div#addNewEvent").modal("hide");
+        swal.close();
+        setTimeout(function () {
+          window.location = window.location;
+        }, 3000);
+      },
+    });
+    // Display the key/value pairs
+    for (var pair of newEvent.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+  })
+
+
+
+  // end create events 
+
+
+
+  // create event category 
+  $("input#addNewEventCat").click(function (e) {
+    e.preventDefault();
+    const evCatTitle = $("input#eventCatTitle").val();
+    const d = {
+      title: evCatTitle
+    }
+    $.ajax({
+      url: serverUrl + "events/create.event.category.php",
+      data: JSON.stringify(d),
+      type: "POST",
+      beforeSend: function () {
+        $("div#loaderNewEventCat").show();
+      },
+      complete: function () {
+        $("div#loaderNewEventCat").hide();
+      },
+      success: function () {
+        // swal("Done!", "Event was succesfully created !", "success");
+        $("div#addNewEventCat").modal("hide");
+        // swal.close();
+        setTimeout(function () {
+          window.location = window.location;
+        }, 3000);
+      },
+    });
+
+  });
+
+  // end create event category 
+
+
+  // view single event info 
+  var statusEvent;
+  $("#allEvents").on("click", "button#viewEventDetail", function () {
+    const eventId = $(this).data("eventid");
+    console.log(eventId);
+
+
+    $.ajax({
+      type: "GET",
+      url: serverUrl + "events/read.single.event.php?id=" + eventId,
+      dataType: "JSON",
+      beforeSend: function () {
+        $("div#loaderSingleEvent").show();
+
+      },
+      complete: function () {
+        $("div#loaderSingleEvent").hide();
+      },
+      success: function (response) {
+        const res = response;
+
+        switch (res.status) {
+          case "1":
+            statusEvent = "New";
+            break;
+          case "0":
+            statusEvent = "Ended";
+            break;
+          default:
+            statusEvent = "New";
+        }
+        console.log("Single Event Info", statusEvent);
+
+
+        $("#singleInfo").html('<div class="container">\n' +
+          '<div class="col-md-12">\n' +
+          '<div class="row">\n' +
+          '<div class="icon-big text-center">\n' +
+          "<img src = " +
+          allEventsIconUrl +
+          res.image +
+          " style= 'height: 150px;width: 150px; margin:15px 0px;'>\n" +
+          "</div>\n" +
+          '<div class="col-md-6">\n' +
+          '<p>Title:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.title + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Location:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.location + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Time:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.time + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Date:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.date + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Category:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.category + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Price:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.price + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Availble Places:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>' + res.available_places + '</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<p>Status:</p>\n' +
+          '</div>\n' +
+          '<div class="col-md-6">\n' +
+          '<span class= "badge badge-warning">' + statusEvent + '</span>\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '</div>');
+      },
+    });
+  });
+  // end of single event info 
+
+  // delete event single info 
+
+
+
+
+
+  $("#allEvents").on("click", "button#deleteEventDetail", function () {
+    const eventIDinfo = $(this).data('eventid');
+    const dataToDelEvent = {
+      id: eventIDinfo
+    };
+
+    confirmDelete();
+  
+  });
+
+  // ene delete event single info 
+
+
+
+    function confirmDelete() {
+      new swal({
+          title: "Are you sure?",
+          text: "You will not be able to recover this imaginary file!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+      }, function (isConfirm) {
+          if (!isConfirm) return;
+          console.log('sawa')
+          // $.ajax({
+          //     url: "scriptDelete.php",
+          //     type: "POST",
+          //     data: {
+          //         id: 5
+          //     },
+          //     dataType: "html",
+          //     success: function () {
+          //         swal("Done!", "It was succesfully deleted!", "success");
+          //     },
+          //     error: function (xhr, ajaxOptions, thrownError) {
+          //         swal("Error deleting!", "Please try again", "error");
+          //     }
+          // });
+      });
+  }
+    // new swal({
+    //   title: "Are you sure?",
+    //   text: "You will not be able to recover this info !",
+    //   type: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#DD6B55",
+    //   confirmButtonText: "Yes, delete it!",
+    //   closeOnConfirm: true
+    // }, function (isConfirm) {
+    //   if (!isConfirm) return;
+    //   console.log('ojkjjjjjj')
+    //     // $.ajax({
+    //     //   type: "DELETE",
+    //     //   url: serverUrl + "events/delete.event.php",
+    //     //   dataType: "JSON",
+    //     //   data: JSON.stringify(dataToDelEvent),
+    //     //   beforeSend: function () {
+    //     //     $("div#deleteSingleEvent").show();
+
+    //     //   },
+    //     //   complete: function () {
+    //     //     $("div#deleteSingleEvent").hide();
+
+    //     //   },
+    //     //   success: function () {
+    //     //     swal("Done!", "It was succesfully deleted!", "success");
+    //     //   },
+    //     //   error: function (xhr, ajaxOptions, thrownError) {
+    //     //     swal("Error deleting!", "Please try again", "error");
+    //     //   }
+    //     // });
+    // });
+  
+
+
+  // end of events stuff 
 
 
 });

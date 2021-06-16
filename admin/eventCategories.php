@@ -18,7 +18,7 @@
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
 						<a href="#" class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addNewEvent"> New Event</a>
-						<a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewEventCat">New Category</a>
+						<a href="#" class="btn btn-secondary btn-round"data-toggle="modal" data-target="#addNewEventCat">New Category</a>
 					</div>
 				</div>
 			</div>
@@ -146,11 +146,6 @@
 
 								<center>
 									<div class="spinner-border text-primary" role="status" id="loaderAllEvents" style="display: none;">
-										<span class="sr-only">Loading...</span>
-									</div>
-								</center>
-								<center>
-									<div class="spinner-border text-primary" role="status" id="deleteAllEvents">
 										<span class="sr-only">Loading...</span>
 									</div>
 								</center>
@@ -302,7 +297,7 @@
 								<input id="eventCatTitle" type="text" class="form-control" placeholder="fill title">
 							</div>
 						</div>
-
+						
 
 					</div>
 					<div class="modal-footer no-bd">
@@ -351,19 +346,16 @@
 </div>
 
 
-
-<!-- View Singlw Information -->
-
-
-<div class="modal fade" id="singleEventInfo" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Modal user class -->
+<div class="modal fade" id="addClass" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header no-bd">
 				<h5 class="modal-title">
 					<span class="fw-mediumbold">
-						Event</span>
+						New</span>
 					<span class="fw-light">
-						Information
+						User Class
 					</span>
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -371,14 +363,45 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<center>
-					<div class="spinner-border text-primary" role="status" id="loaderSingleEvent" style="display: none;">
-						<span class="sr-only">Loading...</span>
-					</div>
-				</center>
-				<p class="small" id="titleEvent"></p>
-				<div id="singleInfo"></div>
+				<p class="small">Create new User Class</p>
+				<form id="newUserClassForm">
+					<div class="row">
+						<div class="col-md-6 pr-0">
+							<div class="form-group form-group-default">
+								<label>Title</label>
+								<input id="userClassTitle" type="text" class="form-control" placeholder="fill title">
+							</div>
+						</div>
+						<div class="col-md-6 pr-0">
+							<div class="form-group form-group-default">
+								<div class="form-group form-floating-label">
+									<select class="form-control input-border-bottom" id="selectUserCategory" required>
+										<option value="0">Select User Category</option>
 
+									</select>
+									<label for="selectFloatingLabel" class="placeholder">User Category</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12 pr-0">
+							<div class="form-group form-group-default">
+								<label>Age Range</label>
+								<input id="userClassAge" type="text" class="form-control" placeholder="fill age">
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer no-bd">
+						<input type="submit" id="addNewUserClassButton" class="btn btn-primary" value="Save">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+					<center>
+						<div class="spinner-border text-primary" role="status" id="loaderAddUserClass" style="display: none;">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</center>
+				</form>
 			</div>
 
 		</div>

@@ -19,7 +19,9 @@ $upload_dir = "upload/";
 $server_url = 'http://127.0.0.1:8000';
 
 if (
-    !empty($_POST['title'])
+    !empty($_POST['title']) &&
+    !empty($_POST['description']) &&  !empty($_POST['categoryId'])
+
 ) {
 
     $avatar_name = $_FILES["avatar"]["name"];
@@ -38,25 +40,21 @@ if (
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
         if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
-            $db_query = "INSERT INTO book
-                              (title, numbers, authors, image, summary, languages,
-                              book_categoryId, user_classesId, isAvailable)
-                               VALUES (:title,:numbers,:authors,:image,
-                               :summary,:languages,:book_categoryId,:user_classesId,:isAvailable)";
+            $db_query = "INSERT INTO  events(title, description, categoryId, image, location, time,date, is_free, price,available_places)
+                               VALUES (:title,:description,:categoryId,:image,:location,:time,:date,:is_free,:price,:available_places)";
 
             $statement = $connection->prepare($db_query);
 
             $statement->bindParam(':title', $_POST['title'], PDO::PARAM_STR);
-            $statement->bindParam(':numbers', $_POST['numbers'], PDO::PARAM_STR);
-            $statement->bindParam(':authors', $_POST['authors'], PDO::PARAM_STR);
+            $statement->bindParam(':description', $_POST['description'], PDO::PARAM_STR);
+            $statement->bindParam(':categoryId', $_POST['categoryId'], PDO::PARAM_INT);
             $statement->bindParam(':image', $upload_name, PDO::PARAM_STR);
-            $statement->bindParam(':summary', $_POST['summary'], PDO::PARAM_STR);
-            $statement->bindParam(':languages', $_POST['languages'], PDO::PARAM_STR);
-            $statement->bindParam(':book_categoryId', $_POST['book_categoryId'], PDO::PARAM_STR);
-            $statement->bindParam(':user_classesId', $_POST['user_classesId'], PDO::PARAM_STR);
-            $statement->bindParam(':isAvailable', $_POST['isAvailable'], PDO::PARAM_STR);
-
-
+            $statement->bindParam(':location', $_POST['location'], PDO::PARAM_STR);
+            $statement->bindParam(':time', $_POST['time'], PDO::PARAM_STR);
+            $statement->bindParam(':date', $_POST['date'], PDO::PARAM_STR);
+            $statement->bindParam(':is_free', $_POST['is_free'], PDO::PARAM_INT);
+            $statement->bindParam(':price', $_POST['price'], PDO::PARAM_STR);
+            $statement->bindParam(':available_places', $_POST['available_places'], PDO::PARAM_STR);
 
             $statement->execute();
             $response = array(
@@ -66,6 +64,7 @@ if (
                 "url" => $server_url . "/" . $upload_name
             );
         } else {
+            print_r("Error:%s.\n", $statement->error);
             $response = array(
                 "status" => "error",
                 "error" => true,

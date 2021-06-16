@@ -39,8 +39,8 @@ class BookCategory
     {
         $query = "SELECT b.id, b.title,
         b.languages, b.number_of_books, b.icon_image,
-        uc.title as userClass, uc.age_range,
-        b.created_time 
+        uc.title as userClass, uc.age_range
+   
         from book_category b
         LEFT JOIN user_classes uc
         ON
@@ -61,8 +61,8 @@ class BookCategory
     {
         $query = "SELECT b.id, b.title,
         b.languages, b.number_of_books, b.icon_image,
-        uc.title as userClass, uc.age_range,
-        b.created_time 
+        uc.title as userClass, uc.age_range
+         
         from book_category b
         LEFT JOIN user_classes uc
         ON
