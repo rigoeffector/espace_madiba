@@ -17,7 +17,7 @@
 
 
                     <li class="nav-item">
-                        <a href="#">Subscriptions</a>
+                        <a href="#">Users</a>
                     </li>
                 </ul>
             </div>
@@ -27,40 +27,46 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Subscriptions Histroy</h4>
+                            <h4 class="card-title">Users class histroy</h4>
 
                         </div>
                         <div class="card-body">
+                            <!-- <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
+                              
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-user-class-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false">User Classes</a>
+                                </li>
+
+                            </ul> -->
                             <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pills-user-category-tab-nobd" data-toggle="pill" href="#pills-user-category-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true">Subscriptions</a>
+                                    <a class="nav-link active" id="pills-user-category-tab-nobd" data-toggle="pill" href="#pills-user-class-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="true">User Classes</a>
                                 </li>
                              
 
                             </ul>
                             <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-                                <div class="tab-pane fade show active" id="pills-user-category-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+                  
+                                <div class="tab-pane fade show active" id="pills-user-class-nobd" role="tabpanel" aria-labelledby="pills-profile-tab-nobd">
                                     <div class="d-flex align-items-center">
 
-                                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addNewEvent">
+                                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addClass">
                                             <i class="fa fa-plus"></i>
-                                            New category
+                                            New class
                                         </button>
-                                    </div>
 
-                                    <div class="tab-pane fade show active" id="pills-user-category-nobd" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <div class="row" id="all_user_categories" style="margin-top: 30px;;">
-                                            <center>
-                                                <div class="spinner-border text-primary" role="status" id="loaderUserCategory" style="display: none;">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
-                                            </center>
+                                    </div>
+                                    <div class="tab-pane fade show active" id="pills-user-class-nobd" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <center>
+                                            <div class="spinner-border text-primary" role="status" id="loaderUserClasses">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </center>
+                                        <div class="row" id="all_user_classes" style="margin-top: 30px;;">
                                         </div>
                                     </div>
 
-
                                 </div>
-                             
                             </div>
                         </div>
                     </div>

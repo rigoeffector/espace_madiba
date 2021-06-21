@@ -55,7 +55,13 @@ if ($num > 0) {
     }
     echo json_encode($book_cat_arr);
 } else {
+    $response = array(
+        "status" => "error",
+        "data"=>[],
+        "error" => false,
+        "message" => "No Book Category  Found"
+    );
     echo  json_encode(
-        array("message" => "No Book Category  Found ")
+        $response
     );
 }

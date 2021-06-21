@@ -25,10 +25,17 @@
 
 
 				<div class="col-md-12">
+				<div class="alert alert-warning" role="alert" id="warningInfoBookCategory" style="display: none;">
+									<p>No Data saved yet please? make sure you are alreay added user classes before you go to  <span style="
+                  color: #6c757d;
+     font-weight: 800;
+      "> click on new category to add categories</span></p>
+								</div>
+
 					<div class="card">
 						<div class="card-header">
 							<div class="d-flex align-items-center">
-								<h4 class="card-title">Book History</h4>
+								<h4 class="card-title">Book Categories History</h4>
 								<button class="btn btn-info btn-round ml-auto" data-toggle="modal" data-target="#addNewCategory">
 									<i class="fa fa-plus"></i>
 									New Category
@@ -117,7 +124,7 @@
 
 									</div>
 								</div>
-
+	
 								<!-- end of modal create  -->
 								<!-- modal update  -->
 								<div class="modal fade" id="updateCategory" tabindex="-1" role="dialog" aria-hidden="true">
@@ -279,8 +286,8 @@
 							</textarea>
 							</div>
 						</div>
-						
-						
+
+
 					</div>
 			</div>
 			<div class="modal-footer no-bd">

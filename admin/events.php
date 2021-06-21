@@ -17,7 +17,7 @@
 						<h5 class="text-white op-7 mb-2">Espace Madiba Panel</h5>
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
-						<a href="#" class="btn btn-white btn-border btn-round mr-2" data-toggle="modal" data-target="#addNewEvent"> New Event</a>
+						<a href="eventCategories.php" class="btn btn-white btn-border btn-round mr-2"> Category</a>
 						<a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewEventCat">New Category</a>
 					</div>
 				</div>
@@ -150,7 +150,7 @@
 									</div>
 								</center>
 								<center>
-									<div class="spinner-border text-primary" role="status" id="deleteAllEvents">
+									<div class="spinner-border text-primary" role="status" id="deleteAllEvents" style="display:none;">
 										<span class="sr-only">Loading...</span>
 									</div>
 								</center>

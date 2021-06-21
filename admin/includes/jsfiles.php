@@ -13,6 +13,7 @@
 <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
 <!-- Atlantis JS -->
 <script src="../assets/js/atlantis.min.js"></script>
+<script src="../assets/js/sweet.js"></script>
 
 <script>
 	$(document).ready(function() {

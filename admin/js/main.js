@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+
   var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
   const urlPath = "http://localhost/madiba_panel/admin/";
 
@@ -13,6 +15,9 @@ $(document).ready(function () {
   const books = paths + "books.php";
   const news = paths + "news.php";
   const allbooks = paths + "allbooks.php";
+  const classes = paths + "usersClasses.php";
+  const audioBooks = paths + "audiobooks.php";
+  const videoBooks = paths + "videobooks.php";
 
   if (window.location.pathname === home) {
     $("li#home").attr("id", "activated");
@@ -31,6 +36,15 @@ $(document).ready(function () {
   }
   if (window.location.pathname === allbooks) {
     $("li#allbooks").attr("id", "activated");
+  }
+  if (window.location.pathname === classes) {
+    $("li#usersClasses").attr("id", "activated");
+  }
+  if (window.location.pathname === audioBooks) {
+    $("li#audiobooks").attr("id", "activated");
+  }
+  if (window.location.pathname === videoBooks) {
+    $("li#videobooks").attr("id", "activated");
   }
 
   // wiring process
@@ -76,9 +90,9 @@ $(document).ready(function () {
           res[r].id +
           '">' +
           res[r].title +
-          "[" +
+          "[age => " +
           res[r].age_range +
-          "]" +
+          " ]" +
           "</option>"
         );
       }
@@ -107,65 +121,70 @@ $(document).ready(function () {
     success: function (response) {
       const res = response.data;
       console.log("booksCategory", res);
-
-      for (r in res) {
-        $("div#books_catgeory").append(
-          ' <div class="col-sm-6 col-md-3"   >\n' +
-          '<div class="card card-stats card card-round"  >\n' +
-          '<div class="card-body">\n' +
-          '<div class="row">\n' +
-          '<div class="col-5">\n' +
-          '<div class="icon-big text-center">\n' +
-          "<img src = " +
-          booksCategoryIconUrl +
-          res[r].icon_image +
-          " style= 'height: 150px;width: 150px; margin:15px 0px;'>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          '<div class="col-7 col-stats">\n' +
-          '<div class="numbers">\n' +
-          '<p class="card-category">' +
-          res[r].title +
-          "</p>\n" +
-          '<p class="card-category">' +
-          res[r].age_range +
-          "</p>\n" +
-          '<p class="card-category">' +
-          res[r].userClass +
-          "</p>\n" +
-          '<h4 class="card-title">' +
-          res[r].number_of_books +
-          " Books</h4>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          "<div class='col-md-12'>\n" +
-          "<div class='row'>\n" +
-          "<div class='col-md-4'>\n" +
-          '<a href="allbooks.php" class="btn btn-primary btn-border btn-round" data-catidview ="' +
-          res[r].id +
-          '" id="book_category_card">View </a>\n' +
-          "</div>\n" +
-          "<div class='col-md-4'>\n" +
-          '<button class="btn btn-info btn-border btn-round" data-catid ="' +
-          res[r].id +
-          '" id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory">Edit</button\n>' +
-          "</div>\n" +
-          "<div class='col-md-4'>\n" +
-          '<button class="btn btn-danger btn-border btn-round" data-catid ="' +
-          res[r].id +
-          '" id="book_category_cardDelete">Delete</button\n>' +
-          '<center><br/><div class="spinner-border text-primary" role="status" id="loaderDelete" style="display:none;">\n' +
-          '<span class="sr-only">Loading...</span>\n' +
-          "</center></div>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          "</div>\n" +
-          "</div>"
-        );
+      if(response.data.length > 0){
+        for (r in res) {
+          $("div#books_catgeory").append(
+            ' <div class="col-sm-6 col-md-3"   >\n' +
+            '<div class="card card-stats card card-round"  >\n' +
+            '<div class="card-body">\n' +
+            '<div class="row">\n' +
+            '<div class="col-5">\n' +
+            '<div class="icon-big text-center">\n' +
+            "<img src = " +
+            booksCategoryIconUrl +
+            res[r].icon_image +
+            " style= 'height: 150px;width: 150px; margin:15px 0px;'>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            '<div class="col-7 col-stats">\n' +
+            '<div class="numbers">\n' +
+            '<p class="card-category">' +
+            res[r].title +
+            "</p>\n" +
+            '<p class="card-category">' +
+            res[r].age_range +
+            "</p>\n" +
+            '<p class="card-category">' +
+            res[r].userClass +
+            "</p>\n" +
+            '<h4 class="card-title">' +
+            res[r].number_of_books +
+            " Books</h4>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "<div class='col-md-12'>\n" +
+            "<div class='row'>\n" +
+            "<div class='col-md-4'>\n" +
+            '<a href="view.books.categories.php" class="btn btn-primary btn-border btn-round" data-catidview ="' +
+            res[r].id +
+            '" id="book_category_card">View </a>\n' +
+            "</div>\n" +
+            "<div class='col-md-4'>\n" +
+            '<button class="btn btn-info btn-border btn-round" data-catid ="' +
+            res[r].id +
+            '" id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory">Edit</button\n>' +
+            "</div>\n" +
+            "<div class='col-md-4'>\n" +
+            '<button class="btn btn-danger btn-border btn-round" data-catid ="' +
+            res[r].id +
+            '" id="book_category_cardDelete">Delete</button\n>' +
+            '<center><br/><div class="spinner-border text-primary" role="status" id="loaderDelete" style="display:none;">\n' +
+            '<span class="sr-only">Loading...</span>\n' +
+            "</center></div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>\n" +
+            "</div>"
+          );
+        }
+      }else{
+        $("div#warningInfoBookCategory").show();
       }
+
+     
     },
   });
   // end of getting books category
@@ -210,7 +229,7 @@ $(document).ready(function () {
     newBookCatData.append("user_classesId", userClassId);
 
     // disabled the submit button
-    $("#input#addCategory").attr("disabled", "disabled");
+
     $.ajax({
       url: serverUrl + "book/create.book.category.php",
       data: newBookCatData,
@@ -225,13 +244,41 @@ $(document).ready(function () {
         $("div#loaderAdd").hide();
       },
       success: function (data) {
-        swal("Done!", "Category was succesfully added !", "success");
-        $("div#addNewCategory").modal("hide");
-        swal.close();
-        setTimeout(function () {
-          window.location = window.location;
-        }, 3000);
+        if (!data.error) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Book category is successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#addNewCategory").modal("hide");
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
+        }
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+
+
+
       },
+      error: function (xhr, ajaxOptions, thrownError) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'something went wrong try again',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     });
     // Display the key/value pairs
     for (var pair of newBookCatData.entries()) {
@@ -246,34 +293,70 @@ $(document).ready(function () {
     "click",
     "button#book_category_cardDelete",
     function () {
-      var categoryIdDel = $(this).data("catid");
-      var dataDel = {
-        id: categoryIdDel,
-      };
-      $.ajax({
-        type: "POST",
-        url: serverUrl + "/book/delete.book.category.php",
-        data: JSON.stringify(dataDel),
-        dataType: "JSON",
-        beforeSend: function () {
-          $("div#loaderDelete").show();
-        },
-        complete: function () {
-          $("div#loaderDelete").hide();
-        },
-        success: function (response) {
-          const res = response;
-          console.log("res", res);
-          setTimeout(function () {
-            window.location = window.location;
-          }, 2000);
-        },
+
+      Swal.fire({
+        title: 'Do you really want to delete this book category?',
+        showDenyButton: true,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: `DELETE`,
+        denyButtonText: `DON'T DELETE`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+
+          var categoryIdDel = $(this).data("catid");
+          var dataDel = {
+            id: categoryIdDel,
+          };
+          $.ajax({
+            type: "POST",
+            url: serverUrl + "/book/delete.book.category.php",
+            data: JSON.stringify(dataDel),
+            dataType: "JSON",
+            beforeSend: function () {
+              $("div#loaderDelete").show();
+            },
+            complete: function () {
+              $("div#loaderDelete").hide();
+            },
+            success: function (response) {
+              const res = response;
+              console.log("res", res);
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Book category is successfully delted',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              setTimeout(function () {
+                window.location = window.location;
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'something went wrong try again',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          });
+
+        } else if (result.isDenied) {
+          Swal.fire('Book category is not deleted', '', 'info')
+        }
       });
-    }
-  );
+    });
   // end of delete book category
 
   // update book category
+  var userClassIdOnChnage = null;
+  $("form#my-form-update").on("change", "select#selectUserClass", function () {
+    userClassIdOnChnage = this.value;
+  });
 
   $("div#books_catgeory").on(
     "click",
@@ -377,7 +460,9 @@ $(document).ready(function () {
     }
   );
 
-  $("input#updateCategory").click(function (event) {
+
+  $("div#updateCategory").on("click", "input#updateCategory", function (event) {
+    alert('hello')
     event.preventDefault();
     var form = $("#my-form-update")[0];
 
@@ -395,34 +480,47 @@ $(document).ready(function () {
     updateBookCatData.append("number_of_books", numbers);
     updateBookCatData.append("languages", lang);
     updateBookCatData.append("avatar", icon);
-    updateBookCatData.append("user_classesId", classes);
+    updateBookCatData.append("user_classesId", userClassIdOnChnage);
 
-    $.ajax({
-      url: serverUrl + "book/update.book.category.php",
-      data: updateBookCatData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      type: "POST",
-      beforeSend: function () {
-        $("div#loaderUpd").show();
-      },
-      complete: function () {
-        $("div#loaderUpd").hide();
-      },
-      success: function (data) {
-        swal("Done!", "Category was succesfully Updated !", "success");
-        $("div#updateCategory").modal("hide");
+    if (userClassIdOnChnage !== "0") {
+      console.log(userClassIdOnChnage)
+      $.ajax({
+        url: serverUrl + "book/update.book.category.php",
+        data: updateBookCatData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: "POST",
+        beforeSend: function () {
+          $("div#loaderUpd").show();
+        },
+        complete: function () {
+          $("div#loaderUpd").hide();
+        },
+        success: function (data) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Book  category is successfully updated',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#updateCategory").modal("hide");
+          // setTimeout(function () {
+          //   window.location = window.location;
+          // }, 3000);
 
-        setTimeout(function () {
-          window.location = window.location;
-        }, 3000);
-      },
-    });
-    // Display the key/value pairs
-    for (var pair of updateBookCatData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+        },
+      });
+      // Display the key/value pairs
+      for (var pair of updateBookCatData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+    } else {
+      return false;
     }
+
+
   });
   // end of update book category
 
@@ -475,9 +573,21 @@ $(document).ready(function () {
       },
       success: function (data) {
         if (data.error) {
-          swal("Done!", data.message, "error");
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Book is not successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
         } else {
-          swal("Done!", "Book was succesfully Added !", "success");
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Book is successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
           $("div#addNewBook").modal("hide");
         }
 
@@ -545,10 +655,12 @@ $(document).ready(function () {
           "</button>\n" +
           '<button type="button"  id="updateSingleBookbtn" data-bookId= "' +
           res[r].id +
-          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook">\n' +
+          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook" style="display:none;">\n' +
           '<i class="fa fa-pen"></i>\n' +
           "</button>\n" +
-          '<button type="button" class="btn btn-icon btn-round btn-danger ">\n' +
+          '<button type="button" id="deleteSingleBookbtn"  data-bookId= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-danger ">\n' +
           '<i class="fa fa-trash"></i>\n' +
           "</button>",
         ]);
@@ -558,6 +670,64 @@ $(document).ready(function () {
   });
 
   // end read all books
+
+  //delete single book 
+
+  $("#all_books_table").on("click", "button#deleteSingleBookbtn", function (e) {
+    e.preventDefault();
+    console.log($(this).data('bookid'));
+    var idDelBook = $(this).data('bookid');
+    const datadelBook = {
+      id: idDelBook
+    };
+
+    Swal.fire({
+      title: 'Do you really want to delete this book?',
+      showDenyButton: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `DELETE`,
+      denyButtonText: `DON'T DELETE`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+
+        Swal.fire('Deleted!', '', 'success');
+        $.ajax({
+          type: "DELETE",
+          url: serverUrl + "book/delete.book.php",
+          dataType: "JSON",
+          data: JSON.stringify(datadelBook),
+          beforeSend: function () {
+            $("div#delSingleBook").show();
+          },
+          complete: function () {
+            $("div#delSingleBook").hide();
+          },
+          success: function (response) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Book is successfully Deleted',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            setTimeout(function () {
+              window.location = window.location;
+            }, 3000);
+          }
+        });
+
+
+      } else if (result.isDenied) {
+        Swal.fire('Book is not deleted', '', 'info')
+      }
+    });
+  });
+
+
+  // end delete single book 
 
   // read single book
   $("#all_books_table").on("click", "button#viewBookDetail", function () {
@@ -618,8 +788,15 @@ $(document).ready(function () {
 
   // update single book
 
-  $("#all_books_table").on("click", "button#updateSingleBookbtn", function () {
+
+
+  $("#all_books_table").on("click", "button#updateSingleBookbtn", function (e) {
+    e.preventDefault();
     const updateBookId = $(this).data("bookid");
+    var form = $("#my-form-update-book")[0];
+    var titles = document.getElementById("input#bookTitles");
+
+
 
     //  grab user class again
 
@@ -631,8 +808,7 @@ $(document).ready(function () {
         const res = response.data;
         console.log("user classes", res);
         for (let r in res) {
-          $("select#selectUserClass").append(
-            '<option value="' +
+          $("#all_books_table form#my-form-update-book #selectUserClass").append('<option value="' +
             res[r].id +
             '">' +
             res[r].classe_title +
@@ -662,7 +838,7 @@ $(document).ready(function () {
           '<div class="col-sm-12">\n' +
           '<div class="form-group ">\n' +
           '<label for="inputFloatingLabel" class="placeholder">Title</label>\n' +
-          '<input id="bookTitle" type="text" value= "' +
+          '<input id="bookTitles" type="text" value= "' +
           response.title +
           '" class="form-control input-border-bottom" required>\n' +
           "</div>\n" +
@@ -692,7 +868,7 @@ $(document).ready(function () {
           '<div class="col-md-6">\n' +
           '<div class="form-group ">\n' +
           '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
-          '<select class="form-control input-border-bottom" id="selectUserClass" required>\n' +
+          '<select class="form-control input-border-bottom" id="selectUserClassUpdates" required>\n' +
           '<option value="0">Select User Class</option>\n' +
           "</select>\n" +
           "</div>\n" +
@@ -1040,7 +1216,7 @@ $(document).ready(function () {
     function () {
       const id = $(this).data("classid");
       console.log(id);
-      const dataDel = {
+      const dataToDel = {
         id: id,
       };
 
@@ -1048,7 +1224,7 @@ $(document).ready(function () {
         type: "DELETE",
         url: serverUrl + "user/delete.user.category.php",
         dataType: "JSON",
-        data: JSON.stringify(dataDel),
+        data: dataToDel,
         beforeSend: function () {
           $("div#loaderDeleteUserCat").show();
         },
@@ -1057,9 +1233,9 @@ $(document).ready(function () {
         },
         success: function (response) {
           const res = response.data;
-          // setTimeout(function () {
-          //   window.location = window.location;
-          // }, 3000);
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
         },
       });
     }
@@ -1239,9 +1415,15 @@ $(document).ready(function () {
         $("div#addNewEventLoader").hide();
       },
       success: function (data) {
-        // swal("Done!", "Event was succesfully created !", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Eveny is successfully added',
+          showConfirmButton: false,
+          timer: 1500
+        })
         $("div#addNewEvent").modal("hide");
-        swal.close();
+
         setTimeout(function () {
           window.location = window.location;
         }, 3000);
@@ -1277,7 +1459,13 @@ $(document).ready(function () {
         $("div#loaderNewEventCat").hide();
       },
       success: function () {
-        // swal("Done!", "Event was succesfully created !", "success");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Event category is successfully added',
+          showConfirmButton: false,
+          timer: 1500
+        })
         $("div#addNewEventCat").modal("hide");
         // swal.close();
         setTimeout(function () {
@@ -1396,81 +1584,110 @@ $(document).ready(function () {
 
 
 
-  $("#allEvents").on("click", "button#deleteEventDetail", function () {
+  $("#allEvents").on("click", "button#deleteEventDetail", function (e) {
     const eventIDinfo = $(this).data('eventid');
     const dataToDelEvent = {
       id: eventIDinfo
     };
+    e.preventDefault();
+    confirmDelete(dataToDelEvent);
 
-    confirmDelete();
-  
   });
 
   // ene delete event single info 
 
 
 
-    function confirmDelete() {
-      new swal({
-          title: "Are you sure?",
-          text: "You will not be able to recover this imaginary file!",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Yes, delete it!",
-          closeOnConfirm: false
-      }, function (isConfirm) {
-          if (!isConfirm) return;
-          console.log('sawa')
-          // $.ajax({
-          //     url: "scriptDelete.php",
-          //     type: "POST",
-          //     data: {
-          //         id: 5
-          //     },
-          //     dataType: "html",
-          //     success: function () {
-          //         swal("Done!", "It was succesfully deleted!", "success");
-          //     },
-          //     error: function (xhr, ajaxOptions, thrownError) {
-          //         swal("Error deleting!", "Please try again", "error");
-          //     }
-          // });
-      });
+  function confirmDelete(data) {
+
+    new swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover this event information!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      allowOutsideClick: false,
+      closeOnConfirm: true
+    }).then(
+      function (isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+            type: "DELETE",
+            url: serverUrl + "events/delete.event.php",
+            dataType: "JSON",
+            data: JSON.stringify(data),
+            beforeSend: function () {
+              $("div#deleteSingleEvent").show();
+
+            },
+            complete: function () {
+              $("div#deleteSingleEvent").hide();
+
+            },
+            success: function () {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Event is successfully removed',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              setTimeout(function () {
+                window.location = window.location;
+              }, 2000);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              Swal.fire({
+                position: 'top-end',
+                icon: 'danger',
+                title: 'something went wrong try again',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          });
+        }
+
+      },
+      function () {
+        return false;
+      }
+    )
   }
-    // new swal({
-    //   title: "Are you sure?",
-    //   text: "You will not be able to recover this info !",
-    //   type: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#DD6B55",
-    //   confirmButtonText: "Yes, delete it!",
-    //   closeOnConfirm: true
-    // }, function (isConfirm) {
-    //   if (!isConfirm) return;
-    //   console.log('ojkjjjjjj')
-    //     // $.ajax({
-    //     //   type: "DELETE",
-    //     //   url: serverUrl + "events/delete.event.php",
-    //     //   dataType: "JSON",
-    //     //   data: JSON.stringify(dataToDelEvent),
-    //     //   beforeSend: function () {
-    //     //     $("div#deleteSingleEvent").show();
+  // new swal({
+  //   title: "Are you sure?",
+  //   text: "You will not be able to recover this info !",
+  //   type: "warning",
+  //   showCancelButton: true,
+  //   confirmButtonColor: "#DD6B55",
+  //   confirmButtonText: "Yes, delete it!",
+  //   closeOnConfirm: true
+  // }, function (isConfirm) {
+  //   if (!isConfirm) return;
+  //   console.log('ojkjjjjjj')
+  // $.ajax({
+  //   type: "DELETE",
+  //   url: serverUrl + "events/delete.event.php",
+  //   dataType: "JSON",
+  //   data: JSON.stringify(data),
+  //   beforeSend: function () {
+  //     $("div#deleteSingleEvent").show();
 
-    //     //   },
-    //     //   complete: function () {
-    //     //     $("div#deleteSingleEvent").hide();
+  //   },
+  //   complete: function () {
+  //     $("div#deleteSingleEvent").hide();
 
-    //     //   },
-    //     //   success: function () {
-    //     //     swal("Done!", "It was succesfully deleted!", "success");
-    //     //   },
-    //     //   error: function (xhr, ajaxOptions, thrownError) {
-    //     //     swal("Error deleting!", "Please try again", "error");
-    //     //   }
-    //     // });
-    // });
-  
+  //   },
+  //   success: function () {
+  //     swal("Done!", "It was succesfully deleted!", "success");
+  //   },
+  //   error: function (xhr, ajaxOptions, thrownError) {
+  //     swal("Error deleting!", "Please try again", "error");
+  //   }
+  // });
+  // });
+
 
 
   // end of events stuff 

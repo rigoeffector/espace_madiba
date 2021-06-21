@@ -19,7 +19,14 @@
 				<li class="nav-item "  id="users">
 					<a href="users.php">
 						<i class="flaticon-profile"></i>
-						<p>Users </p>
+						<p>Users Subscriptions </p>
+
+					</a>
+				</li>
+				<li class="nav-item "  id="usersClasses">
+					<a href="usersClasses.php">
+						<i class="flaticon-profile"></i>
+						<p>Users classes </p>
 
 					</a>
 				</li>
@@ -44,8 +51,22 @@
 
 					</a>
 				</li>
+				<li class="nav-item books" id="videobooks" >
+					<a href="allbooks.php">
+						<i class="flaticon-shopping-bag"></i>
+						<p>Video Books</p>
 
-				<li class="nav-item news">
+					</a>
+				</li>
+
+				<li class="nav-item books" id="audiobooks" >
+					<a href="allbooks.php">
+						<i class="flaticon-shopping-bag"></i>
+						<p>Audio Books</p>
+
+					</a>
+				</li>
+				<li class="nav-item news" style="display: none;">
 					<a href="news.php">
 						<i class="flaticon-present"></i>
 						<p>News Feed</p>

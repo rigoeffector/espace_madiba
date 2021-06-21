@@ -33,6 +33,11 @@
 	<link rel="stylesheet" href="../assets/css/demo.css">
 	<link rel="stylesheet" href="../assets/css/styled.css">
 	<link rel="stylesheet" href="./bootstrap-4.1/bootstrap.css">
+	<style>
+		a {
+			text-decoration: none;
+		}
+	</style>
 
 </head>
 
@@ -221,7 +226,7 @@
 								<div class="quick-actions-scroll scrollbar-outer">
 									<div class="quick-actions-items">
 										<div class="row m-0">
-										
+
 											<a class="col-6 col-md-4 p-0" href="#">
 												<div class="quick-actions-item">
 													<i class="flaticon-database"></i>
@@ -266,7 +271,7 @@
 									</li>
 									<li>
 										<div class="dropdown-divider"></div>
-										
+
 										<a class="dropdown-item" href="#">Account Setting</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="#">Logout</a>
