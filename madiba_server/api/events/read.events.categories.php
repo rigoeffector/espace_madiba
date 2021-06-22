@@ -47,7 +47,13 @@ if ($num > 0) {
     }
     echo json_encode($event_category_arr);
 } else {
+    $response = array(
+        "status" => "success",
+        "data"=>[],
+        "error" => false,
+        "message" => "No Events  Category Found"
+    );
     echo  json_encode(
-        array("message" => "No event category Found ")
+        $response
     );
 }

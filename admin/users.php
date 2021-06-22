@@ -25,6 +25,12 @@
 
 
                 <div class="col-md-12">
+                <div class="alert alert-warning" role="alert" id="warningInfoCategory" style="display: none;">
+									<p>No Data saved yet please?     <span style="
+                  color: #6c757d;
+     font-weight: 800;
+      "> click on new category button to save a new </span></p>
+								</div>
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Subscriptions Histroy</h4>
@@ -117,15 +123,15 @@
                 <form id="newUserCategoryForm">
                     <div class="row">
                         <div class="col-md-6 pr-0">
-                            <div class="form-group form-group-default">
+                            <div class="form-group ">
                                 <label>Title</label>
                                 <input id="userCatTitle" type="text" class="form-control" placeholder="fill title">
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
-                            <div class="form-group form-group-default">
+                            <div class="form-group ">
                                 <label>Membership fees</label>
-                                <input id="userCatMembershipFees" type="number" class="form-control" placeholder="fill membership">
+                                <input id="userCatMembershipFees" type="number" class="form-control" placeholder="fill membership fees">
                             </div>
                         </div>
 

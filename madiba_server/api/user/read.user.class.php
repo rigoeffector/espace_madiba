@@ -51,7 +51,13 @@ if ($num > 0) {
     }
     echo json_encode($user_class_arr);
 } else {
+    $response = array(
+        "status" => "success",
+        "data"=>[],
+        "error" => false,
+        "message" => "No User Class  Found"
+    );
     echo  json_encode(
-        array("message" => "No User Class Found ")
+        $response 
     );
 }

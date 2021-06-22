@@ -154,7 +154,12 @@
 										<span class="sr-only">Loading...</span>
 									</div>
 								</center>
-
+								<div class="alert alert-warning" role="alert" id="warningInfoEvents" style="display:none;">
+									<p>No Data saved yet please?  make sure you have saved event category before you   <span style="
+                  color: #6c757d;
+     font-weight: 800;
+      "> click on new  button to add new event</span></p>
+								</div>
 								<div class="table-responsive">
 									<table id="allEvents" class="display table table-striped table-hover">
 										<thead>

@@ -25,6 +25,13 @@
 
 
                 <div class="col-md-12">
+                <div class="alert alert-warning" role="alert" id="warningInfoClassCategory" style="display: none;">
+									<p>No Data saved yet please?  make sure you have saved user category before you   <span style="
+                  color: #6c757d;
+     font-weight: 800;
+      "> click on new class button to add new class</span></p>
+								</div>
+
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Users class histroy</h4>
@@ -203,15 +210,15 @@
                 <form id="newUserClassForm">
                     <div class="row">
                         <div class="col-md-6 pr-0">
-                            <div class="form-group form-group-default">
+                            <div class="form-group ">
                                 <label>Title</label>
                                 <input id="userClassTitle" type="text" class="form-control" placeholder="fill title">
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
-                            <div class="form-group form-group-default">
+                            <div class="form-group ">
                                 <div class="form-group form-floating-label">
-                                    <select class="form-control input-border-bottom" id="selectUserCategory" required>
+                                    <select class="form-control " id="selectUserCategory" required style="margin-top: 23px;">
                                         <option value="0">Select User Category</option>
 
                                     </select>
@@ -221,7 +228,7 @@
                         </div>
 
                         <div class="col-md-12 pr-0">
-                            <div class="form-group form-group-default">
+                            <div class="form-group ">
                                 <label>Age Range</label>
                                 <input id="userClassAge" type="text" class="form-control" placeholder="fill age">
                             </div>

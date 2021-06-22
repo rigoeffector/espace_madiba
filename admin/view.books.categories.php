@@ -16,12 +16,7 @@
                         <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
                         <h5 class="text-white op-7 mb-2">Espace Madiba Panel/All Books</h5>
                     </div>
-                    <div class="ml-md-auto py-2 py-md-0">
-
-                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addNewBook">
-                            <i class="fa fa-plus"></i>
-                            New Book
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -39,53 +34,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Modal -->
-                                <div class="modal fade" id="addNewEvent" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header no-bd">
-                                                <h5 class="modal-title">
-                                                    <span class="fw-mediumbold">
-                                                        New</span>
-                                                    <span class="fw-light">
-                                                        Event
-                                                    </span>
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p class="small">Create a new event with full</p>
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Name</label>
-                                                                <input id="addName" type="text" class="form-control" placeholder="fill name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 pr-0">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Position</label>
-                                                                <input id="addPosition" type="text" class="form-control" placeholder="fill position">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Office</label>
-                                                                <input id="addOffice" type="text" class="form-control" placeholder="fill office">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer no-bd">
-                                                <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                             
 
                                 <center>
                                     <div class="spinner-border text-primary" role="status" id="loaderAllBooks" style="display: none;">
@@ -99,7 +48,7 @@
                                 </center>
 
                                 <div class="table-responsive">
-                                    <table id="all_books_table" class="display table table-striped table-hover">
+                                    <table id="all_books_by_cat_table" class="display table table-striped table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Icon</th>

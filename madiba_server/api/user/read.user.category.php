@@ -49,7 +49,13 @@ if ($num > 0) {
     }
     echo json_encode($user_category_arr);
 } else {
+    $response = array(
+        "status" => "success",
+        "data"=>[],
+        "error" => false,
+        "message" => "No User Category  Found"
+    );
     echo  json_encode(
-        array("message" => "No User Category Found ")
+        $response
     );
 }

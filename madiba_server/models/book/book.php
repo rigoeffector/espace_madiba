@@ -67,6 +67,36 @@ class BookInformation
     }
 
 
+    public function readByCategory($id)
+    {
+        $query = "SELECT b.id, b.title,
+        b.numbers, b.authors, b.image,
+        b.summary,bc.title as book_category,
+        bc.number_of_books, 
+        bc.languages,
+        b.isAvailable as thisBookIsAvailable,
+        uc.title as user_class,
+        uc.age_range 
+        from 
+            $this->table b
+        LEFT JOIN user_classes uc
+        ON
+        b.user_classesId = uc.id
+        LEFT JOIN 
+        book_category bc
+        ON
+        b.book_categoryId = bc.id
+        where b.book_categoryId = $id";
+
+
+        //    prepare statements 
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     public function readSingleBook()
     {
         $query = "SELECT b.id, b.title,
@@ -125,6 +155,11 @@ class BookInformation
     public function getBookByCategory()
     {
     }
+
+    public function borrowBook()
+    {
+    }
+
 
     public function update()
     {

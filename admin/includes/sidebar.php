@@ -16,6 +16,13 @@
 
 					</a>
 				</li>
+				<li class="nav-item "  id="usersClasses">
+					<a href="usersClasses.php">
+						<i class="flaticon-profile"></i>
+						<p>Users classes </p>
+
+					</a>
+				</li>
 				<li class="nav-item "  id="users">
 					<a href="users.php">
 						<i class="flaticon-profile"></i>
@@ -23,10 +30,11 @@
 
 					</a>
 				</li>
-				<li class="nav-item "  id="usersClasses">
-					<a href="usersClasses.php">
-						<i class="flaticon-profile"></i>
-						<p>Users classes </p>
+				
+				<li class="nav-item " id="eventsCat">
+					<a href="eventCategories.php">
+						<i class="flaticon-tea-cup"></i>
+						<p>Event Categories</p>
 
 					</a>
 				</li>
@@ -37,6 +45,7 @@
 
 					</a>
 				</li>
+				
 				<li class="nav-item books" id="books" >
 					<a href="books.php">
 						<i class="flaticon-folder"></i>
