@@ -33,7 +33,7 @@ $(document).ready(function () {
     $("li#books").attr("id", "activated");
   }
   if (window.location.pathname === news) {
-    $("li#events").attr("id", "activated");
+    $("li#news").attr("id", "activated");
   }
   if (window.location.pathname === allbooks) {
     $("li#allbooks").attr("id", "activated");
@@ -660,22 +660,8 @@ $(document).ready(function () {
           res[r].languages,
           res[r].book_category,
           res[r].user_class + "(" + res[r].age_range + ")",
-          availabilityBook,
-          '<button type="button"  data-bookId = "' +
-          res[r].id +
-          '"  id="viewBookDetail" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#viewSingleBook">\n' +
-          '<i class="fa fa-eye"></i>\n' +
-          "</button>\n" +
-          '<button type="button"  id="updateSingleBookbtn" data-bookId= "' +
-          res[r].id +
-          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook" style="display:none;">\n' +
-          '<i class="fa fa-pen"></i>\n' +
-          "</button>\n" +
-          '<button type="button" id="deleteSingleBookbtn"  data-bookId= "' +
-          res[r].id +
-          '" class="btn btn-icon btn-round btn-danger ">\n' +
-          '<i class="fa fa-trash"></i>\n' +
-          "</button>",
+          availabilityBook
+      
         ]);
       }
      

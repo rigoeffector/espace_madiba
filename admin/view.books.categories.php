@@ -59,7 +59,7 @@
                                                 <th>Category</th>
                                                 <th>Class/Age</th>
                                                 <th>Availability</th>
-                                                <th style="width: 10%">Action</th>
+                                       
                                             </tr>
                                         </thead>
                                         <tfoot>

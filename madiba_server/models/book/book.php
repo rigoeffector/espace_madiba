@@ -9,6 +9,8 @@ class BookInformation
     private $conn;
 
     private $table = 'book';
+    private $tables = 'video_book';
+    private $tablesAudio = 'audio_book';
 
     // UserCategory properties
 
@@ -160,6 +162,66 @@ class BookInformation
     {
     }
 
+    public function readVideoBook()
+    {
+        $query = "SELECT video_book.id, video_book.title, video_book.summary, 
+        video_book.video_url, video_book.auhtor,
+        video_book.user_classesId, video_book.user_categoryId,
+         video_book.auhtor,
+        user_classes.title as userClassTitle, 
+        user_classes.age_range,
+        user_category.title as userCategoryTitle,
+         user_category.membership_fees,
+        book_category.title as bookCategory, 
+        book_category.number_of_books, book_category.languages
+        FROM video_book
+    
+        LEFT JOIN user_classes
+        ON video_book.user_classesId = user_classes.id
+        LEFT JOIN user_category
+        on video_book.user_categoryId = user_category.id
+        LEFT JOIN book_category
+        on video_book.bookCategoryId = book_category.id
+       ";
+
+
+        //    prepare statements 
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function readAudioBook()
+    {
+        $query = "SELECT au.id, au.title, au.summary, 
+        au.audio_url, 
+        au.user_classesId, au.user_categoryId,
+        au.author,
+        u.title as userClassTitle, 
+        u.age_range,
+        uc.title as userCategoryTitle,
+         uc.membership_fees,
+        bc.title as bookCategory, 
+        bc.number_of_books, bc.languages
+        FROM audio_book au
+    
+        LEFT JOIN user_classes u
+        ON au.user_classesId = u.id
+        LEFT JOIN user_category uc
+        on au.user_categoryId = uc.id
+        LEFT JOIN book_category bc
+        on au.bookCategoryId = bc.id
+       ";
+        //    prepare statements 
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
 
     public function update()
     {
@@ -204,6 +266,39 @@ class BookInformation
         } else {
             echo json_encode(
                 array('message' => 'Delete user category  Failed ')
+            );
+            error_log("Delete category Error", 0);
+        }
+    }
+
+
+    public function deleteVideo()
+    {
+        $query = 'DELETE FROM ' . $this->tables . ' WHERE id = :id ';
+        $stmt = $this->conn->prepare($query);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $stmt->bindParam(":id", $this->id);
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => 'Delete video  Failed ')
+            );
+            error_log("Delete category Error", 0);
+        }
+    }
+
+    public function deleteAudio()
+    {
+        $query = 'DELETE FROM ' . $this->tablesAudio . ' WHERE id = :id ';
+        $stmt = $this->conn->prepare($query);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $stmt->bindParam(":id", $this->id);
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => 'Delete audio  Failed ')
             );
             error_log("Delete category Error", 0);
         }

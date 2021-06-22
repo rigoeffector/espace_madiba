@@ -10,15 +10,15 @@
 			<ul class="nav nav-primary">
 
 				<li class="nav-item " id="home">
-					<a href="index.php">
-						<i class="flaticon-home"></i>
+					<a href="home.php">
+						<i class="flaticon-windows"></i>
 						<p>Dashboard</p>
 
 					</a>
 				</li>
 				<li class="nav-item "  id="usersClasses">
 					<a href="usersClasses.php">
-						<i class="flaticon-profile"></i>
+						<i class="flaticon-users"></i>
 						<p>Users classes </p>
 
 					</a>
@@ -40,7 +40,7 @@
 				</li>
 				<li class="nav-item " id="events">
 					<a href="events.php">
-						<i class="flaticon-tea-cup"></i>
+						<i class="flaticon-calendar"></i>
 						<p>Events</p>
 
 					</a>
@@ -61,24 +61,39 @@
 					</a>
 				</li>
 				<li class="nav-item books" id="videobooks" >
-					<a href="allbooks.php">
-						<i class="flaticon-shopping-bag"></i>
+					<a href="videobooks.php">
+						<i class="flaticon-analytics"></i>
 						<p>Video Books</p>
 
 					</a>
 				</li>
 
 				<li class="nav-item books" id="audiobooks" >
-					<a href="allbooks.php">
-						<i class="flaticon-shopping-bag"></i>
+					<a href="audiobooks.php">
+						<i class="flaticon-arrow"></i>
 						<p>Audio Books</p>
 
 					</a>
 				</li>
-				<li class="nav-item news" style="display: none;">
+				<li class="nav-item news" id="news">
 					<a href="news.php">
 						<i class="flaticon-present"></i>
 						<p>News Feed</p>
+
+					</a>
+				</li>
+				
+				<li class="nav-item news" id="news">
+					<a href="news.php">
+						<i class="flaticon-envelope"></i>
+						<p>Reports</p>
+
+					</a>
+				</li>
+				<li class="nav-item news" id="news">
+					<a href="news.php">
+						<i class="flaticon-user"></i>
+						<p>Settings</p>
 
 					</a>
 				</li>
