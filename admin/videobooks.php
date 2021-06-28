@@ -18,7 +18,7 @@
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
 
-                        <a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewEventCat">New Video</a>
+                        <a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewVideo">New Video</a>
                     </div>
                 </div>
             </div>
@@ -38,15 +38,16 @@
                             <div class="card-body">
 
                                 <center>
-                                    <div class="spinner-border text-primary" role="status" id="loaderdelEventsCats" style="display: none;">
+                                    <div class="spinner-border text-primary" role="status" id="viewVideoLoader" style="display: none;">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </center>
                                 <center>
-                                    <div class="spinner-border text-primary" role="status" id="loaderdelEventsCats" style="display: none;">
+                                    <div class="spinner-border text-primary" role="status" id="loaderDeleteVideo" style="display: none;">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </center>
+                                
                                 <div class="alert alert-warning" role="alert" id="warningInfoEventsCat" style="display:none;">
                                     <p>No Data saved yet please? make sure you have saved event category before you <span style="
                   color: #6c757d;
@@ -54,11 +55,15 @@
       "> click on new button to add new event</span></p>
                                 </div>
                                 <div class="table-responsive">
-                                    <table id="allEventsCats" class="display table table-striped table-hover">
+                                    <table id="allVideoInfo" class="display table table-striped table-hover">
                                         <thead>
                                             <tr>
 
                                                 <th>title</th>
+                                                <th>User Class</th>
+                                                <th>Video Category</th>
+                                                <th>Language</th>
+                                                <th>Video</th>
 
                                                 <th style="width: 20%">Action</th>
                                             </tr>
@@ -66,7 +71,10 @@
                                         <tfoot>
                                             <tr>
                                                 <th>title</th>
-
+                                                <th>User Class</th>
+                                                <th>Video Category</th>
+                                                <th>Language</th>
+                                                <th>Video</th>
                                                 <th style="width: 20%">Action</th>
                                             </tr>
                                         </tfoot>
@@ -164,7 +172,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="addNewEventCat" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addNewVideo" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header no-bd">
@@ -181,27 +189,51 @@
             </div>
             <div class="modal-body">
                 <p class="small">Create new video</p>
-                <form id="newUserCategoryForm">
+                <form id="newVideoForm">
                     <div class="row">
                         <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Title</label>
-                                <input id="eventCatTitle" type="text" class="form-control" placeholder="fill title">
+                                <input id="videoTitle" type="text" class="form-control" placeholder="fill title">
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Author</label>
-                                <input id="eventCatTitle" type="text" class="form-control" placeholder="fill author">
+                                <input id="videoAuthor" type="text" class="form-control" placeholder="fill author">
                             </div>
                         </div>
                         <div class="col-md-12 pr-0">
                             <div class="form-group ">
                                 <label>Video File</label>
-                                <input id="eventCatTitle" type="file" class="form-control" placeholder="fill author">
+                                <input id="videoFile" type="file" class="form-control" placeholder="fill author">
                             </div>
                         </div>
 
+
+
+                        <div class="col-md-12 pr-0">
+
+                            <div class="form-group ">
+                                <label for="selectFloatingLabel" class="placeholder">User Class</label>
+                                <select class="form-control input-border-bottom" id="selectUserClass" required>
+                                    <option value="0">Select User Class</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-12 pr-0">
+
+                            <div class="form-group ">
+                                <label for="selectFloatingLabel" class="placeholder">User Category</label>
+                                <select class="form-control input-border-bottom" id="selectUserCategory" required>
+                                    <option value="0">Select User Category</option>
+                                </select>
+
+                            </div>
+
+                        </div>
                         <div class="col-md-12 pr-0">
 
                             <div class="form-group ">
@@ -214,47 +246,24 @@
 
                         </div>
 
-                        <div class="col-md-12 pr-0">
-
-                            <div class="form-group ">
-                                <label for="selectFloatingLabel" class="placeholder">User Category</label>
-                                <select class="form-control input-border-bottom" id="selectBookCategory" required>
-                                    <option value="0">Select User Category</option>
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-12 pr-0">
-
-                            <div class="form-group ">
-                                <label for="selectFloatingLabel" class="placeholder">User Class</label>
-                                <select class="form-control input-border-bottom" id="selectBookCategory" required>
-                                    <option value="0">Select User Class</option>
-                                </select>
-
-                            </div>
-
-                        </div>
                         <div class="col-md-12">
-							<div class="form-group">
-								<label for="comment">Summary</label>
-								<textarea class="form-control" id="summary" rows="5">
+                            <div class="form-group">
+                                <label for="comment">Summary</label>
+                                <textarea class="form-control" id="summaryVideo" rows="5">
 
 							</textarea>
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
                     </div>
                     <div class="modal-footer no-bd">
-                        <input type="submit" id="addNewEventCat" class="btn btn-primary" value="Save">
+                        <input type="submit" id="addNewVideo" class="btn btn-primary" value="Save">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
                     <center>
-                        <div class="spinner-border text-primary" role="status" id="loaderNewEventCat" style="display:none;">
+                        <div class="spinner-border text-primary" role="status" id="loaderVideo" style="display:none;">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </center>
@@ -267,28 +276,3 @@
 </div>
 
 
-<!-- Modal Update User Category -->
-<div class="modal fade" id="updateEventCat" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header no-bd">
-                <h5 class="modal-title">
-                    <span class="fw-mediumbold">
-                        Update</span>
-                    <span class="fw-light">
-                        Event Category
-                    </span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="small">Update Event Category</p>
-                <form id="updateEventCategoryForm">
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>

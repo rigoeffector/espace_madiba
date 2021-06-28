@@ -4,7 +4,7 @@ $(document).ready(function () {
   var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
   const urlPath = "http://localhost/madiba_panel/admin/";
 
-  let tableAllBooks, allEvents;
+  let tableAllBooks, allEvents, allVideos;
   // $("#all_books_table").DataTable();
   // codes to activate active link
 
@@ -116,6 +116,7 @@ $(document).ready(function () {
   const booksCategoryIconUrl = serverUrl + "book/";
   const allBookIconUrl = serverUrl + "book/";
   const allEventsIconUrl = serverUrl + "events/";
+  const allVideoUrl = serverUrl + "book/videos/"
 
   $.ajax({
     type: "GET",
@@ -1403,6 +1404,11 @@ $(document).ready(function () {
     },
   });
 
+  $("select#selectUserCategory").on("input", function () {
+    console.log($(this).val())
+    return $(this).val();
+  })
+
 
   // add new user class 
   $("form#newUserClassForm").on(
@@ -2007,7 +2013,7 @@ $(document).ready(function () {
   // admin update info 
 
 
- 
+
 
   // check if password are matching before updating info 
 
@@ -2120,21 +2126,211 @@ $(document).ready(function () {
   // end update admin info 
 
 
+  // create videos book 
+
+  $("form#newVideoForm").on("click", "input#addNewVideo", function (e) {
+    e.preventDefault();
+    // Get form
+    var form = $("form#newVideoForm")[0];
+    // get data
+
+    var videoFile = $("input#videoFile")[0].files[0];
+    var videoTitle = $("input#videoTitle").val();
+    var videoAuhor = $("input#videoAuthor").val();
+    var videoUClass = $("select#selectUserClass").val();
+    var videoSummary = $("textarea#summaryVideo").val();
+    var videoUCategory = $("select#selectUserCategory").val();
+    var videoBCategory = $("select#selectBookCategory").val();
+
+
+    // FormData object
+    var newVideoData = new FormData(form);
+
+
+    newVideoData.append("title", videoTitle);
+    newVideoData.append("author", videoAuhor);
+    newVideoData.append("user_classesId", videoUClass);
+    newVideoData.append("my_video", videoFile);
+    newVideoData.append("summary", videoSummary);
+    newVideoData.append("user_categoryId", videoUCategory);
+    newVideoData.append("bookCategoryId", videoBCategory);
+
+
+    // disabled the submit button
+
+    $.ajax({
+      url: serverUrl + "book/create.video.book.php",
+      data: newVideoData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: "POST",
+      beforeSend: function () {
+        $("div#loaderVideo").show();
+      },
+      complete: function () {
+        $("div#loaderVideo").hide();
+      },
+      success: function (data) {
+        if (!data.error) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Video info is successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#addNewVideo").modal("hide");
+          // setTimeout(function () {
+          //   window.location = window.location;
+          // }, 3000);
+        }
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+
+
+
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'something went wrong try again',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
+    // Display the key/value pairs
+    for (var pair of newVideoData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+  });
+
+
+
+  // end create videos books 
+
+
   // read videos books 
+
+  allVideos = $("table#allVideoInfo").DataTable({
+    columnDefs: [{ width: 150, targets: 4 }],
+  });
   $.ajax({
-    url: serverUrl + "user/admin.update.profile.php",
-    data: newBookCatData,
+    url: serverUrl + "book/read.videos.book.php",
     cache: false,
     contentType: false,
     processData: false,
-    type: "POST",
+    type: "GET",
     beforeSend: function () {
-      $("div#updateAdminLoader").show();
+      $("div#viewVideoLoader").show();
     },
     complete: function () {
-      $("div#updateAdminLoader").hide();
+      $("div#viewVideoLoader").hide();
     },
+    success: function (data) {
+      console.log('Videos Book=', data.data);
+      const res = data.data;
+      for (let r in res) {
+        allVideos.row.add([
+          res[r].title,
+          res[r].userClassTitle,
+          res[r].bookCategory,
+          res[r].languages,
+          ' <video  style =" height: 100px;"src="'+ allVideoUrl +
+          res[r].video_url +'" controls>'+
+          '</video>'+
+          res[r].id,
+          '<button type="button" id="deleteSingleVideo"  data-videoId= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-danger ">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>",
+        ]);
+      }
+      allVideos.draw();
+
+    }
   });
+
+  // delete video info 
+
+
+
+  $("table#allVideoInfo").on("click","button#deleteSingleVideo",function(){
+  
+    Swal.fire({
+      title: 'Do you really want to delete this Video ?',
+      showDenyButton: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `DELETE`,
+      denyButtonText: `DON'T DELETE`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+        var dataTodelVideo = $(this).data("videoid");
+        var dataDelVid = {
+          id: dataTodelVideo,
+        };
+        
+
+        console.log(dataDelVid)
+        $.ajax({
+          type: "DELETE",
+          url: serverUrl + "book/delete.video.book.php",
+          data: JSON.stringify(dataDelVid),
+          dataType: "JSON",
+          beforeSend: function () {
+            $("div#loaderDeleteVideo").show();
+          },
+          complete: function () {
+            $("div#loaderDeleteVideo").hide();
+          },
+          success: function (response) {
+            const res = response;
+            console.log("res", res);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Video  is successfully delted',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            setTimeout(function () {
+              window.location = window.location;
+            }, 2000);
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'something went wrong try again',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        });
+
+      } else if (result.isDenied) {
+        Swal.fire('Video  is not deleted', '', 'info')
+      }
+    })
+
+  })
+
+  // end delete video info 
+
+
 
   // end read videos books 
 
