@@ -9,17 +9,10 @@
 			</div>
 			<ul class="nav nav-primary">
 
-				<li class="nav-item " id="home">
+				<li class="nav-item " id="home" style="display:none;">
 					<a href="home.php">
 						<i class="flaticon-windows"></i>
 						<p>Dashboard</p>
-
-					</a>
-				</li>
-				<li class="nav-item "  id="usersClasses">
-					<a href="usersClasses.php">
-						<i class="flaticon-users"></i>
-						<p>Users classes </p>
 
 					</a>
 				</li>
@@ -30,6 +23,14 @@
 
 					</a>
 				</li>
+				<li class="nav-item "  id="usersClasses">
+					<a href="usersClasses.php">
+						<i class="flaticon-users"></i>
+						<p>Users classes </p>
+
+					</a>
+				</li>
+				
 				
 				<li class="nav-item " id="eventsCat">
 					<a href="eventCategories.php">
@@ -90,8 +91,8 @@
 
 					</a>
 				</li>
-				<li class="nav-item news" id="news">
-					<a href="news.php">
+				<li class="nav-item news" id="settings">
+					<a href="settings.php">
 						<i class="flaticon-user"></i>
 						<p>Settings</p>
 

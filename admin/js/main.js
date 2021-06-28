@@ -19,6 +19,7 @@ $(document).ready(function () {
   const audioBooks = paths + "audiobooks.php";
   const videoBooks = paths + "videobooks.php";
   const eventCats = paths + "eventCategories.php";
+  const settings = paths + "settings.php";
 
   if (window.location.pathname === home) {
     $("li#home").attr("id", "activated");
@@ -49,6 +50,9 @@ $(document).ready(function () {
   }
   if (window.location.pathname === eventCats) {
     $("li#eventsCat").attr("id", "activated");
+  }
+  if (window.location.pathname === settings) {
+    $("li#settings").attr("id", "activated");
   }
 
 
@@ -621,7 +625,7 @@ $(document).ready(function () {
   allBookByCatData = $("#all_books_by_cat_table").DataTable();
 
   $.ajax({
-    url: serverUrl + "book/read.book.by.category.php?id="+retrievedidToViewBookByCategory,
+    url: serverUrl + "book/read.book.by.category.php?id=" + retrievedidToViewBookByCategory,
     cache: false,
     contentType: false,
     processData: false,
@@ -634,7 +638,7 @@ $(document).ready(function () {
     },
     success: function (data) {
       const res = data.data;
-      console.log("book by category",data);
+      console.log("book by category", data);
       for (let r in res) {
         switch (res[r].thisBookIsAvailable) {
           case 1:
@@ -661,10 +665,10 @@ $(document).ready(function () {
           res[r].book_category,
           res[r].user_class + "(" + res[r].age_range + ")",
           availabilityBook
-      
+
         ]);
       }
-     
+
       allBookByCatData.draw();
 
 
@@ -672,13 +676,13 @@ $(document).ready(function () {
   });
 
 
- 
 
 
 
 
 
-  
+
+
 
   // end view book by category 
 
@@ -1998,12 +2002,140 @@ $(document).ready(function () {
       }
     });
 
+  });
+
+  // admin update info 
+
+
+ 
+
+  // check if password are matching before updating info 
+
+  $("form#my-admin_update_info").on("input", "input#admin_Conf_password", function () {
+    console.log($(this).val());
+    var oldadminPassword = $("input#admin_password").val();
+    if (oldadminPassword !== $(this).val()) {
+      $("span#match-pswwd").show();
+
+      setTimeout(function () {
+        $("span#match-pswwd").hide();
+      }, 2000)
+    }
+    else {
+      $("span#matching-pswwd").show();
+
+      setTimeout(function () {
+        $("span#matching-pswwd").hide();
+      }, 2000);
+    }
+
+  });
+
+
+  $("form#my-admin_update_info").on("click", "input#updateAdmin", function (e) {
+    e.preventDefault();
+    // Get form
+    var form = $("form#my-admin_update_info")[0];
+    // get data
+
+    var profileImg = $("input#admin_profile")[0].files[0];
+    var adminUsername = $("input#admin_username").val();
+    var adminPassword = $("input#admin_password").val();
+    var adminId = $("input#adminId").val();
+
+
+    // FormData object
+    var newBookCatData = new FormData(form);
+
+    newBookCatData.append("id", adminId);
+    newBookCatData.append("username", adminUsername);
+    newBookCatData.append("password", adminPassword);
+    newBookCatData.append("avatar", profileImg);
+
+
+    // disabled the submit button
+
+    $.ajax({
+      url: serverUrl + "user/admin.update.profile.php",
+      data: newBookCatData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: "POST",
+      beforeSend: function () {
+        $("div#updateAdminLoader").show();
+      },
+      complete: function () {
+        $("div#updateAdminLoader").hide();
+      },
+      success: function (data) {
+        if (!data.error) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Admin info updated successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#addNewCategory").modal("hide");
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
+        }
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+
+
+
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'something went wrong try again',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
+    // Display the key/value pairs
+    for (var pair of newBookCatData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+
+
   })
 
 
 
 
+  // end update admin info 
 
-  // end update event category 
+
+  // read videos books 
+  $.ajax({
+    url: serverUrl + "user/admin.update.profile.php",
+    data: newBookCatData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: "POST",
+    beforeSend: function () {
+      $("div#updateAdminLoader").show();
+    },
+    complete: function () {
+      $("div#updateAdminLoader").hide();
+    },
+  });
+
+  // end read videos books 
 
 });

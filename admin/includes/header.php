@@ -1,3 +1,6 @@
+<?php session_start();if(empty($_SESSION['admin'])){
+   header("Location: index.php");
+}?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -214,7 +217,7 @@
 								</li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown hidden-caret">
+						<li class="nav-item dropdown hidden-caret" style="display: none;">
 							<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
 								<i class="fas fa-layer-group"></i>
 							</a>
@@ -262,10 +265,10 @@
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
 										<div class="user-box">
-											<div class="avatar-lg"><img src="../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+											<div style="display:none;"class="avatar-lg"><img src="../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
 											<div class="u-text">
-												<h4>Hizrian</h4>
-												<p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+												<h4>Welcome, <?php  echo $_SESSION['admin'];?></h4>
+												
 											</div>
 										</div>
 									</li>
@@ -274,7 +277,7 @@
 
 										<a class="dropdown-item" href="#">Account Setting</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Logout</a>
+										<a class="dropdown-item" href="logout.php">Logout</a>
 									</li>
 								</div>
 							</ul>
