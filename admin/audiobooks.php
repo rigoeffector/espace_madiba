@@ -18,7 +18,7 @@
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
 
-                        <a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewEventCat">New Audio</a>
+                        <a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewAudio">New Audio</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                             <div class="card-body">
 
                                 <center>
-                                    <div class="spinner-border text-primary" role="status" id="loaderdelEventsCats" style="display: none;">
+                                    <div class="spinner-border text-primary" role="status" id="viewAudioLoader" style="display: none;">
                                         <span class="sr-only">Loading...</span>
                                     </div>
                                 </center>
@@ -54,12 +54,14 @@
       "> click on new button to add new event</span></p>
                                 </div>
                                 <div class="table-responsive">
-                                    <table id="allEventsCats" class="display table table-striped table-hover">
+                                    <table id="allAudioInfo" class="display table table-striped table-hover">
                                         <thead>
                                             <tr>
-
                                                 <th>title</th>
-
+                                                <th>User Class</th>
+                                                <th>Audio Category</th>
+                                                <th>Language</th>
+                                                <th>Audio</th>
                                                 <th style="width: 20%">Action</th>
                                             </tr>
                                         </thead>
@@ -67,6 +69,10 @@
                                             <tr>
                                                 <th>title</th>
 
+                                                <th>User Class</th>
+                                                <th>Audio Category</th>
+                                                <th>Language</th>
+                                                <th>Audio</th>
                                                 <th style="width: 20%">Action</th>
                                             </tr>
                                         </tfoot>
@@ -164,7 +170,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="addNewEventCat" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="addNewAudio" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header no-bd">
@@ -181,24 +187,24 @@
             </div>
             <div class="modal-body">
                 <p class="small">Create new audio</p>
-                <form id="newUserCategoryForm">
+                <form id="newAudioForm">
                     <div class="row">
                         <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Title</label>
-                                <input id="eventCatTitle" type="text" class="form-control" placeholder="fill title">
+                                <input id="audioTitle" type="text" class="form-control" placeholder="fill title">
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Author</label>
-                                <input id="eventCatTitle" type="text" class="form-control" placeholder="fill author">
+                                <input id="audioAuthor" type="text" class="form-control" placeholder="fill author">
                             </div>
                         </div>
                         <div class="col-md-12 pr-0">
                             <div class="form-group ">
                                 <label>Audio File</label>
-                                <input id="eventCatTitle" type="file" class="form-control" placeholder="fill author">
+                                <input id="audioFile" type="file" class="form-control" placeholder="fill author">
                             </div>
                         </div>
 
@@ -218,7 +224,7 @@
 
                             <div class="form-group ">
                                 <label for="selectFloatingLabel" class="placeholder">User Category</label>
-                                <select class="form-control input-border-bottom" id="selectBookCategory" required>
+                                <select class="form-control input-border-bottom" id="selectUserCategory" required>
                                     <option value="0">Select User Category</option>
                                 </select>
 
@@ -230,7 +236,7 @@
 
                             <div class="form-group ">
                                 <label for="selectFloatingLabel" class="placeholder">User Class</label>
-                                <select class="form-control input-border-bottom" id="selectBookCategory" required>
+                                <select class="form-control input-border-bottom" id="selectUserClass" required>
                                     <option value="0">Select User Class</option>
                                 </select>
 
@@ -238,23 +244,23 @@
 
                         </div>
                         <div class="col-md-12">
-							<div class="form-group">
-								<label for="comment">Summary</label>
-								<textarea class="form-control" id="summary" rows="5">
+                            <div class="form-group">
+                                <label for="comment">Summary</label>
+                                <textarea class="form-control" id="summaryAudio" rows="5">
 
 							</textarea>
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
                     </div>
                     <div class="modal-footer no-bd">
-                        <input type="submit" id="addNewEventCat" class="btn btn-primary" value="Save">
+                        <input type="submit" id="addNewAudio" class="btn btn-primary" value="Save">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
                     <center>
-                        <div class="spinner-border text-primary" role="status" id="loaderNewEventCat" style="display:none;">
+                        <div class="spinner-border text-primary" role="status" id="loaderAudio" style="display:none;">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </center>

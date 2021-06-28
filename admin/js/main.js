@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
+  //created by Rigoeffector Ninja 2021
+
 
   var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
   const urlPath = "http://localhost/madiba_panel/admin/";
 
-  let tableAllBooks, allEvents, allVideos;
+  let tableAllBooks, allEvents, allVideos, allAudios;
   // $("#all_books_table").DataTable();
   // codes to activate active link
 
@@ -117,6 +119,7 @@ $(document).ready(function () {
   const allBookIconUrl = serverUrl + "book/";
   const allEventsIconUrl = serverUrl + "events/";
   const allVideoUrl = serverUrl + "book/videos/"
+  const allAudioUrl = serverUrl + "book/audios/"
 
   $.ajax({
     type: "GET",
@@ -2181,9 +2184,9 @@ $(document).ready(function () {
             timer: 1500
           })
           $("div#addNewVideo").modal("hide");
-          // setTimeout(function () {
-          //   window.location = window.location;
-          // }, 3000);
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
         }
         else {
           Swal.fire({
@@ -2245,9 +2248,9 @@ $(document).ready(function () {
           res[r].userClassTitle,
           res[r].bookCategory,
           res[r].languages,
-          ' <video  style =" height: 100px;"src="'+ allVideoUrl +
-          res[r].video_url +'" controls>'+
-          '</video>'+
+          ' <video  style =" height: 100px;"src="' + allVideoUrl +
+          res[r].video_url + '" controls>' +
+          '</video>' +
           res[r].id,
           '<button type="button" id="deleteSingleVideo"  data-videoId= "' +
           res[r].id +
@@ -2260,13 +2263,13 @@ $(document).ready(function () {
 
     }
   });
-
+  // end read videos books 
   // delete video info 
 
 
 
-  $("table#allVideoInfo").on("click","button#deleteSingleVideo",function(){
-  
+  $("table#allVideoInfo").on("click", "button#deleteSingleVideo", function () {
+
     Swal.fire({
       title: 'Do you really want to delete this Video ?',
       showDenyButton: true,
@@ -2282,7 +2285,6 @@ $(document).ready(function () {
         var dataDelVid = {
           id: dataTodelVideo,
         };
-        
 
         console.log(dataDelVid)
         $.ajax({
@@ -2324,14 +2326,210 @@ $(document).ready(function () {
       } else if (result.isDenied) {
         Swal.fire('Video  is not deleted', '', 'info')
       }
-    })
-
-  })
+    });
+  });
 
   // end delete video info 
 
+  // create audio books 
+
+  $("form#newAudioForm").on("click", "input#addNewAudio", function (e) {
+    e.preventDefault();
+    // Get form
+    var form = $("form#newAudioForm")[0];
+    // get data
+
+    var audioFile = $("input#audioFile")[0].files[0];
+    var audioTitle = $("input#audioTitle").val();
+    var AudioAuhor = $("input#audioAuthor").val();
+    var AudioUClass = $("select#selectUserClass").val();
+    var AudioSummary = $("textarea#summaryAudio").val();
+    var AudioUCategory = $("select#selectUserCategory").val();
+    var AudioBCategory = $("select#selectBookCategory").val();
 
 
-  // end read videos books 
+    // FormData object
+    var newAudioData = new FormData(form);
+
+
+    newAudioData.append("title", audioTitle);
+    newAudioData.append("author", AudioAuhor);
+    newAudioData.append("user_classesId", AudioUClass);
+    newAudioData.append("my_audio", audioFile);
+    newAudioData.append("summary", AudioSummary);
+    newAudioData.append("user_categoryId", AudioUCategory);
+    newAudioData.append("bookCategoryId", AudioBCategory);
+
+
+    // disabled the submit button
+
+    $.ajax({
+      url: serverUrl + "book/create.audio.book.php",
+      data: newAudioData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: "POST",
+      beforeSend: function () {
+        $("div#loaderAudio").show();
+      },
+      complete: function () {
+        $("div#loaderAudio").hide();
+      },
+      success: function (data) {
+        if (!data.error) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Audio info is successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#addNewAudio").modal("hide");
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
+        }
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+
+
+
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'something went wrong try again',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
+    // Display the key/value pairs
+    for (var pair of newAudioData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+  });
+  // end create audio books 
+
+  // read audio books
+
+  allAudios = $("table#allAudioInfo").DataTable({
+    columnDefs: [{ width: 150, targets: 4 }],
+  });
+  $.ajax({
+    url: serverUrl + "book/read.audios.book.php",
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: "GET",
+    beforeSend: function () {
+      $("div#viewAudioLoader").show();
+    },
+    complete: function () {
+      $("div#viewAudioLoader").hide();
+    },
+    success: function (data) {
+      console.log('Audio Book=', data.data);
+      const res = data.data;
+      for (let r in res) {
+        allAudios.row.add([
+          res[r].title,
+          res[r].userClassTitle,
+          res[r].bookCategory,
+          res[r].languages,
+          ' <audio  style =" height: 100px;"src="' + allAudioUrl +
+          res[r].audio_url + '" controls>' +
+          '</audio>' +
+          res[r].id,
+          '<button type="button" id="deleteSingleAudio"  data-audioid= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-danger ">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>",
+        ]);
+      }
+      allAudios.draw();
+
+    }
+  });
+
+  // end read audio books 
+
+  // delete audio books 
+
+
+  $("table#allAudioInfo").on("click", "button#deleteSingleAudio", function () {
+
+    Swal.fire({
+      title: 'Do you really want to delete this Audio ?',
+      showDenyButton: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `DELETE`,
+      denyButtonText: `DON'T DELETE`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+        var dataAudioId = $(this).data("audioid");
+        var audioData = {
+          id: dataAudioId,
+        };
+
+        console.log(audioData)
+        $.ajax({
+          type: "DELETE",
+          url: serverUrl + "book/delete.audio.book.php",
+          data: JSON.stringify(audioData),
+          dataType: "JSON",
+          beforeSend: function () {
+            $("div#loaderDeleteAudio").show();
+          },
+          complete: function () {
+            $("div#loaderDeleteAudio").hide();
+          },
+          success: function (response) {
+            const res = response;
+            console.log("res", res);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Audio  is successfully delted',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            setTimeout(function () {
+              window.location = window.location;
+            }, 2000);
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'something went wrong try again',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        });
+
+      } else if (result.isDenied) {
+        Swal.fire('Audio  is not deleted', '', 'info')
+      }
+    });
+  });
+
+  // end delete audio books
+
+
 
 });
