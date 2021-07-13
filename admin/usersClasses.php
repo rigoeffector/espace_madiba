@@ -213,6 +213,7 @@
                             <div class="form-group ">
                                 <label>Title</label>
                                 <input id="userClassTitle" type="text" class="form-control" placeholder="fill title">
+                                <span id="userclassTitleValid" style="color: red; display:none;">Title shoudld not be empty</span>
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
@@ -222,6 +223,7 @@
                                         <option value="0">Select User Category</option>
 
                                     </select>
+                                    <span id="usercategoryClassValid" style="color: red;display:none;">User category shoudld not be empty</span>
                                     <label for="selectFloatingLabel" class="placeholder">User Category</label>
                                 </div>
                             </div>
@@ -231,6 +233,7 @@
                             <div class="form-group ">
                                 <label>Age Range</label>
                                 <input id="userClassAge" type="text" class="form-control" placeholder="fill age">
+                                <span id="userclassAgeRangeValid" style="color: red;display:none;">Age range shoudld not be empty</span>
                             </div>
                         </div>
 

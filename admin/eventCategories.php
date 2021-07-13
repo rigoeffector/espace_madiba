@@ -187,6 +187,7 @@
 							<div class="form-group ">
 								<label>Title</label>
 								<input id="eventCatTitle" type="text" class="form-control" placeholder="fill title">
+							    <span style="color: red; display: none;" id="eventCatTitleValid">Title should not be empty</span>
 							</div>
 						</div>
 						

@@ -228,21 +228,23 @@
 						<div class="col-sm-12">
 							<div class="form-group ">
 								<label for="inputFloatingLabel" class="placeholder">Title</label>
-								<input id="bookTitle" type="text" class="form-control input-border-bottom" required>
-
+								<input id="bookTitle"  placeholder="enter title" type="text" class="form-control input-border-bottom" required>
+                                <span style="color: red; display:none;" id="bookTitleValid">Title should not be empty</span>
 							</div>
 						</div>
 						<div class="col-md-6 pr-0">
 							<div class="form-group ">
 								<label for="inputFloatingLabel" class="placeholder">Number of Books</label>
-								<input id="bookNumbers" type="number" class="form-control input-border-bottom" required>
+								<input id="bookNumbers" type="number" placeholder="number of books" class="form-control input-border-bottom" required>
+                                <span style="color: red; display:none;" id="bookNumbersValid">Number should not be empty</span>
 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group ">
 								<label for="inputFloatingLabel" class="placeholder">Authors</label>
-								<input id="authors" type="text" class="form-control input-border-bottom" required>
+								<input id="authors" type="text" placeholder="enter author"  class="form-control input-border-bottom" required>
+                                <span style="color: red; display:none;" id="bookAuthorsValid">Author should not be empty</span>
 
 							</div>
 						</div>
@@ -250,6 +252,7 @@
 							<div class="form-group ">
 								<label for="inputFloatingLabel" class="placeholder">Icon Image</label>
 								<input id="bookIcon" type="file" class="form-control input-border-bottom" required>
+                                <span style="color: red; display:none;" id="bookIconValid">Icon should not be empty</span>
 
 							</div>
 						</div>
@@ -259,6 +262,7 @@
 								<select class="form-control input-border-bottom" id="selectUserClass" required>
 									<option value="0">Select User Class</option>
 								</select>
+                                <span style="color: red; display:none;" id="bookUserClassValid">User Class should not be empty</span>
 
 							</div>
 						</div>
@@ -268,22 +272,24 @@
 								<select class="form-control input-border-bottom" id="selectBookCategory" required>
 									<option value="0">Select Book Category</option>
 								</select>
+                                <span style="color: red; display:none;" id="bookCateValid">Category should not be empty</span>
 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group ">
 								<label for="inputFloatingLabel" class="placeholder">Languages</label>
-								<input id="bookLang" type="text" class="form-control input-border-bottom" required>
+								<input id="bookLang" type="text" placeholder="enter languages" class="form-control input-border-bottom" required>
+                                <span style="color: red; display:none;" id="bookLangValid">Langauge should not be empty</span>
 
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="comment">Summary</label>
-								<textarea class="form-control" id="summary" rows="5">
-
+								<textarea class="form-control" placeholder="describe book"  id="summary" rows="5">
 							</textarea>
+							<span style="color: red; display:none;" id="bookSummaryValid">Summary should not be empty</span>
 							</div>
 						</div>
 

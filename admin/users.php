@@ -25,34 +25,31 @@
 
 
                 <div class="col-md-12">
-                <div class="alert alert-warning" role="alert" id="warningInfoCategory" style="display: none;">
-									<p>No Data saved yet please?     <span style="
+                    <div class="alert alert-warning" role="alert" id="warningInfoCategory" style="display: none;">
+                        <p>No Data saved yet please? <span style="
                   color: #6c757d;
      font-weight: 800;
       "> click on new category button to save a new </span></p>
-								</div>
+                    </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Subscriptions Histroy</h4>
+                            <div class="d-flex align-items-left">
+                                <h4 class="card-title">Subscriptions History</h4>
+                            </div>
+                            <div class="d-flex align-items-center">
+
+                                <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addNewEvent">
+                                    <i class="fa fa-plus"></i>
+                                    New Subscription
+                                </button>
+                            </div>
 
                         </div>
                         <div class="card-body">
-                            <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-user-category-tab-nobd" data-toggle="pill" href="#pills-user-category-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true">Subscriptions</a>
-                                </li>
-                             
 
-                            </ul>
                             <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                                 <div class="tab-pane fade show active" id="pills-user-category-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                    <div class="d-flex align-items-center">
 
-                                        <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addNewEvent">
-                                            <i class="fa fa-plus"></i>
-                                            New category
-                                        </button>
-                                    </div>
 
                                     <div class="tab-pane fade show active" id="pills-user-category-nobd" role="tabpanel" aria-labelledby="pills-home-tab">
                                         <div class="row" id="all_user_categories" style="margin-top: 30px;;">
@@ -66,7 +63,7 @@
 
 
                                 </div>
-                             
+
                             </div>
                         </div>
                     </div>
@@ -125,13 +122,15 @@
                         <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Title</label>
-                                <input id="userCatTitle" type="text" class="form-control" placeholder="fill title">
+                                <input id="userCatTitle" type="text" class="form-control" placeholder="fill title" required>
+                                <span style="color: red;display:none;" id="subscriptionTitleValid">Title should not be empty</span>
                             </div>
                         </div>
                         <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Membership fees</label>
-                                <input id="userCatMembershipFees" type="number" class="form-control" placeholder="fill membership fees">
+                                <input id="userCatMembershipFees" type="number" class="form-control" placeholder="fill membership fees" required>
+                                <span style="color: red; display:none;" id="subscriptionFeesValid">Fees should not be empty</span>
                             </div>
                         </div>
 

@@ -145,6 +145,7 @@ $(document).ready(function () {
             '<div class="card-body">\n' +
             '<div class="row">\n' +
             '<div class="col-5">\n' +
+            '<div id="image_view" style="width: 150px;height: 150px;margin: 20px">\n' +
             '<div class="icon-big text-center">\n' +
             "<img src = " +
             booksCategoryIconUrl +
@@ -152,8 +153,9 @@ $(document).ready(function () {
             " style= 'height: 150px;width: 150px; margin:15px 0px;'>\n" +
             "</div>\n" +
             "</div>\n" +
+            "</div>\n" +
             '<div class="col-7 col-stats">\n' +
-            '<div class="numbers">\n' +
+            '<div class="numbers" style="margin-left:20px;">\n' +
             '<p class="card-category">' +
             res[r].title +
             "</p>\n" +
@@ -179,7 +181,7 @@ $(document).ready(function () {
             "<div class='col-md-4'>\n" +
             '<button class="btn btn-info btn-border btn-round" data-catid ="' +
             res[r].id +
-            '" id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory">Edit</button\n>' +
+            '" id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory" style="display:none;">Edit</button\n>' +
             "</div>\n" +
             "<div class='col-md-4'>\n" +
             '<button class="btn btn-danger btn-border btn-round" data-catid ="' +
@@ -561,60 +563,102 @@ $(document).ready(function () {
     var bookSummary = $("textarea#summary").val();
     console.log(iconBook);
 
-    var createBookData = new FormData(form);
-
-    createBookData.append("title", title);
-    createBookData.append("numbers", numbers);
-    createBookData.append("authors", authors);
-    createBookData.append("avatar", iconBook);
-    createBookData.append("summary", bookSummary);
-    createBookData.append("book_categoryId", bookCategory);
-    createBookData.append("user_classesId", userclasses);
-    createBookData.append("isAvailable", 1);
-    createBookData.append("language", bookLang);
-
-    $.ajax({
-      url: serverUrl + "book/create.book.php",
-      data: createBookData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      type: "POST",
-      beforeSend: function () {
-        $("div#loaderAddBook").show();
-      },
-      complete: function () {
-        $("div#loaderAddBook").hide();
-      },
-      success: function (data) {
-        if (data.error) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Book is not successfully added',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        } else {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Book is successfully added',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          $("div#addNewBook").modal("hide");
-        }
-
-        setTimeout(function () {
-          window.location.replace(urlPath + "allbooks.php");
-        }, 2000);
-      },
-    });
-    // Display the key/value pairs
-    for (var pair of createBookData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+    if (title == "") {
+      $("span#bookTitleValid").show();
+      setTimeout(function () {
+        $("span#bookTitleValid").hide();
+      }, 2000);
     }
+    if (numbers == "") {
+      $("span#bookNumbersValid").show();
+      setTimeout(function () {
+        $("span#bookNumbersValid").hide()
+      }, 2000);
+    }
+    if (authors == "") {
+      $("span#bookAuthorsValid").show();
+      setTimeout(function () {
+        $("span#bookAuthorsValid").hide();
+      }, 2000)
+    }
+    if (iconBook == "") {
+      $("span#bookIconValid").show();
+      setTimeout(function () {
+        $("span#bookIconValid").hide();
+      }, 2000)
+    }
+
+    if (bookLang == "") {
+      $("span#bookLangValid").show();
+      setTimeout(function () {
+        $("span#bookLangValid").hide();
+      }, 2000)
+    }
+    if (bookSummary == "") {
+      $("span#bookSummaryValid").show();
+      setTimeout(function () {
+        $("span#bookSummaryValid").hide();
+      }, 2000)
+    }
+
+
+    else {
+      var createBookData = new FormData(form);
+      createBookData.append("title", title);
+      createBookData.append("numbers", numbers);
+      createBookData.append("authors", authors);
+      createBookData.append("avatar", iconBook);
+      createBookData.append("summary", bookSummary);
+      createBookData.append("book_categoryId", bookCategory);
+      createBookData.append("user_classesId", userclasses);
+      createBookData.append("isAvailable", 1);
+      createBookData.append("language", bookLang);
+
+      $.ajax({
+        url: serverUrl + "book/create.book.php",
+        data: createBookData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: "POST",
+        beforeSend: function () {
+          $("div#loaderAddBook").show();
+        },
+        complete: function () {
+          $("div#loaderAddBook").hide();
+        },
+        success: function (data) {
+          if (data.error) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'Book is not successfully added',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } else {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Book is successfully added',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            $("div#addNewBook").modal("hide");
+          }
+
+          setTimeout(function () {
+            window.location.replace(urlPath + "allbooks.php");
+          }, 2000);
+        },
+      });
+      // Display the key/value pairs
+      for (var pair of createBookData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+    }
+
+
   });
   // end create new book
 
@@ -1090,6 +1134,10 @@ $(document).ready(function () {
   });
 
   // add new user category
+  $("input#userCatMembershipFees").on("input", function (e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+    return this.value;
+  })
 
   $("input#addNewUserCat").click(function (e) {
     e.preventDefault();
@@ -1097,38 +1145,62 @@ $(document).ready(function () {
     const title = $("input#userCatTitle");
     const membership = $("input#userCatMembershipFees");
 
-    const newUserCatData = {
-      title: title.val(),
-      membership_fees: membership.val(),
-    };
+    if (title.val() == '') {
+      $("span#subscriptionTitleValid").show();
+      setTimeout(function () {
+        $("span#subscriptionTitleValid").hide();
+      }, 2000);
+    }
+    if (membership.val() == '') {
+      $("span#subscriptionFeesValid").show();
+      setTimeout(function () {
+        $("span#subscriptionFeesValid").hide();
+      }, 2000);
+    } else {
+      const newUserCatData = {
+        title: title.val(),
+        membership_fees: membership.val(),
+      };
 
-    $.ajax({
-      type: "POST",
-      cache: false,
-      data: JSON.stringify(newUserCatData),
-      url: serverUrl + "/user/create.user.category.php",
-      dataType: "JSON",
-      beforeSend: function () {
-        $("div#loaderAddUserCategory").show();
-      },
-      complete: function () {
-        $("div#loaderAddUserCategory").hide();
-      },
-      success: function (response) {
-        const res = response;
-        console.log("res", res);
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'User Category is successfully added',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        setTimeout(function () {
-          window.location = window.location;
-        }, 3000);
-      },
-    });
+      $.ajax({
+        type: "POST",
+        cache: false,
+        data: JSON.stringify(newUserCatData),
+        url: serverUrl + "/user/create.user.category.php",
+        dataType: "JSON",
+        beforeSend: function () {
+          $("div#loaderAddUserCategory").show();
+        },
+        complete: function () {
+          $("div#loaderAddUserCategory").hide();
+        },
+        success: function (response) {
+          $("input#addNewUserCat").attr("disabled", true);
+          const res = response;
+          console.log("res", res);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'User Category is successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
+        }, error: function (xhr, ajaxOptions, thrownError) {
+          $("input#addNewUserCat").attr("disabled", false);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'danger',
+            title: 'something went wrong try again',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      });
+    }
+
   });
 
   // end add new user category
@@ -1203,7 +1275,7 @@ $(document).ready(function () {
           console.log("res", res);
           $("form#updateUserCategoryForm").html(
             '<div class="row">\n' +
-            '<input id="userCatId" value="' +
+            '<input id="userCatIdUpdates" value="' +
             res.id +
             '" type="text" class="form-control" placeholder="fill title" hidden>\n' +
             '<div class="col-md-6 pr-0">\n' +
@@ -1238,6 +1310,8 @@ $(document).ready(function () {
     }
   );
 
+
+  // update user subscription 
   $("form#updateUserCategoryForm").on(
     "click",
     "input#UpdNewUserCat",
@@ -1245,7 +1319,7 @@ $(document).ready(function () {
       e.preventDefault();
       const title = $("input#UpduserCatTitle").val();
       const mmship = $("input#UpduserCatMembershipFees").val();
-      const id = $("input#userCatId").val();
+      const id = $("input#userCatIdUpdates").val();
 
       const dataUpd = {
         id: id,
@@ -1319,7 +1393,7 @@ $(document).ready(function () {
             '<h3 class="fw-bold op-8">' +
             res[u].membership_fees +
             " RWF</h3>\n" +
-            
+
             "</div>\n" +
             '<button type="button" class="btn btn-icon btn-round btn-danger" data-classid= "' +
             res[u].id +
@@ -1350,76 +1424,78 @@ $(document).ready(function () {
 
   // update user class 
 
-$("div#all_user_classes").on("click","button#update_user_class",function(e){
-  e.preventDefault();
-  const userClassIdLoader = $(this).data('classid');
+  $("div#all_user_classes").on("click", "button#update_user_class", function (e) {
+    e.preventDefault();
+    const userClassIdLoader = $(this).data('classid');
 
-  $.ajax({
-    type: "GET",
-    url: serverUrl + "/user/read.user.category.php",
-    dataType: "JSON",
-    success: function (response) {
-      const res = response.data;
-      console.log("user classes selected", res);
-      for (let r in res) {
-        $("#selectUserCategory").append(
-          '<option value="' + res[r].id + '">' + res[r].title + "</option>"
-        );
+
+
+    $.ajax({
+      type: "POST",
+      cache: false,
+      url: serverUrl + "user/read.user.class.php",
+      dataType: "JSON",
+      beforeSend: function () {
+        $("div#loaderSingleUserClass").show();
+      },
+      complete: function () {
+        $("div#loaderSingleUserClass").hide();
+      },
+      success: function (response) {
+
+        console.log("Single user class=", response.data);
+
+        $("form#updateUserClass").html('<div class="row">\n' +
+          '<div class="col-md-6 pr-0">\n' +
+          '<div class="form-group ">\n' +
+          '<label>Title</label>\n' +
+          '<input id="userUpClassTitle" type="text" class="form-control" placeholder="fill title" value="' + response.data[0].classe_title + '">\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '<div class="col-md-6 pr-0">\n' +
+          '<div class="form-group ">\n' +
+          '<div class="form-group form-floating-label">\n' +
+          '<select class="form-control " id="selectUserCategoryUpdate" required style="margin-top: 23px;">\n' +
+          '<option value="0">Select User Category</option>\n' +
+          '</select>\n' +
+          '<label for="selectFloatingLabel" class="placeholder">User Category</label>\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '<div class="col-md-12 pr-0">\n' +
+          '<div class="form-group ">\n' +
+          '<label>Age Range</label>\n' +
+          '<input id="userUpClassAge" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].age_range + '">\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '<div class="modal-footer no-bd">\n' +
+          '<input type="submit" id="updateUserClassButton" class="btn btn-primary" value="Save">\n' +
+          '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
+          '</div>\n' +
+          '<center>\n' +
+          '<div class="spinner-border text-primary" role="status" id="loaderUpdateUserClass" style="display: none;">\n' +
+          '<span class="sr-only">Loading...</span>\n' +
+          '</div>\n' +
+          '</center>');
+        $.ajax({
+          type: "GET",
+          url: serverUrl + "/user/read.user.category.php",
+          dataType: "JSON",
+          success: function (response) {
+            const res = response.data;
+            console.log("user classes selected", res);
+            for (let r in res) {
+              $("form#updateUserClass", "select#selectUserCategoryUpdate").append(
+                '<option value="' + res[r].id + '">' + res[r].title + "</option>"
+              );
+            }
+          },
+        });
       }
-    },
+    });
   });
-  
-  $.ajax({
-    type: "POST",
-    cache: false,
-    url: serverUrl + "user/read.user.class.php",
-    dataType: "JSON",
-    beforeSend: function () {
-      $("div#loaderSingleUserClass").show();
-    },
-    complete: function () {
-      $("div#loaderSingleUserClass").hide();
-    },
-    success: function (response) {
-      console.log("Single user class=",response.data);
 
-  $("form#updateUserClass").html('<div class="row">\n'+
-  '<div class="col-md-6 pr-0">\n'+
-       '<div class="form-group ">\n'+
-           '<label>Title</label>\n'+
-           '<input id="userUpClassTitle" type="text" class="form-control" placeholder="fill title" value="'+response.data[0].classe_title+'">\n'+
-       '</div>\n'+
-   '</div>\n'+
-   '<div class="col-md-6 pr-0">\n'+
-       '<div class="form-group ">\n'+
-           '<div class="form-group form-floating-label">\n'+
-               '<select class="form-control " id="selectUserCategory" required style="margin-top: 23px;">\n'+
-                   '<option value="0">Select User Category</option>\n'+
-               '</select>\n'+
-               '<label for="selectFloatingLabel" class="placeholder">User Category</label>\n'+
-          '</div>\n'+
-      '</div>\n'+
-   '</div>\n'+
-   '<div class="col-md-12 pr-0">\n'+
-       '<div class="form-group ">\n'+
-          '<label>Age Range</label>\n'+
-           '<input id="userUpClassAge" type="text" class="form-control" placeholder="fill age" value="'+response.data[0].age_range+'">\n'+
-       '</div>\n'+
-   '</div>\n'+
- '</div>\n'+
- '<div class="modal-footer no-bd">\n'+
-   '<input type="submit" id="updateUserClassButton" class="btn btn-primary" value="Save">\n'+
-   '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n'+
- '</div>\n'+
- '<center>\n'+
-   '<div class="spinner-border text-primary" role="status" id="loaderUpdateUserClass" style="display: none;">\n'+
-       '<span class="sr-only">Loading...</span>\n'+
-   '</div>\n'+
- '</center>');
-    }
-  });
-});
- 
   // end update user class 
 
   // delete user class
@@ -1491,12 +1567,26 @@ $("div#all_user_classes").on("click","button#update_user_class",function(e){
   });
 
   $("select#selectUserCategory").on("input", function () {
-    console.log($(this).val())
-    return $(this).val();
+    console.log($(this).val());
+    if ($(this).val() !== '0') {
+      return $(this).val();
+    }
+    else {
+      $("span#usercategoryClassValid").show();
+      setTimeout(function () {
+        $("span#usercategoryClassValid").hide();
+      }, 2000);
+    }
+
   })
 
 
   // add new user class 
+  $("input#userClassAge").on("input", function (value) {
+    this.value = this.value.replace(/[^0-9\-\+]/g, '');
+    console.log(this.value);
+    return this.value;
+  });
   $("form#newUserClassForm").on(
     "click",
     "input#addNewUserClassButton",
@@ -1506,40 +1596,82 @@ $("div#all_user_classes").on("click","button#update_user_class",function(e){
       const userCat = $("select#selectUserCategory");
       const age = $("input#userClassAge");
 
-      const dataNewClass = {
-        title: title.val(),
-        user_categoryId: userCat.val(),
-        age_range: age.val(),
-      };
+      // validations js 
 
-      $.ajax({
-        type: "POST",
-        url: serverUrl + "user/create.user.class.php",
-        dataType: "JSON",
-        data: JSON.stringify(dataNewClass),
-        cache: false,
-        beforeSend: function () {
-          $("div#loaderAddUserClass").show();
-        },
-        complete: function () {
-          $("div#loaderAddUserClass").show();
-        },
-        success: function (response) {
-          const res = response;
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'User Class is successfully added',
-            showConfirmButton: false,
-            timer: 1500
-          })
+      if (title.val() == '') {
+        $("span#userclassTitleValid").show();
+        setTimeout(function () {
+          $("span#userclassTitleValid").hide();
+        }, 2000);
+      }
+      if (age.val() == '') {
+        $("span#userclassAgeRangeValid").show();
+        setTimeout(function () {
+          $("span#userclassAgeRangeValid").hide();
+        }, 2000);
+      }
 
-          setTimeout(function () {
-            window.location = window.location;
-          }, 3000);
 
-        },
-      });
+      // end of validations 
+
+      if (title.val() !== '' && age.val() !== '') {
+
+        $("input#addNewUserClassButton").attr("disabled", false);
+
+        const dataNewClass = {
+          title: title.val(),
+          user_categoryId: userCat.val(),
+          age_range: age.val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: serverUrl + "user/create.user.class.php",
+          dataType: "JSON",
+          data: JSON.stringify(dataNewClass),
+          cache: false,
+          beforeSend: function () {
+            $("div#loaderAddUserClass").show();
+
+          },
+          complete: function () {
+            $("div#loaderAddUserClass").show();
+
+          },
+          success: function (response) {
+            $("input#addNewUserClassButton").attr("disabled", true);
+            const res = response;
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'User Class is successfully added',
+              showConfirmButton: false,
+              timer: 1500
+            })
+
+            setTimeout(function () {
+              window.location = window.location;
+            }, 2000);
+
+          }, error: function (xhr, ajaxOptions, thrownError) {
+            $("input#addNewUserClassButton").attr("disabled", false);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'danger',
+              title: 'something went wrong try again',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        });
+      } else {
+        $("input#addNewUserClassButton").attr("disabled", true);
+        setTimeout(function () {
+          $("input#addNewUserClassButton").attr("disabled", false);
+        }, 2000);
+      }
+
+
     }
   );
 
@@ -1695,37 +1827,62 @@ $("div#all_user_classes").on("click","button#update_user_class",function(e){
 
 
   // create event category 
+
+
   $("input#addNewEventCat").click(function (e) {
     e.preventDefault();
     const evCatTitle = $("input#eventCatTitle").val();
-    const d = {
-      title: evCatTitle
+    if (evCatTitle == "") {
+      $("span#eventCatTitleValid").show();
+      $("input#addNewEventCat").attr("disabled", true);
+      setTimeout(function () {
+        $("span#eventCatTitleValid").hide();
+        $("input#addNewEventCat").attr("disabled", false);
+      }, 2000);
     }
-    $.ajax({
-      url: serverUrl + "events/create.event.category.php",
-      data: JSON.stringify(d),
-      type: "POST",
-      beforeSend: function () {
-        $("div#loaderNewEventCat").show();
-      },
-      complete: function () {
-        $("div#loaderNewEventCat").hide();
-      },
-      success: function () {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Event category is successfully added',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        $("div#addNewEventCat").modal("hide");
-        // swal.close();
-        setTimeout(function () {
-          window.location = window.location;
-        }, 3000);
-      },
-    });
+
+    else {
+      const d = {
+        title: evCatTitle
+      }
+      $.ajax({
+        url: serverUrl + "events/create.event.category.php",
+        data: JSON.stringify(d),
+        type: "POST",
+        beforeSend: function () {
+          $("div#loaderNewEventCat").show();
+        },
+        complete: function () {
+          $("div#loaderNewEventCat").hide();
+        },
+        success: function () {
+          $("input#addNewEventCat").attr("disabled", true);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Event category is successfully added',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#addNewEventCat").modal("hide");
+          // swal.close();
+          setTimeout(function () {
+            window.location = window.location;
+          }, 3000);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          $("input#addNewEventCat").attr("disabled", false);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'danger',
+            title: 'something went wrong try again',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      });
+    }
+
 
   });
 
