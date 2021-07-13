@@ -91,7 +91,7 @@ class UserCategory
 
         // execute the query 
         if ($stmt->execute()) {
-            error_log("Success", $this->title, 0);
+            
             return true;
         }
         // print error if something goes bad 
@@ -144,7 +144,7 @@ class UserCategory
             echo json_encode(
                 array('message' => 'Delete user category  Failed ')
             );
-            error_log("Delete category Error", 0);
+          
         }
     }
 }

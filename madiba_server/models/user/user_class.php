@@ -75,7 +75,7 @@ class UserClasses
 
         $this->title = $row['title'];
         $this->membership_fees = $row['membership_fees'];
-        $created_time = $row['created_time'];
+        
     }
 
     public function create()
@@ -102,7 +102,7 @@ class UserClasses
 
         // execute the query 
         if ($stmt->execute()) {
-            error_log("Success", $this->title, 0);
+       
             return true;
         }
         // print error if something goes bad 
@@ -161,7 +161,7 @@ class UserClasses
             echo json_encode(
                 array('message' => 'Delete user class  Failed ')
             );
-            error_log("Delete class Error", 0);
+           
         }
     }
 }

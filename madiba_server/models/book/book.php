@@ -267,7 +267,7 @@ class BookInformation
             echo json_encode(
                 array('message' => 'Delete user category  Failed ')
             );
-            error_log("Delete category Error", 0);
+        
         }
     }
 
@@ -284,7 +284,7 @@ class BookInformation
             echo json_encode(
                 array('message' => 'Delete video  Failed ')
             );
-            error_log("Delete category Error", 0);
+       
         }
     }
 
@@ -300,7 +300,7 @@ class BookInformation
             echo json_encode(
                 array('message' => 'Delete audio  Failed ')
             );
-            error_log("Delete category Error", 0);
+         
         }
     }
 }

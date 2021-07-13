@@ -46,7 +46,7 @@ else{
             "message"=>"Id is not Match"
         )
         );
-    error_log("Error:$%Id does not match .\n",0);
+   
     return;
 }
 ?>

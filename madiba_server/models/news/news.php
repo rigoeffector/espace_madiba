@@ -92,7 +92,7 @@ class NewsFeed
             echo json_encode(
                 array('message' => 'Delete user class  Failed ')
             );
-            error_log("Delete class Error", 0);
+            
         }
     }
 }

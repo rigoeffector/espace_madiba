@@ -22,6 +22,7 @@ $(document).ready(function () {
   const videoBooks = paths + "videobooks.php";
   const eventCats = paths + "eventCategories.php";
   const settings = paths + "settings.php";
+  const reports = paths + "reports.php";
 
   if (window.location.pathname === home) {
     $("li#home").attr("id", "activated");
@@ -55,6 +56,8 @@ $(document).ready(function () {
   }
   if (window.location.pathname === settings) {
     $("li#settings").attr("id", "activated");
+  } if (window.location.pathname === reports) {
+    $("li#reports").attr("id", "activated");
   }
 
 
@@ -1301,7 +1304,7 @@ $(document).ready(function () {
         for (let u in res) {
           $("div#all_user_classes").append(
             '<div class="col-md-4">\n' +
-            '<div class="card card-dark bg-secondary2">\n' +
+            '<div class="card card-light bg-success text-white">\n' +
             '<div class="card-body curves-shadow" id="user_class_card">\n' +
             "<h1>" +
             res[u].classe_title +
@@ -1316,11 +1319,17 @@ $(document).ready(function () {
             '<h3 class="fw-bold op-8">' +
             res[u].membership_fees +
             " RWF</h3>\n" +
+            
             "</div>\n" +
             '<button type="button" class="btn btn-icon btn-round btn-danger" data-classid= "' +
             res[u].id +
             '" id="delete_user_class">\n' +
             '<i class="fa fa-trash"></i>\n' +
+            "</button>\n" +
+            '<button type="button" class="btn btn-icon btn-round btn-success"   data-toggle="modal" data-target="#editUserClass" data-classid= "' +
+            res[u].id +
+            '" id="update_user_class">\n' +
+            '<i class="fa fa-pen"></i>\n' +
             "</button>\n" +
             "</div>\n" +
             '<center><br/><div class="spinner-border text-info" role="status" id="loaderDeleteUserCat" style="display:none;">\n' +
@@ -1338,6 +1347,80 @@ $(document).ready(function () {
     },
   });
   // end get user classes
+
+  // update user class 
+
+$("div#all_user_classes").on("click","button#update_user_class",function(e){
+  e.preventDefault();
+  const userClassIdLoader = $(this).data('classid');
+
+  $.ajax({
+    type: "GET",
+    url: serverUrl + "/user/read.user.category.php",
+    dataType: "JSON",
+    success: function (response) {
+      const res = response.data;
+      console.log("user classes selected", res);
+      for (let r in res) {
+        $("#selectUserCategory").append(
+          '<option value="' + res[r].id + '">' + res[r].title + "</option>"
+        );
+      }
+    },
+  });
+  
+  $.ajax({
+    type: "POST",
+    cache: false,
+    url: serverUrl + "user/read.user.class.php",
+    dataType: "JSON",
+    beforeSend: function () {
+      $("div#loaderSingleUserClass").show();
+    },
+    complete: function () {
+      $("div#loaderSingleUserClass").hide();
+    },
+    success: function (response) {
+      console.log("Single user class=",response.data);
+
+  $("form#updateUserClass").html('<div class="row">\n'+
+  '<div class="col-md-6 pr-0">\n'+
+       '<div class="form-group ">\n'+
+           '<label>Title</label>\n'+
+           '<input id="userUpClassTitle" type="text" class="form-control" placeholder="fill title" value="'+response.data[0].classe_title+'">\n'+
+       '</div>\n'+
+   '</div>\n'+
+   '<div class="col-md-6 pr-0">\n'+
+       '<div class="form-group ">\n'+
+           '<div class="form-group form-floating-label">\n'+
+               '<select class="form-control " id="selectUserCategory" required style="margin-top: 23px;">\n'+
+                   '<option value="0">Select User Category</option>\n'+
+               '</select>\n'+
+               '<label for="selectFloatingLabel" class="placeholder">User Category</label>\n'+
+          '</div>\n'+
+      '</div>\n'+
+   '</div>\n'+
+   '<div class="col-md-12 pr-0">\n'+
+       '<div class="form-group ">\n'+
+          '<label>Age Range</label>\n'+
+           '<input id="userUpClassAge" type="text" class="form-control" placeholder="fill age" value="'+response.data[0].age_range+'">\n'+
+       '</div>\n'+
+   '</div>\n'+
+ '</div>\n'+
+ '<div class="modal-footer no-bd">\n'+
+   '<input type="submit" id="updateUserClassButton" class="btn btn-primary" value="Save">\n'+
+   '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n'+
+ '</div>\n'+
+ '<center>\n'+
+   '<div class="spinner-border text-primary" role="status" id="loaderUpdateUserClass" style="display: none;">\n'+
+       '<span class="sr-only">Loading...</span>\n'+
+   '</div>\n'+
+ '</center>');
+    }
+  });
+});
+ 
+  // end update user class 
 
   // delete user class
 

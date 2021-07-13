@@ -92,7 +92,7 @@ class BookCategory
         $this->created_time = $row['created_time'];
     }
 
-    public function create()
+    public function checkBeforecreate()
     {
         // Deprecated to other files 
     }
@@ -133,7 +133,7 @@ class BookCategory
             echo json_encode(
                 array('message' => 'Delete user category  Failed ')
             );
-            error_log("Delete category Error", 0);
+            
         }
     }
 }

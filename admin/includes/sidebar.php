@@ -76,7 +76,7 @@
 
 					</a>
 				</li>
-				<li class="nav-item news" id="news">
+				<li class="nav-item news" id="news" style="display: none;">
 					<a href="news.php">
 						<i class="flaticon-present"></i>
 						<p>News Feed</p>
@@ -84,8 +84,8 @@
 					</a>
 				</li>
 				
-				<li class="nav-item news" id="news">
-					<a href="news.php">
+				<li class="nav-item news" id="reports" style="display: none;">
+					<a href="reports.php">
 						<i class="flaticon-envelope"></i>
 						<p>Reports</p>
 

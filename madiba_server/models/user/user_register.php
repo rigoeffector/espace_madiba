@@ -104,7 +104,7 @@ class UserRegister
             echo json_encode(
                 array('message' => 'Delete user category  Failed ')
             );
-            error_log("Delete USER Error", 0);
+            
         }
     }
 }

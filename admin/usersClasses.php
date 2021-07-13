@@ -25,12 +25,12 @@
 
 
                 <div class="col-md-12">
-                <div class="alert alert-warning" role="alert" id="warningInfoClassCategory" style="display: none;">
-									<p>No Data saved yet please?  make sure you have saved user category before you   <span style="
+                    <div class="alert alert-warning" role="alert" id="warningInfoClassCategory" style="display: none;">
+                        <p>No Data saved yet please? make sure you have saved user category before you <span style="
                   color: #6c757d;
      font-weight: 800;
       "> click on new class button to add new class</span></p>
-								</div>
+                    </div>
 
                     <div class="card">
                         <div class="card-header">
@@ -49,11 +49,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="pills-user-category-tab-nobd" data-toggle="pill" href="#pills-user-class-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="true">User Classes</a>
                                 </li>
-                             
+
 
                             </ul>
                             <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-                  
+
                                 <div class="tab-pane fade show active" id="pills-user-class-nobd" role="tabpanel" aria-labelledby="pills-profile-tab-nobd">
                                     <div class="d-flex align-items-center">
 
@@ -244,6 +244,40 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </center>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal update user class -->
+<div class="modal fade" id="editUserClass" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header no-bd">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold">
+                        Update</span>
+                    <span class="fw-light">
+                        User Class
+                    </span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="small">Update User Class</p>
+                <center>
+                    <div class="spinner-border text-primary" role="status" id="loaderSingleUserClass" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </center>
+                <form id="updateUserClass">
+
                 </form>
             </div>
 

@@ -68,7 +68,7 @@ class EventsCategory
         $stmt->bindParam(":title", $this->title);
         // execute the query 
         if ($stmt->execute()) {
-            error_log("Success", $this->title, 0);
+           
             return true;
         }
         // print error if something goes bad 
@@ -112,7 +112,7 @@ class EventsCategory
             echo json_encode(
                 array('message' => 'Delete event category  Failed ')
             );
-            error_log("Delete class Error", 0);
+           
         }
     }
 }

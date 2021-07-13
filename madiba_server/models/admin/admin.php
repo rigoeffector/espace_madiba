@@ -52,7 +52,7 @@ class Login {
            return;
         }
         else{
-            error_log("Failed to fetch user",0);
+          
         }
     }
 
