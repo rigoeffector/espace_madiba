@@ -25,7 +25,6 @@ $user_category->id = $data->id;
 
 $user_category->title = $data->title;
 $user_category->membership_fees = $data->membership_fees;
-$user_category->description = $data->description;
 
 
 if ($user_category->update()) {

@@ -30,9 +30,15 @@
 										<div class="col-md-8">
 											<h4>Admin Profile Information</h4>
 											<div class="col-md-12">
+<<<<<<< HEAD
 												<!-- <div class="avatar-xl">
 													<img src="<?php echo  $_SESSION['admin']; ?>" alt="..." class="avatar-img rounded-circle">
 												</div> -->
+=======
+												<div class="avatar-xl">
+													<img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+												</div>
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 											</div>
 
 											<ul>

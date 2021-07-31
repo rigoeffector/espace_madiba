@@ -63,8 +63,11 @@
 															<div class="form-group ">
 																<label>title</label>
 																<input id="evTitle" type="text" class="form-control" placeholder="fill title">
+<<<<<<< HEAD
 																<span id="title_event_valid" style="color:red; display:none;">Title could not be empty</span>
 															
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6 pr-0">
@@ -73,8 +76,11 @@
 																<select class="form-control" id="evCategory">
 																	<option value="0">Select Category</option>
 																</select>
+<<<<<<< HEAD
 																<span id="cat_event_valid" style="color:red; display:none;">Category could not be empty</span>
 
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 
 															</div>
 														</div>
@@ -82,24 +88,33 @@
 															<div class="form-group ">
 																<label>location</label>
 																<input id="eveLocation" type="text" class="form-control" placeholder="fill location">
+<<<<<<< HEAD
 																<span id="loc_event_valid" style="color:red; display:none;">location Place could not be empty</span>
 															
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6 pr-0">
 															<div class="form-group ">
 																<label>Time</label>
 																<input id="evTime" type="text" class="form-control" placeholder="fill time">
+<<<<<<< HEAD
 																<span id="time_event_valid" style="color:red; display:none;">Time could not be empty</span>
 															
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group ">
 																<label>Date</label>
 																<input id="eveDate" type="date" class="form-control" placeholder="fill date">
+<<<<<<< HEAD
 																<span id="desc_event_valid" style="color:red; display:none;">Date could not be empty</span>
 
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6 pr-0">
@@ -118,31 +133,43 @@
 															<div class="form-group ">
 																<label>Price</label>
 																<input id="evePrice" type="number" class="form-control" placeholder="fill price">
+<<<<<<< HEAD
 																<span id="price_event_valid" style="color:red; display:none;">Price could not be empty</span>
 															
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group ">
 																<label>Available Places</label>
 																<input id="eveAvailable_places" type="number" class="form-control" placeholder="fill places">
+<<<<<<< HEAD
 																<span id="avplc_event_valid" style="color:red; display:none;">Available Places could not be empty</span>
 															
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group ">
 																<label>Caption Image</label>
 																<input id="evIcon" type="file" class="form-control" placeholder="fill places">
+<<<<<<< HEAD
 																<span id="caption_event_valid" style="color:red; display:none;">Image could not be empty</span>
 
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group ">
 																<label>Description</label>
 																<textarea name="" id="evdescription" cols="40" rows="10"></textarea>
+<<<<<<< HEAD
 																<span id="desc_event_valid" style="color:red; display:none;">Description could not be empty</span>
+=======
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 															</div>
 														</div>
 													</div>

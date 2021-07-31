@@ -1,6 +1,6 @@
 <?php
 
-use JetBrains\PhpStorm\Deprecated;
+
 
 class BookCategory
 {

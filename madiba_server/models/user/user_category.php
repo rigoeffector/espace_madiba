@@ -1,5 +1,4 @@
 <?php
-
 class UserCategory
 {
     // DB STUFF HERE 
@@ -127,8 +126,13 @@ class UserCategory
         $query = 'UPDATE ' . $this->table . ' 
         SET  
         title =:title,
+<<<<<<< HEAD
         membership_fees =:membership_fees,
         description =:description
+=======
+        membership_fees =:membership_fees
+           
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
          WHERE 
             id=:id';
         $stmt = $this->conn->prepare($query);

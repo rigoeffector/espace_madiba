@@ -1487,7 +1487,6 @@ $(document).ready(function () {
           '<div class="col-md-6 pr-0">\n' +
           '<div class="form-group ">\n' +
           '<div class="form-group form-floating-label">\n' +
-
           '<select class="form-control " id="selectUserCategoryUpdate" required style="margin-top: 23px;">\n' +
           '<option value="0">Select User Category</option>\n' +
           '</select>\n' +

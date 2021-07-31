@@ -275,7 +275,11 @@
 									<li>
 										<div class="dropdown-divider"></div>
 
+<<<<<<< HEAD
 										<a class="dropdown-item" href="settings.php">Account Setting</a>
+=======
+										<a class="dropdown-item" href="#">Account Setting</a>
+>>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="logout.php">Logout</a>
 									</li>

@@ -107,7 +107,6 @@ class Events
         $stmt->bindParam(":title", $this->title);
         // execute the query 
         if ($stmt->execute()) {
-
             return true;
         }
         // print error if something goes bad 
