@@ -30,7 +30,7 @@ $num = $result->rowCount();
 
 if ($num > 0) {
     $login_user_arr = array();
-    $login_user_arr['books'] = array();
+    $login_user_arr['user'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
@@ -45,31 +45,26 @@ if ($num > 0) {
             "image" => $image,
             "isMembershipPaid" => $isMembershipPaid,
             "userclass" => $userclass,
+            "userCatId"=>$userCatId,
             "usercategory"=>$usercategory,
             "age_range"=>$age_range,
             "membership_fees" => $membership_fees,
-            "bid" => $bid,
-            "booktitle" => $booktitle,
-            "numbers" => $numbers,
-            "authors" => $authors,
-            "image" => $image,
-            "summary" => $summary,
-            "languages" => $languages,
-            "isAvailable" => $isAvailable,
-           
-
+          
         );
 
-        // Push to array  
-        
-
-        array_push($login_user_arr['books'], $login_user_item);
-
-        // turn it to json mode 
-
-
     }
-    echo json_encode($login_user_arr);
+    array_push($login_user_arr['user'], $login_user_item);
+    $response = array(
+        "status" => "success",
+        "error" => false, "success" => true,
+        "message" => "user fetched successfully",
+        "data" => $login_user_item
+        
+    );
+    echo json_encode(
+        $response
+    );
+ 
 } else {
     $response = array(
         "status" => "error",

@@ -76,7 +76,14 @@
 
 					</a>
 				</li>
-				<li class="nav-item news" id="news" style="display: none;">
+				<li class="nav-item news" id="sliders">
+					<a href="sliders.php">
+						<i class="flaticon-user"></i>
+						<p>Mobile Sliders</p>
+
+					</a>
+				</li>
+				<li class="nav-item news" id="news" >
 					<a href="news.php">
 						<i class="flaticon-present"></i>
 						<p>News Feed</p>
@@ -84,16 +91,15 @@
 					</a>
 				</li>
 				
-				<li class="nav-item news" id="reports" style="display: none;">
+				<li class="nav-item news" id="reports">
 					<a href="reports.php">
 						<i class="flaticon-envelope"></i>
-						<p>Reports</p>
-
+						<p>Borrowed Books</p>
 					</a>
 				</li>
 				<li class="nav-item news" id="settings">
 					<a href="settings.php">
-						<i class="flaticon-user"></i>
+						<i class="flaticon-settings"></i>
 						<p>Settings</p>
 
 					</a>

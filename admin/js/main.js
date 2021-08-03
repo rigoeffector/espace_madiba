@@ -1,13 +1,67 @@
 $(document).ready(function () {
 
   //created by Rigoeffector Ninja 2021
+  $('#all_books_table').DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+      {
+        extend: 'pdf',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      },
+      {
+        extend: 'csv',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
 
+      },
+      {
+        extend: 'excel',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      }
+    ]
+  });
+
+  $("table#all_books_table_history").DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+      {
+        extend: 'pdf',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7]
+        }
+      },
+      {
+        extend: 'csv',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7]
+        }
+
+      },
+      {
+        extend: 'excel',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7]
+        }
+      }
+    ]
+  });
 
   var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
   const urlPath = "http://localhost/madiba_panel/admin/";
 
-  let tableAllBooks, allEvents, allVideos, allAudios;
-  // $("#all_books_table").DataTable();
+  let allEvents, allVideos, allAudios, allNews;
+
   // codes to activate active link
 
   const paths = "/madiba_panel/admin/";
@@ -23,6 +77,7 @@ $(document).ready(function () {
   const eventCats = paths + "eventCategories.php";
   const settings = paths + "settings.php";
   const reports = paths + "reports.php";
+  const sliders = paths + "sliders.php";
 
   if (window.location.pathname === home) {
     $("li#home").attr("id", "activated");
@@ -58,6 +113,8 @@ $(document).ready(function () {
     $("li#settings").attr("id", "activated");
   } if (window.location.pathname === reports) {
     $("li#reports").attr("id", "activated");
+  } if (window.location.pathname === sliders) {
+    $("li#sliders").attr("id", "activated");
   }
 
 
@@ -111,7 +168,7 @@ $(document).ready(function () {
           res[r].age_range +
           " ]" +
           "[ " +
-          res[r].user_category_title +
+          res[r].userCategory +
           "]" +
           "</option>"
         );
@@ -127,8 +184,11 @@ $(document).ready(function () {
   const booksCategoryIconUrl = serverUrl + "book/";
   const allBookIconUrl = serverUrl + "book/";
   const allEventsIconUrl = serverUrl + "events/";
-  const allVideoUrl = serverUrl + "book/videos/"
-  const allAudioUrl = serverUrl + "book/audios/"
+  const allVideoUrl = serverUrl + "book/videos/";
+  const allAudioUrl = serverUrl + "book/audios/";
+  const allNewsUrl = serverUrl + "news/";
+  const allSliderUrl = serverUrl + "slider/slider/";
+
 
   $.ajax({
     type: "GET",
@@ -150,9 +210,9 @@ $(document).ready(function () {
             '<img class="card-img-top" style="height: 200px;" src="' + booksCategoryIconUrl + res[r].icon_image + '" alt="Card image cap">\n' +
             '<div class="card-body">\n' +
             '<h3 class="card-title">' + res[r].title + '</h3>\n' +
-            '<p class="card-text">'+ res[r].number_of_books + ' Books</p>\n' +
-            '<p class="card-text" >'+ res[r].userCategory + ' Category</p>\n' +
-            '<p class="card-text" >'+ res[r].languages +' Books</p>\n' +
+            '<p class="card-text">' + res[r].number_of_books + ' Books</p>\n' +
+            '<p class="card-text" >' + res[r].userCategory + ' Category</p>\n' +
+            '<p class="card-text" >' + res[r].languages + ' Books</p>\n' +
             '<p class="card-text">  ' + res[r].userClass + ' [ ' +
             res[r].age_range + '] ages</p>\n' +
 
@@ -163,7 +223,7 @@ $(document).ready(function () {
             '" id="book_category_cardDelete">Delete</Button>\n' +
             '</div>\n' +
             '<div class="col-md-4">\n' +
-            '<a href="view.books.categories.php?id='+res[r].id +'" class="btn btn-primary" data-catid ="' +
+            '<a href="view.books.categories.php?id=' + res[r].id + '" class="btn btn-primary" data-catid ="' +
             res[r].id +
             '" id="book_category_cardDelete">View </a>\n' +
             '</div>\n' +
@@ -649,7 +709,7 @@ $(document).ready(function () {
 
   $("div#books_catgeory ").on("click", "a#book_category_card", function () {
     const idToViewBook = $(this).data("catidview");
-   
+
     localStorage.setItem("idToViewBookByCategory", idToViewBook);
   });
 
@@ -661,7 +721,7 @@ $(document).ready(function () {
   var cid = url.searchParams.get("id");
 
   $.ajax({
-    url: serverUrl + "book/read.book.by.category.php?id=" +cid ,
+    url: serverUrl + "book/read.book.by.category.php?id=" + cid,
     cache: false,
     contentType: false,
     processData: false,
@@ -677,11 +737,11 @@ $(document).ready(function () {
       console.log("book by category", data);
       for (let r in res) {
         switch (res[r].thisBookIsAvailable) {
-          case 1:
-            retuavailabilityBook = "Available";
+          case "1":
+            availabilityBook = "Available";
             break;
-          case 0:
-            availabilityBook = "Not Available";
+          case "0":
+            availabilityBook = "Not Available or borrowed";
             break;
           default:
             availabilityBook = "Available";
@@ -725,9 +785,7 @@ $(document).ready(function () {
   // read all books
 
   var availabilityBook;
-  tableAllBooks = $("#all_books_table").DataTable({
-    columnDefs: [{ width: 150, targets: 8 }],
-  });
+  $("#all_books_table").DataTable();
   $.ajax({
     type: "GET",
     url: serverUrl + "book/read.books.php",
@@ -743,17 +801,17 @@ $(document).ready(function () {
 
       for (let r in res) {
         switch (res[r].thisBookIsAvailable) {
-          case 1:
-            retuavailabilityBook = "Available";
+          case "1":
+            availabilityBook = "Available";
             break;
-          case 0:
-            availabilityBook = "Not Available";
+          case "0":
+            availabilityBook = "Not Available or borrowed";
             break;
           default:
             availabilityBook = "Available";
         }
-        console.log("all books classes", res);
-        tableAllBooks.row.add([
+        console.log("all books info", res);
+        $("#all_books_table").DataTable().row.add([
           '<div class="avatar ">\n' +
           '<img src="' +
           allBookIconUrl +
@@ -762,6 +820,7 @@ $(document).ready(function () {
           "</div>\n",
           res[r].title,
           res[r].numbers,
+          res[r].taken_book,
           res[r].authors,
           res[r].languages,
           res[r].book_category,
@@ -781,14 +840,218 @@ $(document).ready(function () {
           res[r].id +
           '" class="btn btn-icon btn-round btn-danger ">\n' +
           '<i class="fa fa-trash"></i>\n' +
+          '</button>\n' +
+          '<button type="button" id="updatebookStatus"  data-bookId= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-success"  data-toggle="modal" data-target="#exampleModal">\n' +
+          '<i class="fa fa-pen"></i>\n' +
           "</button>",
         ]);
       }
-      tableAllBooks.draw();
+      $("#all_books_table").DataTable().draw();
     },
   });
 
+
+
+  $.ajax({
+    type: "GET",
+    url: serverUrl + "book/read.borrowed.books.php",
+    dataType: "JSON",
+    beforeSend: function () {
+      $("div#loaderAllBooks").show();
+    },
+    complete: function () {
+      $("div#loaderAllBooks").hide();
+    },
+    success: function (response) {
+      const res = response.data;
+      console.log("Borrowed nbooks", res);
+      for (let r in res) {
+        console.log("all books info", res);
+        $("table#all_books_table_history").DataTable().row.add([
+          '<div class="avatar ">\n' +
+          '<img src="' +
+          allBookIconUrl +
+          res[r].bookIcon +
+          '" alt="..." class="avatar-img rounded-circle">\n' +
+          "</div>\n",
+          res[r].fname + " " + res[r].lname,
+          res[r].address,
+          res[r].phone,
+          res[r].userClassTitle,
+          res[r].bookTitle,
+          res[r].bookAuthor,
+          res[r].bookStatus,
+          '<button type="button"  data-bookId = "' +
+          res[r].id +
+          '"  id="viewBookDetailBorrowed" class="btn btn-icon btn-round btn-primary" data-toggle="modal" data-target="#showDetailBorrowed">\n' +
+          '<i class="fa fa-eye"></i>\n' +
+          "</button>"
+        ]);
+      }
+      $("table#all_books_table_history").DataTable().draw();
+    },
+  });
+
+
+
+  $("table#all_books_table_history").on("click", "button#viewBookDetailBorrowed", function (e) {
+    console.log($(this).data('bookid'));
+
+    $.ajax({
+      type: "GET",
+      url: serverUrl + "book/read.borrow.book.php?id=" + $(this).data('bookid'),
+      beforeSend: function () {
+        $("div#loaderSingleDetailBorrow").show();
+      },
+      complete: function () {
+        $("div#loaderSingleDetailBorrow").hide();
+      },
+      success: function (response) {
+        console.log("Single info", response);
+        $("div#singleInfoDetail").html('<img src="' +
+          allBookIconUrl +
+          response.data.bookIcon +
+          '" alt="..." class="avatar-img rounded">\n' +
+          "</div>\n" +
+          '<ul class="list-group"><h4>User information</h4>\n' +
+          '<h6>First Name: ' + response.data.fname + '</h6>\n' +
+          '<h6>Last  Name: ' + response.data.lname + '</h6>\n' +
+          '<h6>Email: ' + response.data.email + '</h6>\n' +
+          '<h6>Address: ' + response.data.address + '</h6>\n' +
+          '<h6>User Class: ' + response.data.userClassTitle + '</h6>\n' +
+          '<h6>Age range: ' + response.data.userClassAge + '</h6></li>\n' +
+          '<h4>Book information</h4>\n' +
+          '<h6>Book Title: ' + response.data.bookTitle + '</h6>\n' +
+          '<h6>Book Author: ' + response.data.bookAuthor + '</h6>\n' +
+          '<h6>Book Catgeory: ' + response.data.bookCategorTitle + '</h6>\n' +
+          '<h6>Book Summary: ' + response.data.bookSummary + '</h6>\n' +
+          '<h6>Number of Borrowed books: ' + response.data.number_of_book_borrowed + '</h6>\n' +
+          '<h6>Borrowed time: ' + response.data.createdTime + '</h6>\n' +
+          '<h6>Return time: ' + response.data.return_date + '</h6>\n' +
+          ' <span class="badge badge-warning" style="    height: 45px;width: 100px;line-height: 40px;">' + response.data.bookStatus + '</span></li>\n' +
+          '</ul>');
+      }
+    });
+
+
+
+  });
   // end read all books
+
+  // update book status from client 
+
+  $("#all_books_table").on("click", "button#updatebookStatus", function (e) {
+    e.preventDefault();
+    console.log($(this).data('bookid'));
+    $("input#bookIdNow").val($(this).data('bookid'));
+    $("input#searchPhonetxt").val("");
+    $("div#userPhoneNumber").hide();
+    $("div#responseToUpdate").hide();
+  });
+
+
+
+
+
+  $("div#updateBookSform").on("click", "button#searchCustomer", function (e) {
+    e.preventDefault();
+
+    var phoneUser = $("input#searchPhonetxt").val();
+    var numberOfBookBoroowed = $("input#booksBorrowedNm");
+    if (phoneUser !== "") {
+      console.log(phoneUser);
+      $.ajax({
+        type: "GET",
+        url: serverUrl + "/user/search.user.by.phoneoremail.php?phone=" + phoneUser,
+        dataType: "JSON",
+        beforeSend: function () {
+          $("div#loadupdateBSloader").show();
+        },
+        complete: function () {
+          $("div#loadupdateBSloader").hide();
+        },
+        success: function (response) {
+          console.log("Registered users=", response);
+          $("div#responseToUpdate").html("<h3><b>User Information</b></h3><p>Address: " + response.fname + "</p>\n" +
+            "<p>Address: " + response.address + "</p>\n" +
+            "<p>Address: " + response.phone + "</p>\n" +
+            '<input id="userSearchedID"  value =' + response.id + ' hidden=true type="text" class="form-control" placeholder="Enter phone number">'
+          );
+          $("div#responseToUpdate").show();
+          $("div#userPhoneNumber").show();
+        }
+      });
+    }
+    else {
+      $("div#responseToUpdate").hide();
+      $("span#userphoneValidSh").show();
+      setTimeout(function () {
+        $("span#userphoneValidSh").hide();
+      }, 2000);
+    }
+  });
+
+  $("input#searchPhonetxt").on("input", function (e) {
+    if ($(this).val() == "") {
+      $("div#responseToUpdate").hide();
+    }
+  });
+
+
+  $("input#updateBookSTS").click(function (e) {
+    e.preventDefault();
+    console.log('sawaa');
+
+    const userID = $("input#userSearchedID").val();
+    const bookId = $("input#bookIdNow").val();
+    const dataReady = {
+      userId: userID,
+      bookId: bookId,
+      status: "1"
+    }
+    $.ajax({
+      type: "POST",
+      url: serverUrl + "book/update.borrow.info.php",
+      dataType: "JSON",
+      data: JSON.stringify(dataReady),
+      beforeSend: function () {
+        $("div#loadupdateBSloader").show();
+      },
+      complete: function () {
+        $("div#loadupdateBSloader").hide();
+      },
+      success: function (response) {
+        $("div#exampleModal").modal("hide");
+        console.log("Message", response);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: response.message,
+          showConfirmButton: false,
+          timer: 3000
+        });
+        setTimeout(function () {
+          window.location = window.location;
+        }, 3000);
+      }
+    });
+
+
+  })
+
+
+
+  // SAVE STATUS FOR BOOOK 
+
+  // input#userSearchedID
+
+
+
+
+
+
 
   //delete single book 
 
@@ -2637,7 +2900,7 @@ $(document).ready(function () {
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'Video  is successfully delted',
+              title: 'Video  is successfully deleted',
               showConfirmButton: false,
               timer: 1500
             })
@@ -2779,15 +3042,12 @@ $(document).ready(function () {
           res[r].userClassTitle,
           res[r].bookCategory,
           res[r].languages,
-          ' <audio  style =" height: 100px;"src="' + allAudioUrl +
-          res[r].audio_url + '" controls>' +
-          '</audio>' +
-          res[r].id,
+          ' <audio  style =" height: 100px;"src="' + allAudioUrl + res[r].audio_url + '" controls></audio>',
           '<button type="button" id="deleteSingleAudio"  data-audioid= "' +
           res[r].id +
           '" class="btn btn-icon btn-round btn-danger ">\n' +
           '<i class="fa fa-trash"></i>\n' +
-          "</button>",
+          "</button>"
         ]);
       }
       allAudios.draw();
@@ -2861,8 +3121,281 @@ $(document).ready(function () {
     });
   });
 
-  // end delete audio books
 
+  // news information 
+
+  $.ajax({
+    url: serverUrl + "news/read.news.php",
+    type: "GET",
+    beforeSend: function () {
+      $("div#loaderdeNewsPOST").show();
+    },
+    complete: function () {
+      $("div#loaderdeNewsPOST").hide();
+    },
+    success: function (data) {
+      const res = data.data;
+      console.log('News INFO=', data.data);
+      for (let r in res) {
+        $("#allNewInfo").DataTable().row.add([
+          '<div class="avatar ">\n' +
+          '<img src="' +
+          allNewsUrl +
+          res[r].image +
+          '" alt="..." class="avatar-img rounded-circle">\n' +
+          "</div>\n",
+          res[r].title,
+          res[r].summary,
+          '<button type="button" id="deleteNewPost"  data-postid= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-danger ">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>",
+        ]);
+      }
+      $("#allNewInfo").DataTable().draw();
+
+    }
+  });
+
+  // create news 
+
+
+  $("form#newPost").on("click", "input#addNewsInfo", function (e) {
+    e.preventDefault();
+    console.log("hello");
+
+    // Get form
+    var form = $("form#newPost")[0];
+    // get data
+    var icon = $("input#newsCaption")[0].files[0];
+    var newTitle = $("input#newsTtile").val();
+    var newDesc = $("textarea#newsDescription").val();
+
+    // FormData object
+    var newPostData = new FormData(form);
+    newPostData.append("title", newTitle);
+    newPostData.append("summary", newDesc);
+    newPostData.append("avatar", icon);
+
+    $.ajax({
+      url: serverUrl + "news/create.news.php",
+      data: newPostData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: "POST",
+      beforeSend: function () {
+        $("div#loaderNews").show();
+      },
+      complete: function () {
+        $("div#loaderNews").hide();
+      },
+      success: function (data) {
+        if (!data.error) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: "Post is Created Successfully",
+            showConfirmButton: false,
+            timer: 1500
+          })
+          $("div#addNewCategory").modal("hide");
+          setTimeout(function () {
+            window.location = window.location;
+          }, 2000);
+        }
+        else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: "Something went wrong, make sure you uploaded a file",
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'something went wrong try again',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    });
+    // Display the key/value pairs
+    for (var pair of newPostData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+  });
+
+  // delete new post 
+
+
+  $("#allNewInfo").on("click", "button#deleteNewPost", function (e) {
+    const newId = $(this).data('postid');
+    console.log(newId);
+    Swal.fire({
+      title: 'Do you really want to delete this post?',
+      showDenyButton: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `DELETE`,
+      denyButtonText: `DON'T DELETE`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var postDele = {
+          id: newId,
+        };
+        $.ajax({
+          type: "POST",
+          url: serverUrl + "news/delete.php",
+          data: JSON.stringify(postDele),
+          dataType: "JSON",
+          beforeSend: function () {
+            $("div#loaderDelete").show();
+          },
+          complete: function () {
+            $("div#loaderDelete").hide();
+          },
+          success: function (response) {
+            const res = response;
+            console.log("res", res);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Post is successfully deleted',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            setTimeout(function () {
+              window.location = window.location;
+            }, 2000);
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'something went wrong try again',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        });
+      }
+      else if (result.isDenied) {
+        Swal.fire('Post is not deleted', '', 'info')
+      }
+    });
+
+  });
+
+
+  // READ SLIDERS INFO 
+
+  $.ajax({
+    type: "GET",
+    url: serverUrl + "slider/read.sliders.php",
+    dataType: "JSON",
+    beforeSend: function () {
+      $("div#loaderSlider").show();
+    },
+    complete: function () {
+      $("div#loaderSlider").hide();
+    },
+    success: function (response) {
+      const res = response.data;
+      console.log("SLIDERS", res);
+      for (let r in res) {
+        $("#all_sliders-info").DataTable().row.add([
+          '<div class="avatar ">\n' +
+          '<img src="' +
+          allSliderUrl +
+          res[r].image +
+          '" alt="..." class="avatar-img rounded-circle">\n' +
+          "</div>\n",
+          res[r].title,
+          res[r].caption,
+          res[r].description,
+          '<button type="button" id="deleteSlider"  data-sliderId= "' +
+          res[r].id +
+          '" class="btn btn-icon btn-round btn-danger ">\n' +
+          '<i class="fa fa-trash"></i>\n' +
+          "</button>",
+        ]);
+      }
+      $("#all_sliders-info").DataTable().draw();
+
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      console.log(xhr)
+    }
+  });
+
+  // delete a slider 
+  $("#all_sliders-info").on("click","button#deleteSlider", function (e) {
+    const sliderId = $(this).data('sliderid');
+    console.log('eeeee')
+
+    Swal.fire({
+      title: 'Do you really want to delete this slider?',
+      showDenyButton: true,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `DELETE`,
+      denyButtonText: `DON'T DELETE`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        var sliderDel = {
+          id: sliderId,
+        };
+        $.ajax({
+          type: "POST",
+          url: serverUrl + "slider/delete.slider.php",
+          data: JSON.stringify(sliderDel),
+          dataType: "JSON",
+          beforeSend: function () {
+            $("div#loaderDelete").show();
+          },
+          complete: function () {
+            $("div#loaderDelete").hide();
+          },
+          success: function (response) {
+            const res = response;
+            console.log("res", res);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Slider is successfully deleted',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            setTimeout(function () {
+              window.location = window.location;
+            }, 2000);
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'error',
+              title: 'something went wrong try again',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        });
+      }
+      else if (result.isDenied) {
+        Swal.fire('slider is not deleted', '', 'info')
+      }
+    });
+
+  });
 
 
 });
+  // end delete audio books

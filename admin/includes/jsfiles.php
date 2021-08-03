@@ -1,6 +1,7 @@
 </div>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="../assets/js/plugin/datatables/jquery-3.5.1.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <!-- jQuery UI -->
@@ -11,9 +12,16 @@
 <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <!-- Datatables -->
 <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="../assets/js/plugin/datatables/jquery.dataTables.min.js"></script>
 <!-- Atlantis JS -->
 <script src="../assets/js/atlantis.min.js"></script>
 <script src="../assets/js/sweet.js"></script>
+<script src="../assets/js/plugin/datatables/dataTables.buttons.min.js"></script>
+<script src="../assets/js/plugin/datatables/jszip.min.js"></script>
+<script src="../assets/js/plugin/datatables/pdfmake.min.js"></script>
+<script src="../assets/js/plugin/datatables/vfs_fonts.js"></script>
+<script src="../assets/js/plugin/datatables/buttons.html5.min.js"></script>
+<script src="../assets/js/plugin/datatables/buttons.print.min.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -107,8 +115,15 @@
 <!-- Atlantis DEMO methods, don't include it in your project! -->
 <script src="../assets/js/setting-demo.js"></script>
 <script src="../assets/js/demo.js"></script>
+<script src="../assets/js/plugin/datatables/dataTables.buttons.min.js"></script>
+<script src="../assets/js/plugin/datatables/jszip.min.js"></script>
+<script src="../assets/js/plugin/datatables/pdfmake.min.js"></script>
+<script src="../assets/js/plugin/datatables/vfs_fonts.js"></script>
+<script src="../assets/js/plugin/datatables/buttons.html5.min.js"></script>
+<script src="../assets/js/plugin/datatables/buttons.print.min.js"></script>
 
 <script>
+	
 	$('#lineChart').sparkline([102, 109, 120, 99, 110, 105, 115], {
 		type: 'line',
 		height: '70',
@@ -140,8 +155,6 @@
 <!-- Sweet Alert -->
 <script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 <script>
-
-
 	//== Class Initialization
 	jQuery(document).ready(function() {
 		SweetAlert2Demo.init();

@@ -7,7 +7,7 @@ $connection = null;
 try {
     $db_server   = "mysql:dbname=madiba; host=localhost";
     $user_name   = "root";
-    $password    = "123456789";
+    $password    = "";
 
     $connection = new PDO($db_server, $user_name, $password);
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

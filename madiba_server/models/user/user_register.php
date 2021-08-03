@@ -20,6 +20,12 @@ class UserRegister
     public $password;
     public $isMembershipPaid;
     public $user_classesId;
+    public $userId;
+    public $amount;
+    public $status;
+    public $suscriptionId;
+    public $transaction_id;
+    public $somedata;
 
     // initialize a constructor to map with connection 
 
@@ -104,7 +110,133 @@ class UserRegister
             echo json_encode(
                 array('message' => 'Delete user category  Failed ')
             );
-            
         }
+    }
+
+    public function updatePaymnentStatus($phone)
+    {
+        $query = "UPDATE   $this->table 
+        SET isMembershipPaid=1 
+         WHERE phone = $phone";
+        $stmt = $this->conn->prepare($query);
+        if ($stmt->execute()) {
+
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => 'paymnent update  Failed ')
+            );
+        }
+    }
+    public function readHistory()
+    {
+        $query = "SELECT p.id,p.amount,p.suscriptionId,p.transaction_id,p.created_time,
+        uc.title as userCategoryTitle,
+        uc.membership_fees as suscriptionFees,
+        uc.Description as subscriptionDescription,
+        r.fname, r.lname,r.address,r.phone,r.isMembershipPaid,r.added_by
+        FROM payment_history p  LEFT JOIN registartion_users r 
+        ON p.phone = r.phone
+        LEFT JOIN user_category uc
+        ON P.suscriptionId = uc.id";
+        $stmt = $this->conn->prepare($query);
+        if ($stmt->execute()) {
+
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => 'paymnent history  is  Failed to fecth ')
+            );
+        }
+    }
+
+    public function addChild()
+    {
+
+        //  DUPLICATED
+
+    }
+
+    public function paymentHistory($phone, $amount, $suscriptionId,  $status, $transaction_id)
+    {
+        $query = "INSERT INTO payment_history(
+            `amount`, `suscriptionId`, `status`, `transaction_id`, `phone`)
+             VALUES(
+             :amount,
+             :suscriptionId,
+             :status,
+             :transaction_id,
+             :phone
+             )";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":amount", $amount);
+        $stmt->bindParam(":suscriptionId", $suscriptionId);
+        $stmt->bindParam(":status", $status);
+        $stmt->bindParam(":transaction_id", $transaction_id);
+        $stmt->bindParam(":phone", $phone);
+
+        if ($stmt->execute()) {
+            //  var_dump($stmt);
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => 'paymnent history  is  Failed to fecth ')
+            );
+        }
+    }
+
+    public function searchPeopleByPhone($phone)
+    {
+        include "../../config/Config.php";
+        $check = "SELECT * FROM registartion_users 
+        WHERE phone LIKE '%$phone%'";
+        $rowcount = null;
+
+
+        if ($result = mysqli_query($connect, $check)) {
+            $rowcount = mysqli_num_rows($result);
+            mysqli_free_result($result);
+        }
+
+        if ($rowcount > 0) {
+            $query = "SELECT * FROM registartion_users 
+            WHERE phone LIKE '%$phone%'";
+            
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+         
+            $this->id = $row['id'];
+            $this->fname = $row['fname'];
+            $this->lname = $row['lname'];
+            $this->address = $row['address'];
+            $this->phone = $row['phone'];
+
+
+            // extract as jsons 
+            $response = array(
+              
+                "id" => $row['id'],
+                "fname" => $row['fname'],
+                "lname" => $row['lname'],
+                "phone"=>$row['phone'],
+                "address"=>$row['address'],
+                "message" => "User Found"
+            );
+            echo  json_encode(
+                $response
+            );
+        }
+        else  {
+
+            $response = array(
+                "message" => "No id  Found"
+            );
+            echo  json_encode(
+                $response 
+            );
+        } 
     }
 }

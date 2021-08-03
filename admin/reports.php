@@ -16,10 +16,7 @@
                         <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
                         <h5 class="text-white op-7 mb-2">Espace Madiba Panel</h5>
                     </div>
-                    <div class="ml-md-auto py-2 py-md-0">
-                        <a href="#" class="btn btn-white btn-border btn-round mr-2">Add New Event</a>
-                        <a href="#" class="btn btn-secondary btn-round">Add New Book</a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -34,24 +31,53 @@
                         <div class="card-body">
                             <div>
                                 <h2 class="text-black pb-2 fw-bold">Espace madiba</h2>
-                                <h5 class="text-black op-7 mb-2">Reports</h5>
+                                <h5 class="text-black op-7 mb-2">Borrowed Books Report</h5>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="container">
-                                <div class="collapse"  style="display: block;">
-                                    <form class="navbar-left navbar-form nav-search mr-md-12" style="display: block; margin-bottom: 50px;">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <button type="submit" class="btn btn-search pr-1">
-                                                    <i class="fa fa-search search-icon"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" placeholder="Search any document ..." class="form-control">
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </form>
+                            <center>
+                                    <div class="spinner-border text-primary" role="status" id="loaderAllBooks" style="display: none;">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </center>
+                                <div class="collapse" style="display: block;">
+                                    <div class="table-responsive">
+                                        <table id="all_books_table_history" class="display nowrapr" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Book Profile</th>
+                                                    <th>Names</th>
+                                                    <th>Address</th>
+                                                    <th>Phone</th>                                            
+                                                    <th>Client Class</th>
+                                                    <th>Book Title</th>
+                                                    <th>Author</th>
+                                                    <th>Book Status</th>
+                                                    <th>Detail</th>
+                                              
+
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                <th>Book Profile</th>
+                                                <th>Names</th>
+                                                    <th>Address</th>
+                                                    <th>Phone</th>                                            
+                                                    <th>Client Class</th>
+                                                    <th>Book Title</th>
+                                                    <th>Author</th>
+                                                    <th>Book Status</th>
+                                                    <th>Detail</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -81,3 +107,39 @@
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="../assets/js/setting-demo2.js"></script>
     <script src="js/main.js"></script>
+    <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="../assets/js/plugin/datatables/dataTables.buttons.min.js"></script>
+    <script src="../assets/js/plugin/datatables/jszip.min.js"></script>
+    <script src="../assets/js/plugin/datatables/pdfmake.min.js"></script>
+    <script src="../assets/js/plugin/datatables/vfs_fonts.js"></script>
+    <script src="../assets/js/plugin/datatables/buttons.html5.min.js"></script>
+    <script src="../assets/js/plugin/datatables/buttons.print.min.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="showDetailBorrowed" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header no-bd">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold">
+                        Borrowed Book</span>
+                    <span class="fw-light">
+                        Detail
+                    </span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="singleInfoDetail">
+                <center>
+                    <div class="spinner-border text-primary" role="status" id="loaderSingleDetailBorrow" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </center>
+              
+            </div>
+        </div>
+    </div>
+</div>
+</div>

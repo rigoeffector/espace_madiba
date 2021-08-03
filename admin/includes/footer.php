@@ -27,4 +27,11 @@
 	   <!-- Main JS-->
 	   
 	   <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+	   <script src="../assets/js/plugin/datatables/dataTables.buttons.min.js"></script>
+	   <script src="../assets/js/plugin/datatables/jszip.min.js"></script>
+	   <script src="../assets/js/plugin/datatables/pdfmake.min.js"></script>
+	   <script src="../assets/js/plugin/datatables/vfs_fonts.js"></script>
+	   <script src="../assets/js/plugin/datatables/buttons.html5.min.js"></script>
+	   <script src="../assets/js/plugin/datatables/buttons.print.min.js"></script>
+	   
 	   <script src="../assets/js/sweet.js"></script>

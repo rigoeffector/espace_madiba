@@ -17,8 +17,8 @@
 						<h5 class="text-white op-7 mb-2">Espace Madiba Panel</h5>
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
-						
-						<a href="#" class="btn btn-secondary btn-round"data-toggle="modal" data-target="#addNewEventCat">New Category</a>
+
+						<a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addNewEventCat">Post </a>
 					</div>
 				</div>
 			</div>
@@ -31,42 +31,35 @@
 						<div class="card">
 							<div class="card-header">
 								<div class="d-flex align-items-center">
-									<h4 class="card-title">Events Categories History</h4>
-									
+									<h4 class="card-title">News History</h4>
+
 								</div>
 							</div>
 							<div class="card-body">
+
+								<center>
+									<div class="spinner-border text-primary" role="status" id="loaderdeNewsPOST" style="display: none;">
+										<span class="sr-only">Loading...</span>
+									</div>
+								</center>
+						
 							
-								<center>
-									<div class="spinner-border text-primary" role="status" id="loaderdelEventsCats" style="display: none;">
-										<span class="sr-only">Loading...</span>
-									</div>
-								</center>
-								<center>
-									<div class="spinner-border text-primary" role="status" id="loaderdelEventsCats" style="display: none;">
-										<span class="sr-only">Loading...</span>
-									</div>
-								</center>
-								<div class="alert alert-warning" role="alert" id="warningInfoEventsCat" style="display:none;">
-									<p>No Data saved yet please?  make sure you have saved event category before you   <span style="
-                  color: #6c757d;
-     font-weight: 800;
-      "> click on new  button to add new event</span></p>
-								</div>
 								<div class="table-responsive">
-									<table id="allEventsCats" class="display table table-striped table-hover">
+									<table id="allNewInfo" class="display table table-striped table-hover">
 										<thead>
 											<tr>
-									
+
+												<th>Caption</th>
 												<th>title</th>
-											
+												<th>Summary</th>
 												<th style="width: 20%">Action</th>
 											</tr>
 										</thead>
 										<tfoot>
 											<tr>
+												<th>Caption</th>
 												<th>title</th>
-											
+												<th>Summary</th>
 												<th style="width: 20%">Action</th>
 											</tr>
 										</tfoot>
@@ -107,53 +100,6 @@
 <!-- Atlantis DEMO methods, don't include it in your project! -->
 <script src="../assets/js/setting-demo2.js"></script>
 <script src="js/main.js"></script>
-<script>
-	$(document).ready(function() {
-		$('#basic-datatables').DataTable({});
-
-		$('#multi-filter-select').DataTable({
-			"pageLength": 5,
-			initComplete: function() {
-				this.api().columns().every(function() {
-					var column = this;
-					var select = $('<select class="form-control"><option value=""></option></select>')
-						.appendTo($(column.footer()).empty())
-						.on('change', function() {
-							var val = $.fn.dataTable.util.escapeRegex(
-								$(this).val()
-							);
-
-							column
-								.search(val ? '^' + val + '$' : '', true, false)
-								.draw();
-						});
-
-					column.data().unique().sort().each(function(d, j) {
-						select.append('<option value="' + d + '">' + d + '</option>')
-					});
-				});
-			}
-		});
-
-		// Add Row
-		// $('#allEvents').DataTable({
-		// 	"pageLength": 5,
-		// });
-
-		// var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-		// $('#addRowButton').click(function() {
-		// 	$('#allEvents').dataTable().fnAddData([
-		// 		$("#addName").val(),
-		// 		$("#addPosition").val(),
-		// 		$("#addOffice").val(),
-		// 		action
-		// 		]);
-		// 	$('#addRowModal').modal('hide');
-
-		// });
-	});
-</script>
 </body>
 
 </html>
@@ -172,7 +118,7 @@
 					<span class="fw-mediumbold">
 						New</span>
 					<span class="fw-light">
-						Event Category
+						Post
 					</span>
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -180,25 +126,37 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p class="small">Create new event category</p>
-				<form id="newUserCategoryForm">
+				<p class="small">Create new post</p>
+				<form id="newPost">
 					<div class="row">
 						<div class="col-md-12 pr-0">
 							<div class="form-group ">
 								<label>Title</label>
-								<input id="eventCatTitle" type="text" class="form-control" placeholder="fill title">
+								<input id="newsTtile" type="text" class="form-control" placeholder="fill title">
 							</div>
 						</div>
-						
+						<div class="col-md-12 pr-0">
+                            <div class="form-group ">
+                                <label>Caption</label>
+                                <input id="newsCaption" type="file" class="form-control" placeholder="fill author">
+                            </div>
+                        </div>
+						<div class="col-md-12 pr-0">
+							<div class="form-group">
+								<label for="exampleFormControlTextarea1">Description</label>
+								<textarea class="form-control" id="newsDescription" rows="3"></textarea>
+							</div>
+						</div>
+
 
 					</div>
 					<div class="modal-footer no-bd">
-						<input type="submit" id="addNewEventCat" class="btn btn-primary" value="Save">
+						<input type="submit" id="addNewsInfo" class="btn btn-primary" value="Save">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 
 					<center>
-						<div class="spinner-border text-primary" role="status" id="loaderNewEventCat" style="display:none;">
+						<div class="spinner-border text-primary" role="status" id="loaderNews" style="display:none;">
 							<span class="sr-only">Loading...</span>
 						</div>
 					</center>
@@ -236,4 +194,3 @@
 		</div>
 	</div>
 </div>
-

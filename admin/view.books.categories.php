@@ -16,7 +16,7 @@
                         <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
                         <h5 class="text-white op-7 mb-2">Espace Madiba Panel/All Books</h5>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Modal -->
-                             
+
 
                                 <center>
                                     <div class="spinner-border text-primary" role="status" id="loaderAllBooks" style="display: none;">
@@ -59,7 +59,7 @@
                                                 <th>Category</th>
                                                 <th>Class/Age</th>
                                                 <th>Availability</th>
-                                       
+
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -140,25 +140,13 @@
             }
         });
 
-        // // Add Row
-        // $('#all_books_table').DataTable({
-        //     "pageLength": 5,
-        // });
+    
 
 
 
         var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
-        $('#addRowButton').click(function() {
-            $('#all_books_table').dataTable().fnAddData([
-                $("#addName").val(),
-                $("#addPosition").val(),
-                $("#addOffice").val(),
-                action
-            ]);
-            $('#addRowModal').modal('hide');
-
-        });
+   
     });
 </script>
 </body>

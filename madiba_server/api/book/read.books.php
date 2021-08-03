@@ -36,6 +36,7 @@ if ($num > 0) {
             "id" => $id,
             "title" => $title,
             "numbers" => $numbers,
+            "taken_book" => $taken_book,
             "authors" => $authors	,
             "image" => $image	,
             "summary" => $summary	,
@@ -43,8 +44,8 @@ if ($num > 0) {
             "book_category" => $book_category	,
             "number_of_books" => $number_of_books	,
             "thisBookIsAvailable" => $thisBookIsAvailable	,
-            "user_class" => $user_class	,
-            "age_range" => $age_range	,
+            "user_class" => $user_class,
+            "age_range" => $age_range,
         );
 
         // Push to array  

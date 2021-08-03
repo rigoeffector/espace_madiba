@@ -36,6 +36,8 @@
 	<link rel="stylesheet" href="../assets/css/demo.css">
 	<link rel="stylesheet" href="../assets/css/styled.css">
 	<link rel="stylesheet" href="./bootstrap-4.1/bootstrap.css">
+	<link rel="stylesheet" href="../assets/js/plugin/datatables/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="../assets/js/plugin/datatables/buttons.dataTables.min.css">
 	<style>
 		a {
 			text-decoration: none;
@@ -275,11 +277,7 @@
 									<li>
 										<div class="dropdown-divider"></div>
 
-<<<<<<< HEAD
 										<a class="dropdown-item" href="settings.php">Account Setting</a>
-=======
-										<a class="dropdown-item" href="#">Account Setting</a>
->>>>>>> cf8e0a435c02108f0b5560f98956594a047cfaa9
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="logout.php">Logout</a>
 									</li>

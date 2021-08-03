@@ -170,7 +170,7 @@ class Events
                 $this->remainPlaces = $row["available_places"];
             }
         } else {
-            echo "0 results";
+            // echo "0 results";
         }
         if ($this->remainPlaces > 0 &&  !((int)$this->remainPlaces < (int)$requestedDays)) {
             $query = 'INSERT INTO event_history (userId, eventId, place_booked)
@@ -214,7 +214,7 @@ class Events
                 $this->remainPlaces = $row["available_places"];
             }
         } else {
-            echo "0 results";
+            // echo "0 results";
         }
         $remainPlaces = $this->remainPlaces - $requested;
 
@@ -223,7 +223,7 @@ class Events
                available_places=:available_places
                      WHERE id=$id";
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $this->eveavailable_placestId = htmlspecialchars(strip_tags($this->available_places));
+        $this->available_placestId = htmlspecialchars(strip_tags($this->available_places));
         $stmt = $this->conn->prepare($db_query);
         $stmt->bindParam(":available_places", $remainPlaces);
         if ($stmt->execute()) {

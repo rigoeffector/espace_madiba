@@ -119,7 +119,7 @@ class EventsCategory
             return true;
         }
         // print error if something goes bad 
-        print_r("Error:%s.\n", $stmt->error);
+        // print_r("Error:%s.\n", $stmt->error);
         return false;
     }
 

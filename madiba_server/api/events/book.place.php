@@ -29,7 +29,7 @@ if ($book_places->bookPlace($data->eventId,$data->place_booked)) {
         "status" => "success",
         "error" => false,
          "success" => true,
-        "message" => "Book event is booked successfully"
+        "message" => "Event is booked successfully"
     );
     echo json_encode(
         $response

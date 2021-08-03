@@ -99,12 +99,13 @@
                                 </center>
 
                                 <div class="table-responsive">
-                                    <table id="all_books_table" class="display table table-striped table-hover">
+                                    <table id="all_books_table"  class="display nowrapr" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Icon</th>
                                                 <th>Title</th>
-                                                <th>Numbers</th>
+                                                <th>Availble</th>
+                                                <th>Taken</th>
                                                 <th>Authors</th>
                                                 <th>Languages</th>
                                                 <th>Category</th>
@@ -117,7 +118,8 @@
                                             <tr>
                                                 <th>Icon</th>
                                                 <th>Title</th>
-                                                <th>Numbers</th>
+                                                <th>Availble</th>
+                                                <th>Taken</th>
                                                 <th>Authors</th>
                                                 <th>Languages</th>
                                                 <th>Category</th>
@@ -129,6 +131,7 @@
 
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
@@ -163,55 +166,15 @@
 <!-- Atlantis DEMO methods, don't include it in your project! -->
 <script src="../assets/js/setting-demo2.js"></script>
 <script src="js/main.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#basic-datatables').DataTable({});
-
-        $('#multi-filter-select').DataTable({
-            "pageLength": 5,
-            initComplete: function() {
-                this.api().columns().every(function() {
-                    var column = this;
-                    var select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-
-                    column.data().unique().sort().each(function(d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
-            }
-        });
-
-        // // Add Row
-        // $('#all_books_table').DataTable({
-        //     "pageLength": 5,
-        // });
+<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+<script src="../assets/js/plugin/datatables/dataTables.buttons.min.js"></script>
+<script src="../assets/js/plugin/datatables/jszip.min.js"></script>
+<script src="../assets/js/plugin/datatables/pdfmake.min.js"></script>
+<script src="../assets/js/plugin/datatables/vfs_fonts.js"></script>
+<script src="../assets/js/plugin/datatables/buttons.html5.min.js"></script>
+<script src="../assets/js/plugin/datatables/buttons.print.min.js"></script>
 
 
-
-        var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $('#addRowButton').click(function() {
-            $('#all_books_table').dataTable().fnAddData([
-                $("#addName").val(),
-                $("#addPosition").val(),
-                $("#addOffice").val(),
-                action
-            ]);
-            $('#addRowModal').modal('hide');
-
-        });
-    });
-</script>
 </body>
 
 </html>
@@ -377,6 +340,83 @@
 
         </div>
     </div>
+</div>
 
+<!-- ends update single book  -->
 
-    <!-- ends update single book  -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header no-bd">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold">
+                        Update</span>
+                    <span class="fw-light">
+                        Book returned
+                    </span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="updateBookSform">
+                <center>
+                    <div class="spinner-border text-primary" role="status" id="updateBSloader" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </center>
+                <div class="row">
+
+                    <div class="col-md-12 pr-0">
+                        <div class="row">
+                            <div class="col-md-8 pr-0">
+                                <div class="form-group ">
+                                    <label>Search people by phone...</label>
+                                    <input id="searchPhonetxt" type="text" class="form-control" placeholder="Enter phone number">
+                                    <span id="userphoneValidSh" style="color:red; display:none;">Enter user phone number please</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pr-0">
+                                <div class="form-group ">
+                                    <button type="button" id="searchCustomer" style="margin-top: 30px;" class="btn btn-icon btn-round btn-primary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input id="bookIdNow" type="text" class="form-control" hidden readonly>
+
+                    </div>
+                    <div class="col-md-12 pr-0" id="userPhoneNumber" style=" display:none;">
+                        <div class="form-group ">
+                            <label> Number of book returned</label>
+                            <input id="booksBorrowedNm" type="number" class="form-control" placeholder=" number">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12 pr-0">
+                        <hr>
+
+                        <div class="col-md-12 pr-0" id="responseToUpdate">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 pr-0">
+                        <div class="form-group ">
+                            <input id="updateBookSTS" class="btn btn-primary" type="submit" value="save changes">
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <div class="spinner-border text-primary" role="status" id="loadupdateBSloader" style="display:none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

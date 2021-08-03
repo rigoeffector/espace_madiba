@@ -22,7 +22,6 @@ $data = json_decode(file_get_contents("php://input"));
 $user_category->id = $data->id;
 //  prepare data to be sent 
 
-
 $user_category->title = $data->title;
 $user_category->membership_fees = $data->membership_fees;
 

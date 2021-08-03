@@ -82,7 +82,7 @@ class NewsFeed
 
     public function delete()
     {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id ';
+        $query = "DELETE FROM  $this->table  WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(":id", $this->id);
@@ -90,7 +90,7 @@ class NewsFeed
             return $stmt;
         } else {
             echo json_encode(
-                array('message' => 'Delete user class  Failed ')
+                array('message' => 'Delete a post  Failed ')
             );
             
         }
