@@ -3,10 +3,17 @@
 class Database {
     // DB PARAMS
     private $host = 'localhost';
+    // private $db_name = 'madiba';
+    // private $password = '';
+    // private $username ='root';
+
     private $db_name = 'madiba';
-    private $password = '';
-    private $username ='root';
+    private $password = 'digitaloceaN@00d';
+    private $username ='Toussaint';
+
     private $conn;
+
+     // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
 
 
     public function  connect(){

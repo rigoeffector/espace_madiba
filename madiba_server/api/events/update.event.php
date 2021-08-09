@@ -6,8 +6,11 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 $connection = null;
 try {
     $db_server   = "mysql:dbname=madiba; host=localhost";
-    $user_name   = "root";
-    $password    = "123456789";
+    $user_name   = "Toussaint";
+    $password    = "digitaloceaN@00d";
+
+    // $user_name   = "root";
+    // $password    = "123456789";
 
     $connection = new PDO($db_server, $user_name, $password);
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
