@@ -29,6 +29,34 @@ $(document).ready(function () {
     ]
   });
 
+  $('#all_users_table').DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+      {
+        extend: 'pdf',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      },
+      {
+        extend: 'csv',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+
+      },
+      {
+        extend: 'excel',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      }
+    ]
+  });
+
   $("table#all_books_table_history").DataTable({
     dom: 'Blfrtip',
     buttons: [
@@ -78,9 +106,12 @@ $(document).ready(function () {
   const settings = paths + "settings.php";
   const reports = paths + "reports.php";
   const sliders = paths + "sliders.php";
-
+  const usersRegister = paths + "registereduser.php";
   if (window.location.pathname === home) {
     $("li#home").attr("id", "activated");
+  }
+  if (window.location.pathname === usersRegister) {
+    $("li#usersReg").attr("id", "activated");
   }
   if (window.location.pathname === users) {
     $("li#users").attr("id", "activated");
@@ -119,6 +150,50 @@ $(document).ready(function () {
 
 
   // wiring process
+
+ // get registered users 
+
+ $.ajax({
+  type: "GET",
+  url: serverUrl + "user/read.user.register.php",
+  dataType: "JSON",
+  beforeSend:function(){
+    $("div#loaderUser").show();
+  },complete:function(){
+    $("div#loaderUser").hide();
+  },
+  success: function (response) {
+    const res = response.data;
+    console.log("reg users", res);
+    for (let r in res) {
+      switch(res[r].isMembershipPaid){
+        case "1":
+          res[r].isMembershipPaid = "Paid";
+          break;
+        case "0":
+          res[r].isMembershipPaid="Not Paid";
+          break;
+        default:
+          console.log("No data of membership");
+
+      }
+      $("#all_users_table").DataTable().row.add([ res[r].fname,
+        res[r].lname,
+        res[r].address,
+        res[r].phone,
+        res[r].membership_fees,
+        res[r].isMembershipPaid,
+        res[r].class_title,
+        res[r].email,
+        res[r].age_range,
+      
+      ]);
+    }
+    $("#all_users_table").DataTable().draw();
+  },
+});
+
+
 
   //  get user classes info
   $.ajax({
@@ -2836,14 +2911,15 @@ $(document).ready(function () {
       $("div#viewVideoLoader").hide();
     },
     success: function (data) {
-      console.log('Videos Book=', data.data);
       const res = data.data;
+      
+      console.log('Videos Books=', res);
       for (let r in res) {
         allVideos.row.add([
           res[r].title,
           res[r].userClassTitle,
-          res[r].bookCategory,
-          res[r].languages,
+          res[r].summary,
+          res[r].age_range,
           ' <video  style =" height: 100px;"src="' + allVideoUrl +
           res[r].video_url + '" controls>' +
           '</video>' +

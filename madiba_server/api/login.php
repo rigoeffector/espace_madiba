@@ -1,41 +1,24 @@
 <?php
 //   Headers 
-
-
 header('Access-Controll-Allow-Origin: *');
 header('Content-Type:application/json');
-
-
 include_once '../config/Database.php';
 include_once '../models/login/login.php';
-
-
-
 $database = new Database();
 $db = $database->connect();
-
-
 // instatiate our UserRegister
-
 $login_user = new LoginUserInfo($db);
 $email = isset($_GET['email']) ? $_GET['email'] : die();
 $password = isset($_GET['password']) ? $_GET['password'] : die();
 $result = $login_user->getUserLogin($email,$password);
-
 // get Row Count 
-
-
 $num = $result->rowCount();
-
-
 if ($num > 0) {
     $login_user_arr = array();
     $login_user_arr['user'] = array();
-
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $login_user_item = array(
-
             "id" => $id,
             "fname" => $fname,
             "lname" => $lname,
@@ -48,10 +31,8 @@ if ($num > 0) {
             "userCatId"=>$userCatId,
             "usercategory"=>$usercategory,
             "age_range"=>$age_range,
-            "membership_fees" => $membership_fees,
-          
+            "membership_fees" => $membership_fees,       
         );
-
     }
     array_push($login_user_arr['user'], $login_user_item);
     $response = array(
@@ -70,7 +51,7 @@ if ($num > 0) {
         "status" => "error",
         "data"=>[],
         "error" => false,
-        "message" => "No user info  Found"
+        "message" => "No user info  Found or you did not paid your membership fees"
     );
     echo  json_encode(
         $response

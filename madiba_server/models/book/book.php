@@ -29,6 +29,7 @@ class BookInformation
     public $age_range;
     public $numbersToSaved;
     public $bookId;
+    public $description;
     public $number_of_book_borrowed;
     public $userId;
     public $isAvailable;
@@ -57,6 +58,7 @@ class BookInformation
     public $userClassTitle;
     public $userClassAge;
     public $checkup;
+    public $keywords;
 
     // initialize a constructor to map with connection 
 
@@ -214,6 +216,37 @@ class BookInformation
         return $stmt;
     }
 
+
+    public function getAudioByCategoryandAge($id, $age)
+    {
+        $query = "SELECT au.id, au.title, au.summary, 
+        au.audio_url, 
+        au.user_classesId, au.user_categoryId,
+        au.author,
+        u.title as userClassTitle, 
+        u.age_range,
+        uc.title as userCategoryTitle,
+         uc.membership_fees,
+        bc.title as bookCategory, 
+        bc.number_of_books, bc.languages
+        FROM audio_book au
+    
+        LEFT JOIN user_classes u
+        ON au.user_classesId = u.id
+        LEFT JOIN user_category uc
+        on au.user_categoryId = uc.id
+        LEFT JOIN book_category bc
+        on au.bookCategoryId = bc.id
+        WHERE u.age_range = '$age' and bc.id ='$id'";
+
+
+        //    prepare statements 
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
     public function borrowBook($id, $requested)
     {
         $sql = "INSERT INTO borrow_history
@@ -398,24 +431,16 @@ class BookInformation
 
     public function readVideoBook()
     {
-        $query = "SELECT video_book.id, video_book.title, video_book.summary, 
-        video_book.video_url, video_book.auhtor,
-        video_book.user_classesId, video_book.user_categoryId,
-         video_book.auhtor,
+        $query = "SELECT video_book.id, 
+        video_book.title, video_book.summary, 
+        video_book.video_url,
+        video_book.user_classesId, 
         user_classes.title as userClassTitle, 
-        user_classes.age_range,
-        user_category.title as userCategoryTitle,
-         user_category.membership_fees,
-        book_category.title as bookCategory, 
-        book_category.number_of_books, book_category.languages
+        user_classes.age_range
         FROM video_book
-    
         LEFT JOIN user_classes
         ON video_book.user_classesId = user_classes.id
-        LEFT JOIN user_category
-        on video_book.user_categoryId = user_category.id
-        LEFT JOIN book_category
-        on video_book.bookCategoryId = book_category.id
+
        ";
 
 
@@ -779,6 +804,92 @@ class BookInformation
         } else {
             echo json_encode(
                 array('message' => 'Fetching book id failed  ')
+            );
+        }
+    }
+
+
+    public function reviews()
+    {
+        $query = "INSERT INTO reviews(userId,bookId,description) 
+        values(:userId,:bookId,:description) ";
+        $stmt = $this->conn->prepare($query);
+        $this->userId = htmlspecialchars(strip_tags($this->userId));
+        $this->bookId = htmlspecialchars(strip_tags($this->bookId));
+        $this->description = htmlspecialchars(strip_tags($this->description));
+        $stmt->bindParam(":userId", $this->userId);
+        $stmt->bindParam(":bookId", $this->bookId);
+        $stmt->bindParam(":description", $this->description);
+
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => 'Save review is  Failed ')
+            );
+        }
+    }
+
+
+    public function recommendedBooks($age)
+    {
+        $query = "SELECT  COUNT(bookId) as totalReviews,
+        b.id as bookId,b.title,b.numbers,
+        b.taken_book,b.authors,
+        b.image,
+        b.summary,b.languages,
+        b.book_categoryId,
+        b.user_classesId,
+        b.isAvailable,
+        bc.title as bookCategory,
+        uc.title as userClass,
+        uc.age_range
+        FROM reviews r LEFT JOIN book b ON
+        r.bookId = b.id
+        LEFT JOIN user_classes uc
+        
+        ON b.user_classesId = uc.id
+        LEFT JOIN book_category bc
+        ON
+        b.book_categoryId = bc.id
+        where r.helpful = '1' and uc.age_range LIKE '%$age%'";
+        $stmt = $this->conn->prepare($query);
+        if ($stmt->execute()) {
+
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => ' review is  Failed ')
+            );
+        }
+    }
+
+    public function searchBook($keyword, $age)
+    {
+        $SQL = "SELECT b.id, b.title,
+         b.numbers, b.taken_book ,
+         b.authors, b.image,b.summary,
+         b.languages,b.isAvailable, 
+         bc.title as bookCategory,
+         bc.id as bookCategoryId, 
+         uc.title as userCategory,
+          uc.id as userCategoryId  
+          FROM book b   LEFT JOIN 
+        book_category bc
+        on b.book_categoryId = bc.id
+        LEFT JOIN
+        user_classes uc
+        ON
+        bc.user_classesId = uc.id
+        where b.title LIKE '%$keyword%'  OR bc.title LIKE '%$keyword%'
+        OR b.authors LIKE '%$keyword%' AND uc.age_range ='$age'";
+        $stmt = $this->conn->prepare($SQL);
+        if ($stmt->execute()) {
+
+            return $stmt;
+        } else {
+            echo json_encode(
+                array('message' => ' books  are   Failed to fecth ')
             );
         }
     }

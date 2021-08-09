@@ -29,7 +29,7 @@ class LoginUserInfo {
         LEFT JOIN user_category uct
         ON r.user_categoryId = uct.id 
         where r.email ='$email' 
-        and r.password ='$password' ";
+        and r.password ='$password' and r.isMembershipPaid='1' ";
 
         $stmt = $this->conn->prepare($query);
         

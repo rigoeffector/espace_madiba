@@ -31,7 +31,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Video Book History</h4>
+                                    <h4 class="card-title">Video Tutorials  History</h4>
 
                                 </div>
                             </div>
@@ -61,8 +61,8 @@
 
                                                 <th>title</th>
                                                 <th>User Class</th>
-                                                <th>Video Category</th>
-                                                <th>Language</th>
+                                                <th>Summary </th>
+                                                <th>Age range</th>
                                                 <th>Video</th>
 
                                                 <th style="width: 20%">Action</th>
@@ -70,10 +70,10 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>title</th>
+                                                <th>title</th>                                            
                                                 <th>User Class</th>
-                                                <th>Video Category</th>
-                                                <th>Language</th>
+                                                <th>Summary</th>
+                                                <th>Age range</th>
                                                 <th>Video</th>
                                                 <th style="width: 20%">Action</th>
                                             </tr>
@@ -191,18 +191,18 @@
                 <p class="small">Create new video</p>
                 <form id="newVideoForm">
                     <div class="row">
-                        <div class="col-md-6 pr-0">
+                        <div class="col-md-12 pr-0">
                             <div class="form-group ">
                                 <label>Title</label>
                                 <input id="videoTitle" type="text" class="form-control" placeholder="fill title">
                             </div>
                         </div>
-                        <div class="col-md-6 pr-0">
+                        <!-- <div class="col-md-6 pr-0">
                             <div class="form-group ">
                                 <label>Author</label>
                                 <input id="videoAuthor" type="text" class="form-control" placeholder="fill author">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12 pr-0">
                             <div class="form-group ">
                                 <label>Video File</label>
@@ -215,7 +215,7 @@
                         <div class="col-md-12 pr-0">
 
                             <div class="form-group ">
-                                <label for="selectFloatingLabel" class="placeholder">User Class</label>
+                                <label for="selectFloatingLabel" class="placeholder">This video is for ?</label>
                                 <select class="form-control input-border-bottom" id="selectUserClass" required>
                                     <option value="0">Select User Class</option>
                                 </select>
@@ -223,7 +223,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-12 pr-0">
+                        <!-- <div class="col-md-12 pr-0">
 
                             <div class="form-group ">
                                 <label for="selectFloatingLabel" class="placeholder">User Category</label>
@@ -233,8 +233,8 @@
 
                             </div>
 
-                        </div>
-                        <div class="col-md-12 pr-0">
+                        </div> -->
+                        <!-- <div class="col-md-12 pr-0">
 
                             <div class="form-group ">
                                 <label for="selectFloatingLabel" class="placeholder">Book Category</label>
@@ -244,7 +244,7 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
 
                         <div class="col-md-12">
                             <div class="form-group">

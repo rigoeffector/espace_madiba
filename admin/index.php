@@ -1,5 +1,5 @@
 <?php 
-require_once "../madiba_server/config/Database.php";
+include "../madiba_server/config/Database.php";
 require_once "../madiba_server/models/admin/admin.php";
 class Log
 {

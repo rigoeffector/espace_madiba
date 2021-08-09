@@ -35,8 +35,8 @@ if (isset($_FILES['my_video'])) {
             $video_upload_path = 'videos/' . $new_video_name;
             if (move_uploaded_file($tmp_name, $video_upload_path)) {
                 $db_query = "INSERT INTO  video_book
-                (title, summary, video_url, user_classesId, user_categoryId, auhtor,bookCategoryId)
-                 VALUES (:title,:summary,:video_url,:user_classesId,:user_categoryId,:auhtor,:bookCategoryId
+                (title, summary, video_url, user_classesId)
+                 VALUES (:title,:summary,:video_url,:user_classesId
                  )";
 
                 $statement = $connection->prepare($db_query);
@@ -45,9 +45,9 @@ if (isset($_FILES['my_video'])) {
                 $statement->bindParam(':summary', $_POST['summary'], PDO::PARAM_STR);
                 $statement->bindParam(':video_url', $new_video_name, PDO::PARAM_STR);
                 $statement->bindParam(':user_classesId', $_POST['user_classesId'], PDO::PARAM_INT);
-                $statement->bindParam(':user_categoryId', $_POST['user_categoryId'], PDO::PARAM_INT);
-                $statement->bindParam(':auhtor', $_POST['auhtor'], PDO::PARAM_STR);
-                $statement->bindParam(':bookCategoryId', $_POST['bookCategoryId'], PDO::PARAM_INT);
+                // $statement->bindParam(':user_categoryId', $_POST['user_categoryId'], PDO::PARAM_INT);
+                // $statement->bindParam(':auhtor', $_POST['auhtor'], PDO::PARAM_STR);
+                // $statement->bindParam(':bookCategoryId', $_POST['bookCategoryId'], PDO::PARAM_INT);
 
 
                 // Now let's Insert the video path into database

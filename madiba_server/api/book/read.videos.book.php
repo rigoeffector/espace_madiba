@@ -37,16 +37,10 @@ if ($num > 0) {
             "title" => $title,
             "summary" => $summary,
             "video_url" => $video_url,
-            "auhtor" => $auhtor,
             "user_classesId" => $user_classesId,
-            "user_categoryId" => $user_categoryId,
             "userClassTitle" => $userClassTitle,
             "age_range" => $age_range,
-            "userCategoryTitle" => $userCategoryTitle,
-            "membership_fees" => $membership_fees,
-            "bookCategory" => $bookCategory,
-            "number_of_books" => $number_of_books,
-            "languages" => $languages,
+         
 
         );
 

@@ -31,6 +31,13 @@
 					</a>
 				</li>
 				
+				<li class="nav-item "  id="usersReg">
+					<a href="registereduser.php">
+						<i class="flaticon-users"></i>
+						<p>Registered Users </p>
+
+					</a>
+				</li>
 				
 				<li class="nav-item " id="eventsCat">
 					<a href="eventCategories.php">
@@ -64,7 +71,7 @@
 				<li class="nav-item books" id="videobooks" >
 					<a href="videobooks.php">
 						<i class="flaticon-analytics"></i>
-						<p>Video Books</p>
+						<p>Videos Tutorials</p>
 
 					</a>
 				</li>
