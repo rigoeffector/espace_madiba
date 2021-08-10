@@ -55,64 +55,49 @@ if (
 
             $stmt = $connection->query("SELECT * FROM book WHERE title ='$title' and authors='$author'");
             $row_count = $stmt->rowCount();
-
-            var_dump($row_count);
-
-            
-
-            
-            // // $rowcount = null;
-            // // Execute the query and store the result set
-            // $result = mysqli_query($conn, $checkQuery);
-            // var_dump($checkQuery);
           
-            // if ($result) {
-            //     print_r($result);
-            //     // it return number of rows in the table.
-            //     $row = mysqli_num_rows($result);
-            //     if ($row) {
-            //         printf("Number of row in the table : " . $row);
-            //         $response = array(
-            //             "status" => "success",
-            //             "error" => false, "success" => true,
-            //             "message" => "you are already saved this book"
-            //         );
-            //         echo json_encode(
-            //             $response
-            //         );
-            //     }else{
-                   
-            //     }
-            //     // close the result.
-            //     mysqli_free_result($result);
-            // }else{
-            //     $db_query = "INSERT INTO book
-            //     (title, numbers, authors, image, summary, languages,
-            //     book_categoryId, user_classesId, isAvailable)
-            //      VALUES (:title,:numbers,:authors,:image,
-            //      :summary,:languages,:book_categoryId,:user_classesId,:isAvailable)";
-            //     $statement = $connection->prepare($db_query);
-            //     $statement->bindParam(':title', $_POST['title'], PDO::PARAM_STR);
-            //     $statement->bindParam(':numbers', $_POST['numbers'], PDO::PARAM_STR);
-            //     $statement->bindParam(':authors', $_POST['authors'], PDO::PARAM_STR);
-            //     $statement->bindParam(':image', $upload_name, PDO::PARAM_STR);
-            //     $statement->bindParam(':summary', $_POST['summary'], PDO::PARAM_STR);
-            //     $statement->bindParam(':languages', $_POST['languages'], PDO::PARAM_STR);
-            //     $statement->bindParam(':book_categoryId', $_POST['book_categoryId'], PDO::PARAM_STR);
-            //     $statement->bindParam(':user_classesId', $_POST['user_classesId'], PDO::PARAM_STR);
-            //     $statement->bindParam(':isAvailable', $_POST['isAvailable'], PDO::PARAM_STR);
-            //     $statement->execute();
-            //     $response = array(
-            //         "status" => "success",
-            //         "error" => false,
-            //         "message" => "File uploaded successfully and book info is saved ",
-            //         "url" => $server_url . "/" . $upload_name,
-            //         "result" => var_dump($result)
-            //     );
-            //     echo json_encode(
-            //         $response
-            //     );
-            // }
+            if ($row_count > 0) {
+              
+                    printf("Number of row in the table : " . $row);
+                    $response = array(
+                        "status" => "success",
+                        "error" => false, "success" => true,
+                        "message" => "you are already saved this book"
+                    );
+                    echo json_encode(
+                        $response
+                    );
+                
+                // close the result.
+                mysqli_free_result($result);
+            }else{
+                $db_query = "INSERT INTO book
+                (title, numbers, authors, image, summary, languages,
+                book_categoryId, user_classesId, isAvailable)
+                 VALUES (:title,:numbers,:authors,:image,
+                 :summary,:languages,:book_categoryId,:user_classesId,:isAvailable)";
+                $statement = $connection->prepare($db_query);
+                $statement->bindParam(':title', $_POST['title'], PDO::PARAM_STR);
+                $statement->bindParam(':numbers', $_POST['numbers'], PDO::PARAM_STR);
+                $statement->bindParam(':authors', $_POST['authors'], PDO::PARAM_STR);
+                $statement->bindParam(':image', $upload_name, PDO::PARAM_STR);
+                $statement->bindParam(':summary', $_POST['summary'], PDO::PARAM_STR);
+                $statement->bindParam(':languages', $_POST['languages'], PDO::PARAM_STR);
+                $statement->bindParam(':book_categoryId', $_POST['book_categoryId'], PDO::PARAM_STR);
+                $statement->bindParam(':user_classesId', $_POST['user_classesId'], PDO::PARAM_STR);
+                $statement->bindParam(':isAvailable', $_POST['isAvailable'], PDO::PARAM_STR);
+                $statement->execute();
+                $response = array(
+                    "status" => "success",
+                    "error" => false,
+                    "message" => "File uploaded successfully and book info is saved ",
+                    "url" => $server_url . "/" . $upload_name,
+                    "result" => var_dump($result)
+                );
+                echo json_encode(
+                    $response
+                );
+            }
             // Connection close 
             mysqli_close($conn);           
         } else {
