@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
   //created by Rigoeffector Ninja 2021
- 
 
- 
 
-  
+
+
+
 
   var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
   const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
@@ -76,33 +76,33 @@ $(document).ready(function () {
 
   // wiring process
 
- // get registered users 
+  // get registered users 
 
- $.ajax({
-  type: "GET",
-  url: serverUrl + "user/read.user.register.php",
-  dataType: "JSON",
-  beforeSend:function(){
-    $("div#loaderUser").show();
-  },complete:function(){
-    $("div#loaderUser").hide();
-  },
-  success: function (response) {
-    const res = response.data;
-    console.log("reg users", res);
-    for (let r in res) {
-      switch(res[r].isMembershipPaid){
-        case "1":
-          res[r].isMembershipPaid = "Paid";
-          break;
-        case "0":
-          res[r].isMembershipPaid="Not Paid";
-          break;
-        default:
-          console.log("No data of membership");
+  $.ajax({
+    type: "GET",
+    url: serverUrl + "user/read.user.register.php",
+    dataType: "JSON",
+    beforeSend: function () {
+      $("div#loaderUser").show();
+    }, complete: function () {
+      $("div#loaderUser").hide();
+    },
+    success: function (response) {
+      const res = response.data;
+      console.log("reg users", res);
+      for (let r in res) {
+        switch (res[r].isMembershipPaid) {
+          case "1":
+            res[r].isMembershipPaid = "Paid";
+            break;
+          case "0":
+            res[r].isMembershipPaid = "Not Paid";
+            break;
+          default:
+            console.log("No data of membership");
 
-      }
-      $("#all_users_table").DataTable().row.add([ res[r].fname,
+        }
+        $("#all_users_table").DataTable().row.add([res[r].fname,
         res[r].lname,
         res[r].address,
         res[r].phone,
@@ -111,12 +111,12 @@ $(document).ready(function () {
         res[r].class_title,
         res[r].email,
         res[r].age_range,
-      
-      ]);
-    }
-    $("#all_users_table").DataTable().draw();
-  },
-});
+
+        ]);
+      }
+      $("#all_users_table").DataTable().draw();
+    },
+  });
 
 
 
@@ -230,7 +230,7 @@ $(document).ready(function () {
             '<div class="col-md-4">\n' +
             '<Button class="btn btn-warning" data-catid ="' +
             res[r].id +
-            '"  id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory" style="display:none;">Edit </Button>\n' +
+            '"  id="book_category_cardEdit" data-toggle="modal" data-target="#updateCategory" style="display:block;">Edit </Button>\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>\n' +
@@ -443,6 +443,7 @@ $(document).ready(function () {
           $("form#my-form-update").html(
             '<div class="row">\n' +
             '<div class="col-sm-12">\n' +
+            '<input id="idBookCat" type="text"  hidden value="' + res.id + '">\n' +
             '<div class="form-group form-floating-label"><br/>\n' +
             '<input id="categoryTitles" type="text"  value="' +
             res.title +
@@ -466,7 +467,7 @@ $(document).ready(function () {
             '<label for="inputFloatingLabel" class="placeholder">Languages</label>\n' +
             "</div>\n" +
             "</div>\n" +
-            '<div class="col-md-6">\n' +
+            '<div class="col-md-6" style="display:none;">\n' +
             '<div class="form-group form-floating-label"></br>\n' +
             '<select class="form-control input-border-bottom" id="selectUserClass" required>\n' +
             '<option value="0">Select User Class</option>\n' +
@@ -474,7 +475,7 @@ $(document).ready(function () {
             '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
             "</div>\n" +
             "</div>\n" +
-            '<div class="col-md-6">\n' +
+            '<div class="col-md-6" style="display:none;">\n' +
             '<div class="form-group form-floating-label"></br>\n' +
             '<input id="categoryIconz" type="file" class="form-control input-border-bottom" required>\n' +
             '<label for="inputFloatingLabel" class="placeholder">Icon Image</label>\n' +
@@ -522,64 +523,76 @@ $(document).ready(function () {
     }
   );
 
-
   $("div#updateCategory").on("click", "input#updateCategory", function (event) {
     event.preventDefault();
-    var form = $("#my-form-update")[0];
+    // var form = $("#my-form-update")[0];
 
-    var title = $("input#categoryTitles").val();
-    var numbers = $("input#categoryBookNumberss").val();
-    var lang = $("input#categoryLangs").val();
-    var classes = $("select#selectUserClass").val();
-    var icon = $("input#categoryIconz")[0].files[0];
+    var title = $("form#my-form-update");
+    var numbers = $("input#categoryBookNumberss");
+    var lang = $("input#categoryLangs");
+    // var classes = $("select#selectUserClass").val();
+    var catideDIT = $("input#idBookCat");
+
+    // var icon = $("input#categoryIconz")[0].files[0];
+
+    // console.log(icon)
 
     // get data
 
-    var updateBookCatData = new FormData(form);
+    // var updateBookCatData = new FormData(form);
 
-    updateBookCatData.append("title", title);
-    updateBookCatData.append("number_of_books", numbers);
-    updateBookCatData.append("languages", lang);
-    updateBookCatData.append("avatar", icon);
-    updateBookCatData.append("user_classesId", userClassIdOnChnage);
+    // updateBookCatData.append("title", title);
+    // updateBookCatData.append("number_of_books", numbers);
+    // updateBookCatData.append("languages", lang);
+    // // updateBookCatData.append("avatar", icon);
+    // updateBookCatData.append("user_classesId", userClassIdOnChnage);
 
-    if (userClassIdOnChnage !== "0") {
-      console.log(userClassIdOnChnage)
-      $.ajax({
-        url: serverUrl + "book/update.book.category.php",
-        data: updateBookCatData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: "POST",
-        beforeSend: function () {
-          $("div#loaderUpd").show();
-        },
-        complete: function () {
-          $("div#loaderUpd").hide();
-        },
-        success: function (data) {
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: data.message,
-            showConfirmButton: false,
-            timer: 1500
-          })
-          $("div#updateCategory").modal("hide");
-          setTimeout(function () {
-            window.location = window.location;
-          }, 3000);
 
-        },
-      });
-      // Display the key/value pairs
-      for (var pair of updateBookCatData.entries()) {
-        console.log(pair[0] + ", " + pair[1]);
-      }
-    } else {
-      return false;
-    }
+
+    // if (userClassIdOnChnage !== "0") {
+    // console.log(userClassIdOnChnage)
+    // console.log(formData);
+    var formDataEdit = {
+      id: catideDIT.val(),
+      title: title.val(),
+      number_of_books: numbers.val(),
+      languages: lang.val()
+    };
+    console.log(formDataEdit);
+    $.ajax({
+      url: serverUrl + "book/update.book.category.php",
+      type: "POST",
+      data: JSON.stringify(formDataEdit),
+      dataType: "json",
+      beforeSend: function () {
+        $("div#loaderUpd").show();
+      },
+      complete: function () {
+        $("div#loaderUpd").hide();
+      },
+      success: function (data) {
+
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
+        $("div#updateCategory").modal("hide");
+        // setTimeout(function () {
+        //   window.location = window.location;
+        // }, 3000);
+
+      },
+    });
+    // Display the key/value pairs
+    // for (var pair of updateBookCatData.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
+    // } else {
+    //   return false;
+    // }
 
 
   });
@@ -715,7 +728,7 @@ $(document).ready(function () {
 
   var retrievedidToViewBookByCategory = localStorage.getItem('idToViewBookByCategory');
 
- 
+
 
   var url = new URL(window.location);
   var cid = url.searchParams.get("id");
@@ -823,7 +836,7 @@ $(document).ready(function () {
           "</button>\n" +
           '<button type="button"  id="updateSingleBookbtn" data-bookId= "' +
           res[r].id +
-          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook" style="display:none;">\n' +
+          '" class="btn btn-icon btn-round btn-info" data-toggle="modal" data-target="#updateSingleBook" style="display:block;">\n' +
           '<i class="fa fa-pen"></i>\n' +
           "</button>\n" +
           '<button type="button" id="deleteSingleBookbtn"  data-bookId= "' +
@@ -833,8 +846,8 @@ $(document).ready(function () {
           '</button>\n' +
           '<button type="button" id="updatebookStatus"  data-bookId= "' +
           res[r].id +
-          '" class="btn btn-icon btn-round btn-success"  data-toggle="modal" data-target="#exampleModal">\n' +
-          '<i class="fa fa-pen"></i>\n' +
+          '" class="btn btn-icon btn-round btn-warning"  data-toggle="modal" data-target="#exampleModal">\n' +
+          '<i class="fa fa-info"></i>\n' +
           "</button>",
         ]);
       }
@@ -1208,9 +1221,10 @@ $(document).ready(function () {
         $("form#my-form-update-book").html(
           '<div class="row">\n' +
           '<div class="col-sm-12">\n' +
+          '<input id="bookIdForEdit" hidden type="text" value= "' + response.id + '">\n' +
           '<div class="form-group ">\n' +
           '<label for="inputFloatingLabel" class="placeholder">Title</label>\n' +
-          '<input id="bookTitles" type="text" value= "' +
+          '<input id="bookTitlesEdit" type="text" value= "' +
           response.title +
           '" class="form-control input-border-bottom" required>\n' +
           "</div>\n" +
@@ -1218,7 +1232,7 @@ $(document).ready(function () {
           '<div class="col-md-6 pr-0">\n' +
           '<div class="form-group ">\n' +
           '<label for="inputFloatingLabel" class="placeholder">Number of Books</label>\n' +
-          '<input id="bookNumbers" value= "' +
+          '<input id="bookNumbersEdit" value= "' +
           response.numbers +
           '" type="number" class="form-control input-border-bottom" required>\n' +
           "</div>\n" +
@@ -1226,18 +1240,18 @@ $(document).ready(function () {
           '<div class="col-md-6">\n' +
           '<div class="form-group ">\n' +
           '<label for="inputFloatingLabel" class="placeholder">Authors</label>\n' +
-          '<input id="authors" type="text"   value="' +
+          '<input id="authorsEdit" type="text"   value="' +
           response.authors +
           '"  class="form-control input-border-bottom" required>\n' +
           "</div>\n" +
           "</div>\n" +
-          '<div class="col-md-6">\n' +
+          '<div class="col-md-6" style="display:none">\n' +
           '<div class="form-group ">\n' +
           '<label for="inputFloatingLabel" class="placeholder">Icon Image</label>\n' +
           '<input id="bookIcon" type="file" class="form-control input-border-bottom" required>\n' +
           "</div>\n" +
           "</div>\n" +
-          '<div class="col-md-6">\n' +
+          '<div class="col-md-6" style="display:none">\n' +
           '<div class="form-group ">\n' +
           '<label for="selectFloatingLabel" class="placeholder">User Class</label>\n' +
           '<select class="form-control input-border-bottom" id="selectUserClassUpdates" required>\n' +
@@ -1245,7 +1259,7 @@ $(document).ready(function () {
           "</select>\n" +
           "</div>\n" +
           "</div>\n" +
-          '<div class="col-md-6">\n' +
+          '<div class="col-md-6" style="display:none">\n' +
           '<div class="form-group ">\n' +
           '<label for="selectFloatingLabel" class="placeholder">Book Category</label>\n' +
           '<select class="form-control input-border-bottom" id="selectBookCategory" required>\n' +
@@ -1253,10 +1267,10 @@ $(document).ready(function () {
           "</select>\n" +
           "</div>\n" +
           "</div>\n" +
-          '<div class="col-md-6">\n' +
+          '<div class="col-md-12">\n' +
           '<div class="form-group ">\n' +
           '<label for="inputFloatingLabel" class="placeholder">Languages</label>\n' +
-          '<input id="bookLang" value="' +
+          '<input id="bookLangEdit" value="' +
           response.languages +
           '" type="text" class="form-control input-border-bottom" required>\n' +
           "</div>\n" +
@@ -1264,7 +1278,7 @@ $(document).ready(function () {
           '<div class="col-md-12">\n' +
           '<div class="form-group">\n' +
           '<label for="comment">Summary</label>\n' +
-          '<textarea class="form-control" id="summary" rows="5">' +
+          '<textarea class="form-control" id="summaryEdit" rows="5">' +
           response.summary +
           "</textarea>\n" +
           "</div>\n" +
@@ -1272,11 +1286,11 @@ $(document).ready(function () {
           "</div>\n" +
           "</div>\n" +
           '<div class="modal-footer no-bd">\n' +
-          '<input id="addBook" class="btn btn-primary" type="submit" value="Add">\n' +
+          '<input id="updateBook" class="btn btn-primary" type="submit" value="Update">\n' +
           '<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>\n' +
           "</div>\n" +
           "<center>\n" +
-          '<div class="spinner-border text-primary" role="status" id="loaderAddBook" style="display: none;">\n' +
+          '<div class="spinner-border text-primary" role="status" id="loaderupdateBook" style="display: none;">\n' +
           '<span class="sr-only">Loading...</span>\n' +
           "</div>\n" +
           "</center>"
@@ -1284,6 +1298,57 @@ $(document).ready(function () {
       },
     });
   });
+
+
+  $("#my-form-update-book").on("click", "input#updateBook", function (e) {
+    e.preventDefault();
+    var bookIdEdit = $("input#bookIdForEdit");
+    var booktitleEdit = $("input#bookTitlesEdit");
+    var bookNumEdit = $("input#bookNumbersEdit");
+    var bookAuthorEdit = $("input#authorsEdit");
+    var bookLangEdit = $("input#bookLangEdit");
+    var bookSummaryEdit = $("textarea#summaryEdit");
+
+    const dataSubmit = {
+      id: bookIdEdit.val(),
+      title: booktitleEdit.val(),
+      numbers: bookNumEdit.val(),
+      authors: bookAuthorEdit.val(),
+      summary: bookSummaryEdit.val(),
+      languages: bookLangEdit.val()
+    }
+
+    console.log(dataSubmit);
+
+    $.ajax({
+      type: "POST",
+      url: serverUrl + "book/update.book.php",
+      data: JSON.stringify(dataSubmit),
+      dataType: "JSON",
+      beforeSend: function () {
+        $("div#loaderupdateBook").show();
+      },
+      complete: function () {
+        $("div#loaderupdateBook").hide();
+      },
+      success: function (response) {
+        console.log(response);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: response.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(function () {
+          window.location = window.location;
+        }, 3000);
+      }
+    });
+
+
+
+  })
   // event.preventDefault();
 
   // var form = $("#my-form-update-book")[0];
@@ -1733,8 +1798,9 @@ $(document).ready(function () {
         $("form#updateUserClass").html('<div class="row" id="formUser">\n' +
           '<div class="col-md-6 pr-0">\n' +
           '<div class="form-group ">\n' +
+          '<input id="userUpClassIdEdit" hidden type="text" class="form-control" placeholder="fill title" value="' + response.data[0].id + '">\n' +
           '<label>Title</label>\n' +
-          '<input id="userUpClassTitle" type="text" class="form-control" placeholder="fill title" value="' + response.data[0].classe_title + '">\n' +
+          '<input id="userUpClassTitleEdit" type="text" class="form-control" placeholder="fill title" value="' + response.data[0].classe_title + '">\n' +
           '</div>\n' +
           '</div>\n' +
           '<div class="col-md-6 pr-0">\n' +
@@ -1750,7 +1816,7 @@ $(document).ready(function () {
           '<div class="col-md-12 pr-0">\n' +
           '<div class="form-group ">\n' +
           '<label>Age Range</label>\n' +
-          '<input id="userUpClassAge" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].age_range + '">\n' +
+          '<input id="userUpClassAgeEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].age_range + '">\n' +
           '</div>\n' +
           '</div>\n' +
           '</div>\n' +
@@ -1779,9 +1845,48 @@ $(document).ready(function () {
 
 
 
-  $("form#updateUserClass").on("click", "button#update_user_class", function (e) {
+  $("form#updateUserClass").on("click", "input#updateUserClassButton", function (e) {
     e.preventDefault();
     console.log("sawa");
+    var idEdit = $("input#userUpClassIdEdit");
+    var titleEdit =  $("input#userUpClassTitleEdit");
+    var classEdit = $("select#selectUserCategoryUpdate");
+    var ageEdit = $("input#userUpClassAgeEdit");
+    const dataMiner = {
+      id: idEdit.val(),
+      title: titleEdit.val(),
+      user_categoryId: classEdit.val(),
+      age_range: ageEdit.val()
+  }
+    
+
+  console.log(dataMiner);
+
+    $.ajax({
+      type: "POST",
+      url: serverUrl + "user/update.user.class.php",
+      dataType: "JSON",
+      data: JSON.stringify(dataMiner),
+      beforeSend: function () {
+        $("div#loaderUpdateUserClass").show();
+      },
+      complete: function () {
+        $("div#loaderUpdateUserClass").hide();
+      },
+      success: function (response) {
+        const res = response.data;
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: response.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setTimeout(function () {
+          window.location = window.location;
+        }, 3000);
+      },
+    });
   });
 
   // end update user class 
@@ -2827,7 +2932,7 @@ $(document).ready(function () {
     },
     success: function (data) {
       const res = data.data;
-      
+
       console.log('Videos Books=', res);
       for (let r in res) {
         allVideos.row.add([
@@ -3327,7 +3432,7 @@ $(document).ready(function () {
   });
 
   // delete a slider 
-  $("#all_sliders-info").on("click","button#deleteSlider", function (e) {
+  $("#all_sliders-info").on("click", "button#deleteSlider", function (e) {
     const sliderId = $(this).data('sliderid');
     console.log('eeeee')
 

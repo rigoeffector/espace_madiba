@@ -40,10 +40,10 @@
 									<i class="fa fa-plus"></i>
 									New Category
 								</button>
-								<button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addNewBook">
+								<!-- <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addNewBook">
 									<i class="fa fa-plus"></i>
 									New Book
-								</button>
+								</button> -->
 
 								<div class="spinner-border text-primary" role="status" id="loader" style="display: none;">
 									<span class="sr-only">Loading...</span>

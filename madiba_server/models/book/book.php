@@ -652,6 +652,45 @@ class BookInformation
     }
 
 
+    public function updateBook()
+    {
+        $query = 'UPDATE ' . $this->table . ' 
+        SET  
+        title =:title,
+        numbers =:numbers,
+        authors =:authors,
+        summary =:summary,
+        languages =:languages
+           
+         WHERE 
+            id=:id';
+        $stmt = $this->conn->prepare($query);
+        // clean data to be bound  
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $this->numbers = htmlspecialchars(strip_tags($this->numbers));
+        $this->authors = htmlspecialchars(strip_tags($this->authors));
+        $this->summary = htmlspecialchars(strip_tags($this->summary));
+        $this->languages = htmlspecialchars(strip_tags($this->languages));
+        // bind data 
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":title", $this->title);
+        $stmt->bindParam(":numbers", $this->numbers);
+        $stmt->bindParam(":authors", $this->authors);
+        $stmt->bindParam(":summary", $this->summary);
+        $stmt->bindParam(":languages", $this->languages);
+
+
+        // execute the query 
+        if ($stmt->execute()) {
+
+            return true;
+        }
+        // print error if something goes bad 
+        print_r("Error:%s.\n", $stmt->error);
+        return false;
+    }
+
     public function update()
     {
         $query = 'UPDATE ' . $this->table . ' 

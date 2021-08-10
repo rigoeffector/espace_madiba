@@ -20,6 +20,7 @@ class BookCategory
     public $icon_image;
     public $created_time;
     public $userClass;
+    public $user_classesId;
     public $age_range;
     public $userCategory;
 
@@ -104,6 +105,33 @@ class BookCategory
     public function update()
     {
         // Deprecated TO OTHER FILES 
+        $query = "UPDATE book_category SET title=:title,number_of_books=:number_of_books,
+        languages=:languages where id=:id";
+     
+     $stmt = $this->conn->prepare($query);
+     // clean data to be bound  
+
+     $this->id = htmlspecialchars(strip_tags($this->id));
+     $this->title = htmlspecialchars(strip_tags($this->title));
+     $this->number_of_books = htmlspecialchars(strip_tags($this->number_of_books));
+     $this->languages = htmlspecialchars($this->languages);
+    
+
+     // bind data 
+     $stmt->bindParam(":id", $this->id);
+     $stmt->bindParam(":title", $this->title);
+     $stmt->bindParam(":number_of_books", $this->number_of_books);
+     $stmt->bindParam(":languages", $this->languages);
+ 
+
+     // execute the query 
+     if ($stmt->execute()) {
+
+        return true;
+    }
+    // print error if something goes bad 
+    print_r("Error:%s.\n", $stmt->error);
+    return false;
     }
 
     public function viewBooksByCategory()
