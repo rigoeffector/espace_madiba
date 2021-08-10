@@ -60,7 +60,7 @@ if (
                 mysqli_free_result($result);
             }
             
-            var_dump($rowcount);
+            var_dump($result);
             if ($rowcount > 0) {
                 // var_dump($rowcount);
                 $response = array(
@@ -98,7 +98,7 @@ if (
                     "error" => false,
                     "message" => "File uploaded successfully and book info is saved ",
                     "url" => $server_url . "/" . $upload_name,
-                    "test"=>var_dump($rowcount)
+                    "result"=>var_dump($result)
                 );
                 echo json_encode(
                     $response
