@@ -60,7 +60,7 @@ if (
                 mysqli_free_result($result);
             }
             
-            var_dump($checkName);
+            var_dump($rowcount);
             if ($rowcount > 0) {
                 // var_dump($rowcount);
                 $response = array(
