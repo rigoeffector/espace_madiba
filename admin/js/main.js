@@ -1,17 +1,17 @@
 $(document).ready(function () {
 
   //created by Rigoeffector Ninja 2021
-  
-
-
+ 
 
  
 
-  // var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
-  // const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
+  
 
-  var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
-  const urlPath = "http://localhost/madiba_panel/madiba_panel/admin/";
+  var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
+  const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
+
+  // var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
+  // const urlPath = "http://localhost/madiba_panel/madiba_panel/admin/";
 
   let allEvents, allVideos, allAudios, allNews;
 
@@ -715,7 +715,7 @@ $(document).ready(function () {
 
   var retrievedidToViewBookByCategory = localStorage.getItem('idToViewBookByCategory');
 
-  allBookByCatData = $("#all_books_by_cat_table").DataTable();
+ 
 
   var url = new URL(window.location);
   var cid = url.searchParams.get("id");
@@ -747,7 +747,7 @@ $(document).ready(function () {
             availabilityBook = "Available";
         }
         console.log("all books classes", res);
-        allBookByCatData.row.add([
+        $("#all_books_by_cat_table").DataTable().row.add([
           '<div class="avatar ">\n' +
           '<img src="' +
           allBookIconUrl +
@@ -764,19 +764,9 @@ $(document).ready(function () {
 
         ]);
       }
-
-      allBookByCatData.draw();
-
-
+      $("#all_books_by_cat_table").DataTable().draw();
     }
   });
-
-
-
-
-
-
-
 
 
 
@@ -785,7 +775,7 @@ $(document).ready(function () {
   // read all books
 
   var availabilityBook;
-  $("#all_books_table").DataTable();
+
   $.ajax({
     type: "GET",
     url: serverUrl + "book/read.books.php",
