@@ -52,7 +52,7 @@ if (
             $author = $_POST['authors'];
             $userclassId = $_POST['user_classesId'];
             $checkName = "select * from book where title = '$title' and authors='$author'";
-            $rowcount = null;
+            // $rowcount = null;
 
 
             if ($result = mysqli_query($conn, $checkName)) {
