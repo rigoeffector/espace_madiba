@@ -54,8 +54,8 @@ if (
             $checkName = "SELECT * FROM book WHERE title ='$title' and authors='$author'";
             // $rowcount = null;
             // Execute the query and store the result set
-            $result = mysqli_query($conn, $query);
-            var_dump($result);
+            $result = mysqli_query($conn, $checkName);
+            var_dump($checkName);
             if ($result) {
                 // it return number of rows in the table.
                 $row = mysqli_num_rows($result);
