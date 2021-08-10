@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <div>
                                 <h2 class="text-black pb-2 fw-bold">Espace madiba</h2>
-                                <h5 class="text-black op-7 mb-2">Borrowed Books Report</h5>
+                                <h5 class="text-black op-7 mb-2">Sliders Info</h5>
                             </div>
                         </div>
                         <div class="col-md-12">
