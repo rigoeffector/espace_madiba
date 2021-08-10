@@ -3,13 +3,13 @@
 class Database {
     // DB PARAMS
     private $host = 'localhost';
-    // private $db_name = 'madiba';
-    // private $password = '';
-    // private $username ='root';
-
     private $db_name = 'madiba';
-    private $password = 'digitaloceaN@00d';
-    private $username ='Toussaint';
+    private $password = '';
+    private $username ='root';
+
+    // private $db_name = 'madiba';
+    // private $password = 'digitaloceaN@00d';
+    // private $username ='Toussaint';
 
     private $conn;
 
