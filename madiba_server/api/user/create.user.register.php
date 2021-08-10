@@ -8,6 +8,8 @@ try {
     $db_server   = "mysql:dbname=madiba; host=localhost";
     $user_name   = "root";
     $password    = "";
+    // $user_name   = "Toussaint";
+    // $password    = "digitaloceaN@00d";
 
     $connection = new PDO($db_server, $user_name, $password);
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -43,20 +45,12 @@ if (
 
     // if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
         // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-            if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            };
+          
     $phone = $_POST['phone'];
     $email = $_POST['email'];
-    $checkName = "select * from registartion_users where phone = '$phone' OR email='$email'";
-    $rowcount = null;
 
-
-    if ($result = mysqli_query($connect, $checkName)) {
-        $rowcount = mysqli_num_rows($result);
-        mysqli_free_result($result);
-    }
+    $stmt = $connection->query("select * from registartion_users where phone = '$phone' OR email='$email'");
+    $row_count = $stmt->rowCount();
 
     if ($rowcount > 0) {
         $response = array(

@@ -57,8 +57,6 @@ if (
             $row_count = $stmt->rowCount();
           
             if ($row_count > 0) {
-              
-                    printf("Number of row in the table : " . $row);
                     $response = array(
                         "status" => "success",
                         "error" => false, "success" => true,

@@ -79,7 +79,7 @@ class UserClasses
 
     public function create($title,$age,$usercategoryId)
     {
-        require_once "../../config/Config.php";
+       
         $query = "INSERT INTO $this->table 
         ( title, user_categoryId, created_time,age_range)
         VALUES (:title,:user_categoryId,:created_time,:age_range)";
@@ -98,15 +98,10 @@ class UserClasses
         $stmt->bindParam(":created_time", $this->created_time);
         $stmt->bindParam(":age_range", $this->age_range);
 
-        $checkName = "select * from user_classes where title = '$title' and age_range='$age' and usercategoryId='$usercategoryId'";
-        $rowcount = null;
-
-        if ($result = mysqli_query($connect, $checkName)) {
-            $rowcount = mysqli_num_rows($result);
-            mysqli_free_result($result);
-        }
-
-        if ($rowcount > 0) {
+        // $checkName = "select * from user_classes where title = '$title' and age_range='$age' and usercategoryId='$usercategoryId'";
+        $stmt = $this->conn->query("select * from user_classes where title = '$title' and age_range='$age' and usercategoryId='$usercategoryId'");
+        $row_count = $stmt->rowCount();
+        if ($row_count > 0) {
             $response = array(
                 "status" => "success",
                 "error" => false, "success" => true,

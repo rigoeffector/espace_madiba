@@ -74,7 +74,7 @@ class UserCategory
 
     public function create($title)
     {
-        require_once "../../config/Config.php";
+       
         $query = "INSERT INTO $this->table 
         ( title, membership_fees, description,created_time)
         VALUES (:title,:membership_fees,:description,:created_time)";
@@ -94,10 +94,8 @@ class UserCategory
         $rowcount = null;
 
 
-        if ($result = mysqli_query($connect, $checkName)) {
-            $rowcount = mysqli_num_rows($result);
-            mysqli_free_result($result);
-        }
+        $stmt = $this->conn->query("select * from user_category where title = '$title'");
+        $rowcount = $stmt->rowCount();
 
         if ($rowcount > 0) {
             $response = array(

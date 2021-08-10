@@ -17,9 +17,6 @@ try {
     echo "Connection Error: " . $e->getMessage();
 }
 
-
-
-
 if (isset($_FILES['slider'])) {
     $video_name = $_FILES['slider']['name'];
     $tmp_name = $_FILES['slider']['tmp_name'];
