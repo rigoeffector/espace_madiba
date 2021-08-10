@@ -574,9 +574,9 @@ $(document).ready(function () {
           timer: 1500
         })
         $("div#updateCategory").modal("hide");
-        // setTimeout(function () {
-        //   window.location = window.location;
-        // }, 3000);
+        setTimeout(function () {
+          window.location = window.location;
+        }, 3000);
 
       },
     });
