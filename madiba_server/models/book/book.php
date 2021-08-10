@@ -268,7 +268,7 @@ class BookInformation
         $stmt->bindParam(":userId", $this->userId);
         $stmt->bindParam(":return_date", $this->return_date);
         if ($this->checkIfBorrowedBook($this->userId)) {
-            include "../../config/Config.php";
+            include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
 
             if (!$connect) {
                 die("Connection failed: " . mysqli_connect_error());
@@ -323,7 +323,7 @@ class BookInformation
 
     public function checkIfBorrowedBook($userId)
     {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
 
         if (!$connect) {
             die("Connection failed: " . mysqli_connect_error());
@@ -353,7 +353,7 @@ class BookInformation
     public function updateNumberOfBooks($requested, $id)
 
     {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
         $result = mysqli_query($connect, $sql);
 
@@ -393,7 +393,7 @@ class BookInformation
     public function updateStatusBook($id)
     {
 
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
         $result = mysqli_query($connect, $sql);
 
@@ -713,7 +713,7 @@ class BookInformation
 
     public function updateBorrowInfo($bookId, $userId)
     {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $checkUser = "SELECT *
         FROM
          borrow_history
@@ -765,7 +765,7 @@ class BookInformation
     public function updateNumberOfBookReturned($bookId, $returnedNumber, $isAvailable)
     {
         $NewnumberToSave = null;
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $checkUser = "SELECT *
         FROM
          book

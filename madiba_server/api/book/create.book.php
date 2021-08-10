@@ -41,7 +41,8 @@ if (
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
         if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
-            include "../../config/Config.php";
+            // include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+            include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
 
             $title = $_POST['title'];
             $author = $_POST['authors'];
@@ -89,8 +90,11 @@ if (
                 $response = array(
                     "status" => "success",
                     "error" => false,
-                    "message" => "File uploaded successfully",
+                    "message" => "File uploaded successfully and book info is saved ",
                     "url" => $server_url . "/" . $upload_name
+                );
+                echo json_encode(
+                    $response
                 );
             }
         } else {

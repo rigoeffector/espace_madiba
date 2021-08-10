@@ -155,7 +155,7 @@ class Events
 
     public function bookPlace($id, $requestedDays)
     {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
 
         if (!$connect) {
             die("Connection failed: " . mysqli_connect_error());
@@ -204,7 +204,7 @@ class Events
     public function updatePlace($requested, $id)
 
     {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $sql = "SELECT available_places FROM `events` WHERE id = '12'";
         $result = mysqli_query($connect, $sql);
 

@@ -188,7 +188,7 @@ class UserRegister
 
     public function searchPeopleByPhone($phone)
     {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $check = "SELECT * FROM registartion_users 
         WHERE phone LIKE '%$phone%'";
         $rowcount = null;

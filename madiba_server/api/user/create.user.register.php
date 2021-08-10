@@ -42,7 +42,7 @@ if (
     // $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
     // if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $checkName = "select * from registartion_users where phone = '$phone' OR email='$email'";

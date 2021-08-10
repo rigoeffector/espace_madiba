@@ -1,6 +1,6 @@
 <?php
 
-include "../../config/Config.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
 
 
 
@@ -46,7 +46,7 @@ if (
     // $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
     // if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
-    include "../../config/Config.php";
+    include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
     $checkName = "SELECT * FROM `registartion_users` 
         LEFT JOIN user_category
         ON registartion_users.user_categoryId = user_category.id

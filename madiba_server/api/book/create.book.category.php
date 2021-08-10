@@ -38,7 +38,7 @@ if (
             "message" => "Error uploading the file!"
         );
     } else {
-        include "../../config/Config.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
         $random_name = rand(1000, 1000000) . "-" . $avatar_name;
         $upload_name = $upload_dir . strtolower($random_name);
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
