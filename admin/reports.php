@@ -91,6 +91,35 @@
     </div>
     <?php include './includes/footer.php';  ?>
     <!--   Core JS Files   -->
+    <script>
+         $("table#all_books_table_history").DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+      {
+        extend: 'pdf',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7]
+        }
+      },
+      {
+        extend: 'csv',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7]
+        }
+
+      },
+      {
+        extend: 'excel',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7]
+        }
+      }
+    ]
+  });
+    </script>
     <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>

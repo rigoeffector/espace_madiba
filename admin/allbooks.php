@@ -420,3 +420,33 @@
     </div>
 </div>
 </div>
+
+<script>
+    $('#all_books_table').DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+      {
+        extend: 'pdf',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      },
+      {
+        extend: 'csv',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+
+      },
+      {
+        extend: 'excel',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      }
+    ]
+  });
+</script>

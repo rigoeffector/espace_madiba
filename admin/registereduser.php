@@ -99,6 +99,34 @@
 </div>
 
 </div>
+<script>  $('#all_users_table').DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+      {
+        extend: 'pdf',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      },
+      {
+        extend: 'csv',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+
+      },
+      {
+        extend: 'excel',
+        footer: false,
+        exportOptions: {
+          columns: [1, 2, 3, 4, 5, 6, 7, 8]
+        }
+      }
+    ]
+  });</script>
+
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>

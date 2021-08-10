@@ -1,92 +1,17 @@
 $(document).ready(function () {
 
   //created by Rigoeffector Ninja 2021
-  $('#all_books_table').DataTable({
-    dom: 'Blfrtip',
-    buttons: [
-      {
-        extend: 'pdf',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8]
-        }
-      },
-      {
-        extend: 'csv',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8]
-        }
+  
 
-      },
-      {
-        extend: 'excel',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8]
-        }
-      }
-    ]
-  });
 
-  $('#all_users_table').DataTable({
-    dom: 'Blfrtip',
-    buttons: [
-      {
-        extend: 'pdf',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8]
-        }
-      },
-      {
-        extend: 'csv',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8]
-        }
 
-      },
-      {
-        extend: 'excel',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7, 8]
-        }
-      }
-    ]
-  });
+ 
 
-  $("table#all_books_table_history").DataTable({
-    dom: 'Blfrtip',
-    buttons: [
-      {
-        extend: 'pdf',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7]
-        }
-      },
-      {
-        extend: 'csv',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7]
-        }
+  // var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
+  // const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
 
-      },
-      {
-        extend: 'excel',
-        footer: false,
-        exportOptions: {
-          columns: [1, 2, 3, 4, 5, 6, 7]
-        }
-      }
-    ]
-  });
-
-  var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
-  const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
+  var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
+  const urlPath = "http://localhost/madiba_panel/madiba_panel/admin/";
 
   let allEvents, allVideos, allAudios, allNews;
 
@@ -232,7 +157,7 @@ $(document).ready(function () {
     dataType: "JSON",
     success: function (response) {
       const res = response.data;
-      console.log("user classes", res);
+      console.log("book cats", res);
       for (let r in res) {
         $("select#selectBookCategory").append(
           '<option value="' +
