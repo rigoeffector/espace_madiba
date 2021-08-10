@@ -38,7 +38,11 @@ if (
             "message" => "Error uploading the file!"
         );
     } else {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $random_name = rand(1000, 1000000) . "-" . $avatar_name;
         $upload_name = $upload_dir . strtolower($random_name);
         $upload_name = preg_replace('/\s+/', '-', $upload_name);

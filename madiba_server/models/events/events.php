@@ -155,13 +155,17 @@ class Events
 
     public function bookPlace($id, $requestedDays)
     {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
 
-        if (!$connect) {
+        if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
         $sql = "SELECT available_places FROM `events` WHERE id = '$id'";
-        $result = mysqli_query($connect, $sql);
+        $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
@@ -204,9 +208,13 @@ class Events
     public function updatePlace($requested, $id)
 
     {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $sql = "SELECT available_places FROM `events` WHERE id = '12'";
-        $result = mysqli_query($connect, $sql);
+        $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row

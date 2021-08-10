@@ -41,8 +41,14 @@ if (
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
         if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
-            // include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
-            include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+            // // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
+            
+
+           
 
             $title = $_POST['title'];
             $author = $_POST['authors'];

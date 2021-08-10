@@ -268,13 +268,17 @@ class BookInformation
         $stmt->bindParam(":userId", $this->userId);
         $stmt->bindParam(":return_date", $this->return_date);
         if ($this->checkIfBorrowedBook($this->userId)) {
-            include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+            // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
 
-            if (!$connect) {
+            if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
             }
             $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
-            $result = mysqli_query($connect, $sql);
+            $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
                 // output data of each row
@@ -323,13 +327,17 @@ class BookInformation
 
     public function checkIfBorrowedBook($userId)
     {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
 
-        if (!$connect) {
+        if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
         $sql = "SELECT status FROM `borrow_history` WHERE userId = '$userId' and status = '0'";
-        $result = mysqli_query($connect, $sql);
+        $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             while ($row = mysqli_fetch_assoc($result)) {
@@ -353,9 +361,13 @@ class BookInformation
     public function updateNumberOfBooks($requested, $id)
 
     {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
-        $result = mysqli_query($connect, $sql);
+        $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
@@ -393,9 +405,13 @@ class BookInformation
     public function updateStatusBook($id)
     {
 
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
-        $result = mysqli_query($connect, $sql);
+        $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
@@ -713,7 +729,11 @@ class BookInformation
 
     public function updateBorrowInfo($bookId, $userId)
     {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $checkUser = "SELECT *
         FROM
          borrow_history
@@ -723,7 +743,7 @@ class BookInformation
         userId='$userId'
            AND
         status='0'";
-        $result = mysqli_query($connect, $checkUser);
+        $result = mysqli_query($conn, $checkUser);
         if (mysqli_num_rows($result) > 0) {
 
             while ($row = mysqli_fetch_assoc($result)) {
@@ -765,14 +785,18 @@ class BookInformation
     public function updateNumberOfBookReturned($bookId, $returnedNumber, $isAvailable)
     {
         $NewnumberToSave = null;
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $checkUser = "SELECT *
         FROM
          book
           WHERE 
         id = '$bookId'
          ";
-        $result = mysqli_query($connect, $checkUser);
+        $result = mysqli_query($conn, $checkUser);
         if (mysqli_num_rows($result) > 0) {
 
             while ($row = mysqli_fetch_assoc($result)) {

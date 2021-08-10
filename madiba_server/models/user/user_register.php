@@ -188,13 +188,17 @@ class UserRegister
 
     public function searchPeopleByPhone($phone)
     {
-        include_once $_SERVER['DOCUMENT_ROOT']."/madiba_server/config/Config.php";
+        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            };
         $check = "SELECT * FROM registartion_users 
         WHERE phone LIKE '%$phone%'";
         $rowcount = null;
 
 
-        if ($result = mysqli_query($connect, $check)) {
+        if ($result = mysqli_query($conn, $check)) {
             $rowcount = mysqli_num_rows($result);
             mysqli_free_result($result);
         }
