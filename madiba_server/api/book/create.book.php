@@ -51,16 +51,19 @@ if (
             $title = $_POST['title'];
             $author = $_POST['authors'];
             $userclassId = $_POST['user_classesId'];
-            $checkName = "select * from book where title = '$title' and authors='$author'";
+            $checkName = "SELECT * FROM book WHERE title ='$title' and authors='$author'";
             // $rowcount = null;
 
-
+            var_dump($result);
             if ($result = mysqli_query($conn, $checkName)) {
                 $rowcount = mysqli_num_rows($result);
                 mysqli_free_result($result);
+                if ($rowcount) {
+                    printf("Number of row in the table : " . $rowcount);
+                }
             }
+
             
-            var_dump($result);
             if ($rowcount > 0) {
                 // var_dump($rowcount);
                 $response = array(
@@ -91,14 +94,14 @@ if (
                 $statement->bindParam(':isAvailable', $_POST['isAvailable'], PDO::PARAM_STR);
 
 
-                
+
                 $statement->execute();
                 $response = array(
                     "status" => "success",
                     "error" => false,
                     "message" => "File uploaded successfully and book info is saved ",
                     "url" => $server_url . "/" . $upload_name,
-                    "result"=>var_dump($result)
+                    "result" => var_dump($result)
                 );
                 echo json_encode(
                     $response
