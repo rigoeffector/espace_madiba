@@ -90,13 +90,14 @@ if (
                 $statement->bindParam(':isAvailable', $_POST['isAvailable'], PDO::PARAM_STR);
 
 
-                var_dump($rowcount);
+                
                 $statement->execute();
                 $response = array(
                     "status" => "success",
                     "error" => false,
                     "message" => "File uploaded successfully and book info is saved ",
-                    "url" => $server_url . "/" . $upload_name
+                    "url" => $server_url . "/" . $upload_name,
+                    "test"=>var_dump($rowcount)
                 );
                 echo json_encode(
                     $response
