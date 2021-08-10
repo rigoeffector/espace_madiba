@@ -19,7 +19,7 @@ try {
 }
 $response = array();
 $upload_dir = "upload/";
-$server_url = 'http://127.0.0.1:8000';
+$server_url = 'https://madiba.isoko250.com/';
 
 if (
     !empty($_POST['title'])
@@ -50,7 +50,7 @@ if (
             $rowcount = null;
 
 
-            if ($result = mysqli_query($connect, $checkName)) {
+            if ($result = mysqli_query($conn, $checkName)) {
                 $rowcount = mysqli_num_rows($result);
                 mysqli_free_result($result);
             }
