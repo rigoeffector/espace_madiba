@@ -51,13 +51,14 @@ if (
             $title = $_POST['title'];
             $author = $_POST['authors'];
             $userclassId = $_POST['user_classesId'];
-            $checkName = "SELECT * FROM book WHERE title ='$title' and authors='$author'";
+            $checkQuery = "SELECT * FROM book WHERE title ='$title' and authors='$author'";
             // $rowcount = null;
             // Execute the query and store the result set
-            $result = mysqli_query($conn, $checkName);
-            var_dump($checkName);
-            print_r($result);
+            $result = mysqli_query($conn, $checkQuery);
+            var_dump($checkQuery);
+          
             if ($result) {
+                print_r($result);
                 // it return number of rows in the table.
                 $row = mysqli_num_rows($result);
                 if ($row) {
