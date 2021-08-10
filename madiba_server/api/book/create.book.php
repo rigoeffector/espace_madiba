@@ -53,33 +53,19 @@ if (
             $userclassId = $_POST['user_classesId'];
             $checkQuery = "SELECT * FROM book WHERE title ='$title' and authors='$author'";
 
+            $stmt = $connection->query("SELECT * FROM book WHERE title ='$title' and authors='$author'");
+            $row_count = $stmt->rowCount();
 
-            // query to fetch Username and Password from
-            // the table geek
-            $query = "SELECT * FROM book WHERE title ='$title' and authors='$author'";
+            var_dump($row_count);
 
-            // Execute the query and store the result set
-            $result = mysqli_query($conn, $query);
-            printf("result : " . $result);
-            if ($result) {
-                // it return number of rows in the table.
-                $row = mysqli_num_rows($result);
+            
 
-                if ($row) {
-                    printf("Number of row in the table : " . $row);
-                }
-                // close the result.
-                mysqli_free_result($result);
-            }
-
-            // Connection close 
-            mysqli_close($conn);
-
+            
             // // $rowcount = null;
             // // Execute the query and store the result set
             // $result = mysqli_query($conn, $checkQuery);
             // var_dump($checkQuery);
-
+          
             // if ($result) {
             //     print_r($result);
             //     // it return number of rows in the table.
@@ -95,7 +81,7 @@ if (
             //             $response
             //         );
             //     }else{
-
+                   
             //     }
             //     // close the result.
             //     mysqli_free_result($result);
@@ -128,7 +114,7 @@ if (
             //     );
             // }
             // Connection close 
-            mysqli_close($conn);
+            mysqli_close($conn);           
         } else {
             $response = array(
                 "status" => "error",
