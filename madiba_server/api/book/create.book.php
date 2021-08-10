@@ -59,9 +59,9 @@ if (
                 $rowcount = mysqli_num_rows($result);
                 mysqli_free_result($result);
             }
-
+            
             if ($rowcount > 0) {
-                var_dump($rowcount);
+                // var_dump($rowcount);
                 $response = array(
                     "status" => "success",
                     "error" => false, "success" => true,
@@ -90,7 +90,7 @@ if (
                 $statement->bindParam(':isAvailable', $_POST['isAvailable'], PDO::PARAM_STR);
 
 
-
+                var_dump($rowcount);
                 $statement->execute();
                 $response = array(
                     "status" => "success",
