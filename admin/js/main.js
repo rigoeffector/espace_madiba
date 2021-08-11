@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
   //created by Rigoeffector Ninja 2021
-  var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
-  const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
+  // var serverUrl = "https://madiba.isoko250.com/madiba_server/api/";
+  // const urlPath = "https://madiba.isoko250.com/madiba_panel/admin/";
 
-  // var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
-  // const urlPath = "http://localhost/madiba_panel/madiba_panel/admin/";
+  var serverUrl = "http://localhost/madiba_panel/madiba_server/api/";
+  const urlPath = "http://localhost/madiba_panel/madiba_panel/admin/";
 
   let allEvents, allVideos, allAudios, allNews;
 

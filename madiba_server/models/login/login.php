@@ -1,6 +1,7 @@
 <?php
 
-class LoginUserInfo {
+class LoginUserInfo
+{
     private $password;
     private $email;
     private $conn;
@@ -10,12 +11,13 @@ class LoginUserInfo {
 
     public function __construct($db)
     {
-        $this->conn=$db;
+        $this->conn = $db;
     }
-   
 
 
-    public function getUserLogin($email, $password){
+
+    public function getUserLogin($email, $password)
+    {
         #query
         $query = "SELECT r.id, r.fname,r.lname,r.address,r.phone, 
         r.email,r.password,r.image,r.isMembershipPaid,
@@ -29,20 +31,12 @@ class LoginUserInfo {
         LEFT JOIN user_category uct
         ON r.user_categoryId = uct.id 
         where r.email ='$email' 
-        and r.password ='$password' and r.isMembershipPaid='1' ";
-
-        $stmt = $this->conn->prepare($query);
-        
-        // $stmt->bindParam(":email",$email);
-        // $stmt->bindParam(":passwords", $password);
-
-        $stmt = $this->conn->prepare($query);
+        and r.password ='$password' ";
+        // $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->query($query);
+        $row_count = $stmt->rowCount();
+        print_r($row_count);
         $stmt->execute();
-      
-
         return $stmt;
     }
-
-   
-
 }
