@@ -35,7 +35,7 @@ class LoginUserInfo
         // $stmt = $this->conn->prepare($query);
         $stmt = $this->conn->query($query);
         $row_count = $stmt->rowCount();
-        print_r($row_count);
+      
         $stmt->execute();
         return $stmt;
     }
