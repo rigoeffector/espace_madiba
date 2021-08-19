@@ -30,7 +30,6 @@ class BookInformation
     public $numbersToSaved;
     public $bookId;
     public $description;
-    public $number_of_book_borrowed;
     public $userId;
     public $isAvailable;
     public $book_borrowed;
@@ -39,6 +38,7 @@ class BookInformation
     public $borrowed_book_status;
     public $status;
     public $taken_book;
+    public $ftaken_book;
     public $bookStatus;
     public $createdTime;
     public $bookTitle;
@@ -59,6 +59,10 @@ class BookInformation
     public $userClassAge;
     public $checkup;
     public $keywords;
+    public $number_of_per_week;
+    public $number_of_per_month;
+    public $number_of_book_borrowed;
+    public $totalBookToBorrow;
 
     // initialize a constructor to map with connection 
 
@@ -260,16 +264,18 @@ class BookInformation
         $this->bookId = htmlspecialchars(strip_tags($this->bookId));
         $this->number_of_book_borrowed = htmlspecialchars(strip_tags($this->number_of_book_borrowed));
         $this->userId = htmlspecialchars(strip_tags($this->userId));
-        $this->return_date = htmlspecialchars($this->return_date);
+        $this->return_date = htmlspecialchars(strip_tags($this->return_date));
+
 
         // bind data 
         $stmt->bindParam(":bookId", $this->bookId);
         $stmt->bindParam(":number_of_book_borrowed", $this->number_of_book_borrowed);
         $stmt->bindParam(":userId", $this->userId);
         $stmt->bindParam(":return_date", $this->return_date);
-        if ($this->checkIfBorrowedBook($this->userId)) {
-            // $connect = mysqli_connect("localhost", "root", "", "madiba");
+
+        if ($this->checkIfBorrowedBook($this->userId, $this->number_of_book_borrowed)) {
             $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+            // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             };
@@ -292,10 +298,10 @@ class BookInformation
             if ($this->available_books > 0 &&  !((int)$this->available_books < (int)$requested)) {
 
                 if ($stmt->execute()) {
-                    $this->saveTakenNumberOfBooks($this->bookId, $this->number_of_book_borrowed);
+                    $this->saveTakenNumberOfBooks($this->bookId,$requested);
                     return true;
                 }
-                print_r("Error:%s.\n", $stmt->error);
+               
                 return false;
             }
             $response = array(
@@ -310,106 +316,190 @@ class BookInformation
         }
     }
 
+   
+
+    public function checkIfBorrowedBook($userId, $numberBorrow)
+    {
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        };
+
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $sql = "SELECT SUM(b.number_of_book_borrowed) as sumup, b.status,b.return_date,b.createdTime,
+        b.number_of_book_borrowed, uc.title,
+        uc.number_of_per_month, 
+        uc.number_of_per_week FROM `borrow_history` b
+        LEFT JOIN registartion_users ru on b.userId = ru.id
+        LEFT JOIN user_classes uc on ru.user_classesId = uc.id
+        WHERE b.userId = '$userId' and b.status = '0'";
+        $result = mysqli_query($conn, $sql);
+        // weekly date range to check 
+        $dateToadd = strtotime("+7 day");
+        $weekly_range = date('Y-m-d', $dateToadd);
+        $dateToBorrow = "";
+
+        $response = [];
+        $totoSumBorroweBook = "";
+
+
+        if (mysqli_num_rows($result) > 0) {
+            // output data of each row
+            while ($row = mysqli_fetch_assoc($result)) {
+                $this->borrowed_book_status = $row["status"];
+                $this->number_of_per_week = $row["number_of_per_week"];
+                $this->number_of_per_month = $row["number_of_per_month"];
+                $this->return_date = $row["return_date"];
+                $this->createdTime = $row["createdTime"];
+                $this->number_of_book_borrowed = $row['number_of_book_borrowed'];
+                $totoSumBorroweBook = $row['sumup'];
+            }
+
+            $calAllowedBookPerMonth = ((int)$this->number_of_per_month  - (int)$this->number_of_book_borrowed);
+            $this->totalBookToBorrow =  $calAllowedBookPerMonth;
+            // $dateToBorrow = 
+    
+            if((int)$totoSumBorroweBook == (int)$this->number_of_per_month ){
+                $response = array(
+                    "status" => "success",
+                    "error" => false,
+                    "success" => true,
+                    "message" => "You are allowed only " . $this->number_of_per_month . " Books Per month to borrow",
+                    "hint" => "You borrowed " . $totoSumBorroweBook . " Books already"
+                );
+                echo json_encode(
+                    $response
+                );
+                        return false;
+            }
+
+            elseif ($this->return_date > date('Y-m-d')  && ((int)$numberBorrow > (int)$this->number_of_per_month)) {
+                $response = array(
+                    "status" => "success",
+                    "error" => false,
+                    "success" => true,
+                    "message" => "You are allowed only " . $this->number_of_per_month . " Books Per month to borrow",
+                    "hint" => "You borrowed " . $this->number_of_book_borrowed . " Books already"
+                );
+                echo json_encode(
+                    $response
+                );
+                return false;
+            
+            } else {
+                // $response = array(
+                //     "status" => "success",
+                //     "error" => false,
+                //     "success" => true,
+                //     "message" => "You are allowed only " . $this->number_of_per_month . " Books Per month to borrow",
+                //     "hint"=> "You borrowed ". $this->number_of_book_borrowed. " Books already"
+                // );
+                // echo json_encode(
+                //     $response
+                // );
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
     public function saveTakenNumberOfBooks($bookId, $takenNumberBooks)
     {
-        $sql = "UPDATE  book
+
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        };
+        $sql = "SELECT numbers,taken_book FROM `book` WHERE id = '$bookId'";
+        $result = mysqli_query($conn, $sql);
+        $ftaken_book = "";
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $this->available_books = $row["numbers"];
+                $ftaken_book = $row['taken_book'];
+              
+              
+            }
+            
+            $updtedTakenBooks =$takenNumberBooks +  $ftaken_book;
+            $sql = "UPDATE  book
                SET taken_book=:taken_book
                 WHERE id=$bookId";
         $stmt = $this->conn->prepare($sql);
         // clean data to be bound  
         $this->taken_book = htmlspecialchars(strip_tags($this->taken_book));
-        $stmt->bindParam(":taken_book", $takenNumberBooks);
+        $stmt->bindParam(":taken_book",  $updtedTakenBooks);
         if ($stmt->execute()) {
             return true;
         }
-    }
-
-
-    public function checkIfBorrowedBook($userId)
-    {
-        // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-            if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            };
-
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
         }
-        $sql = "SELECT status FROM `borrow_history` WHERE userId = '$userId' and status = '0'";
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) > 0) {
-            // output data of each row
-            while ($row = mysqli_fetch_assoc($result)) {
-                $this->borrowed_book_status = $row["status"];
-            }
-            $response = array(
-                "status" => "success",
-                "error" => false,
-                "success" => true,
-                "message" => "You are already borrow a book"
-            );
-            echo json_encode(
-                $response
-            );
-            return false;
-        } else {
-            return true;
+        else{
+
         }
+        
     }
 
     public function updateNumberOfBooks($requested, $id)
 
     {
-        // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-            if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            };
-        $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        };
+        $sql = "SELECT numbers,taken_book FROM `book` WHERE id = '$id'";
         $result = mysqli_query($conn, $sql);
-
+        $ftaken_book = "";
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             while ($row = mysqli_fetch_assoc($result)) {
                 $this->available_books = $row["numbers"];
+            
+                $remainBooks = $this->available_books - $requested;
+                $db_query = "UPDATE book 
+            SET 
+               numbers=:numbers 
+                     WHERE id=$id";
+                $this->id = htmlspecialchars(strip_tags($this->id));
+                $this->numbersToSaved = htmlspecialchars(strip_tags($this->numbersToSaved));
+                $this->taken_book = htmlspecialchars(strip_tags($this->taken_book));
+
+                $stmt = $this->conn->prepare($db_query);
+                $stmt->bindParam(":numbers", $remainBooks);
+              
+
+                if ($stmt->execute()) {
+                    if (!$remainBooks > 0) {
+                        $this->updateStatusBook($id);
+                    } else {
+                        return $stmt;
+                    }
+                } else {
+                    echo json_encode(
+                        array('message' => ' update book numbers  is    Failed ')
+                    );
+                }
             }
+          
         } else {
             // echo "0 results";
-        }
-        $remainBooks = $this->available_books - $requested;
-
-        $db_query = "UPDATE book 
-            SET 
-               numbers=:numbers
-                     WHERE id=$id";
-        $this->id = htmlspecialchars(strip_tags($this->id));
-        $this->numbersToSaved = htmlspecialchars(strip_tags($this->numbersToSaved));
-
-        $stmt = $this->conn->prepare($db_query);
-        $stmt->bindParam(":numbers", $remainBooks);
-
-        if ($stmt->execute()) {
-            if (!$remainBooks > 0) {
-                $this->updateStatusBook($id);
-            } else {
-                return $stmt;
-            }
-        } else {
-            echo json_encode(
-                array('message' => ' update book numbers  is    Failed ')
-            );
         }
     }
 
     public function updateStatusBook($id)
     {
 
-        // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-            if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            };
+        $conn = mysqli_connect("localhost", "root", "", "madiba");
+        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        };
         $sql = "SELECT numbers FROM `book` WHERE id = '$id'";
         $result = mysqli_query($conn, $sql);
 
@@ -687,7 +777,7 @@ class BookInformation
             return true;
         }
         // print error if something goes bad 
-        print_r("Error:%s.\n", $stmt->error);
+        
         return false;
     }
 
@@ -716,7 +806,7 @@ class BookInformation
             return true;
         }
         // print error if something goes bad 
-        print_r("Error:%s.\n", $stmt->error);
+        
         return false;
     }
 
@@ -769,10 +859,10 @@ class BookInformation
     public function updateBorrowInfo($bookId, $userId)
     {
         // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-            if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            };
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        };
         $checkUser = "SELECT *
         FROM
          borrow_history
@@ -825,10 +915,10 @@ class BookInformation
     {
         $NewnumberToSave = null;
         // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-            if (mysqli_connect_errno()) {
-                echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            };
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        };
         $checkUser = "SELECT *
         FROM
          book

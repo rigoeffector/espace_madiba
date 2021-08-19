@@ -34,26 +34,32 @@ if ($num > 0) {
             "membership_fees" => $membership_fees,       
         );
     }
-    array_push($login_user_arr['user'], $login_user_item);
-    $response = array(
-        "status" => "success",
-        "error" => false, "success" => true,
-        "message" => "user fetched successfully",
-        "data" => $login_user_item
-        
-    );
-    echo json_encode(
-        $response
-    );
+    if(!empty($login_user_item)){
+        array_push($login_user_arr['user'], $login_user_item);
+        $response = array(
+            "status" => "success",
+            "error" => false, "success" => true,
+            "token"=>$token,
+            "message" => "user fetched successfully",
+            "data" => $login_user_item,
+            
+            
+        );
+        echo json_encode(
+            $response
+        );
+    }
+    
  
-} else {
-    $response = array(
-        "status" => "error",
-        "data"=>[],
-        "error" => false,
-        "message" => "No user info  Found or you did not paid your membership fees"
-    );
-    echo  json_encode(
-        $response
-    );
-}
+} 
+// else {
+//     $response = array(
+//         "status" => "error",
+//         "data"=>[],
+//         "error" => false,
+//         "message" => "No user info  Found or you did not paid your membership fees"
+//     );
+//     echo  json_encode(
+//         $response
+//     );
+// }

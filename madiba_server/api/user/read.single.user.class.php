@@ -24,6 +24,8 @@ if (!NULL == $user_class->id) {
         "id" => $user_class->id,
         "title" => $user_class->title,
         "membership_fees" => $user_class->membership_fees,
+        "number_of_per_week" => $user_class->number_of_per_week,
+        "number_of_per_month" => $user_class->number_of_per_month,
     );
 
     // extract as jsons 

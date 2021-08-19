@@ -1707,11 +1707,18 @@ $(document).ready(function () {
             "<h1>" +
             res[u].classe_title +
             "</h1>\n" +
+            
             '<h5 class="op-8">User Category:' +
             res[u].user_category_title +
             "</h5>\n" +
             '<h5 class="op-8">Age:' +
             res[u].age_range +
+            "</h5>\n" +
+            '<h5 class="op-8">Book per week:' +
+            res[u].number_of_per_week +
+            "</h5>\n" +
+            '<h5 class="op-8">Book per month:' +
+            res[u].number_of_per_month +
             "</h5>\n" +
             '<div class="pull-right">\n' +
             '<h3 class="fw-bold op-8">' +
@@ -1813,6 +1820,18 @@ $(document).ready(function () {
           '<input id="userUpClassAgeEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].age_range + '">\n' +
           '</div>\n' +
           '</div>\n' +
+          '<div class="col-md-6 pr-0">\n' +
+          '<div class="form-group ">\n' +
+          '<label>Book per Week</label>\n' +
+          '<input id="bookperweekEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].number_of_per_week + '">\n' +
+          '</div>\n' +
+          '</div>\n' +
+          '<div class="col-md-6 pr-0">\n' +
+          '<div class="form-group ">\n' +
+          '<label>Book per month</label>\n' +
+          '<input id="bookpermonthEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].number_of_per_month + '">\n' +
+          '</div>\n' +
+          '</div>\n' +
           '</div>\n' +
           '<div class="modal-footer no-bd">\n' +
           '<input type="submit" id="updateUserClassButton" class="btn btn-primary" value="Save">\n' +
@@ -1846,16 +1865,29 @@ $(document).ready(function () {
     var titleEdit =  $("input#userUpClassTitleEdit");
     var classEdit = $("select#selectUserCategoryUpdate");
     var ageEdit = $("input#userUpClassAgeEdit");
+    var bookWeekly =$("input#bookperweekEdit");
+    var bookMonthly =$("input#bookpermonthEdit");
     const dataMiner = {
       id: idEdit.val(),
       title: titleEdit.val(),
       user_categoryId: classEdit.val(),
-      age_range: ageEdit.val()
+      age_range: ageEdit.val(),
+      number_of_per_week: bookWeekly.val(),
+      number_of_per_month: bookMonthly.val()
   }
     
 
-  console.log(dataMiner);
+  console.log(dataMiner.user_categoryId);
+  if(dataMiner.user_categoryId == "0"){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'warning',
+      title: 'Please choose user category',
+      showConfirmButton: false,
+      timer: 1500
+    })
 
+  }else{
     $.ajax({
       type: "POST",
       url: serverUrl + "user/update.user.class.php",
@@ -1881,6 +1913,9 @@ $(document).ready(function () {
         }, 3000);
       },
     });
+  }
+
+   
   });
 
   // end update user class 
@@ -1982,6 +2017,8 @@ $(document).ready(function () {
       const title = $("input#userClassTitle");
       const userCat = $("select#selectUserCategory");
       const age = $("input#userClassAge");
+      const bookPerWeek = $("input#bookPerWeek");
+      const bookPerMonth = $("input#bookPerMonth");
 
       // validations js 
 
@@ -1997,6 +2034,18 @@ $(document).ready(function () {
           $("span#userclassAgeRangeValid").hide();
         }, 2000);
       }
+      if (bookPerWeek.val() == '') {
+        $("span#bookPerWeekValid").show();
+        setTimeout(function () {
+          $("span#bookPerWeekValid").hide();
+        }, 2000);
+      }
+      if (bookPerMonth.val() == '') {
+        $("span#bookPerMonthValid").show();
+        setTimeout(function () {
+          $("span#bookPerMonthValid").hide();
+        }, 2000);
+      }
 
 
       // end of validations 
@@ -2009,6 +2058,8 @@ $(document).ready(function () {
           title: title.val(),
           user_categoryId: userCat.val(),
           age_range: age.val(),
+          number_of_per_week: bookPerWeek.val(),
+          number_of_per_month: bookPerMonth.val()
         };
 
         $.ajax({

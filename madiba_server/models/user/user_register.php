@@ -89,7 +89,7 @@ class UserRegister
         $created_time = $row['created_time'];
     }
 
-    public function create()
+    public function suspendUser()
     {
         //DEPRECATED IN OTHER FILES
     }

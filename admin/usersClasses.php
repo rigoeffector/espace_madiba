@@ -230,6 +230,20 @@
                                 <span id="userclassAgeRangeValid" style="color: red;display:none;">Age range shoudld not be empty</span>
                             </div>
                         </div>
+                        <div class="col-md-6 pr-0">
+                            <div class="form-group ">
+                                <label>Book per week</label>
+                                <input id="bookPerWeek" type="number" class="form-control" placeholder="fill number">
+                                <span id="bookPerWeekValid" style="color: red;display:none;">number  shoudld not be empty</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pr-0">
+                            <div class="form-group ">
+                                <label>Book per month</label>
+                                <input id="bookPerMonth" type="number" class="form-control" placeholder="fill number">
+                                <span id="bookPerMonthValid" style="color: red;display:none;">number shoudld not be empty</span>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer no-bd">

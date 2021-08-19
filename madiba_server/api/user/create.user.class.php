@@ -24,6 +24,8 @@ $user_class->title = $data->title;
 $user_class->user_categoryId = $data->user_categoryId;
 $user_class->created_time = date("Y/m/d");
 $user_class->age_range = $data->age_range;
+$user_class->number_of_per_week = $data->number_of_per_week;
+$user_class->number_of_per_month = $data->number_of_per_month;
 if ($user_class->create($data->title,$data->age_range,$data->user_categoryId)) {
     $response = array(
         "status" => "success",

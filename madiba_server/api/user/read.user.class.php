@@ -39,6 +39,8 @@ if ($num > 0) {
             "user_category_title" => $user_category_title,
             "membership_fees" => $membership_fees,
             "age_range" => $age_range,
+            "number_of_per_week" => $number_of_per_week,
+            "number_of_per_month" => $number_of_per_month,
         );
 
         // Push to array  

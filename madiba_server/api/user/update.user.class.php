@@ -26,6 +26,8 @@ $user_class->id = $data->id;
 $user_class->title = $data->title;
 $user_class->user_categoryId = $data->user_categoryId;
 $user_class->age_range = $data->age_range;
+$user_class->number_of_per_month = $data->number_of_per_month;
+$user_class->number_of_per_week = $data->number_of_per_week;
 
 
 

@@ -15,15 +15,16 @@ include_once "../../models/book/book.php";
 $database = new Database();
 $db = $database->connect();
 $book = new BookInformation($db);
-
-
+$dateToadd = strtotime("+7 day");
+$weekly_range = date('Y-m-d', $dateToadd);
 
 $data = json_decode(file_get_contents("php://input"));
 //  prepare data to be sent
 $book->bookId = $data->bookId;
 $book->number_of_book_borrowed = $data->number_of_book_borrowed;
 $book->userId = $data->userId;
-$book->return_date = date($data->return_date);
+$book->return_date = $weekly_range;
+
 if ($book->borrowBook($data->bookId,$data->number_of_book_borrowed)) {
     $book->updateNumberOfBooks($data->number_of_book_borrowed,$data->bookId);
     $response = array(
