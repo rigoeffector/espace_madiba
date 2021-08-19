@@ -13,7 +13,7 @@ class Database {
 
     private $conn;
 
-     // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+     // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
 
 
     public function  connect(){

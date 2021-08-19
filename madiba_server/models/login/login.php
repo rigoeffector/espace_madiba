@@ -18,8 +18,8 @@ class LoginUserInfo
 
     public function getUserLogin($email, $password)
     {
-        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
-        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+        // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         };

@@ -1754,12 +1754,12 @@ $(document).ready(function () {
   // end get user classes
 
   // update user class 
-  const selectUserCat = [];
-  var reponseArry = []
+  var reponseArry = [];
   $("div#all_user_classes").on("click", "button#update_user_class", function (e) {
     e.preventDefault();
     const userClassIdLoader = $(this).data('classid');
-
+    const selectUserCat = [];
+    
 
     $.ajax({
       type: "GET",
@@ -1767,16 +1767,24 @@ $(document).ready(function () {
       dataType: "JSON",
       beforeSend: function () {
         $("div#loaderupdateUserCat").show();
+        $("form#updateUserClass").hide();
       },
       complete: function () {
         $("div#loaderupdateUserCat").hide();
+        $("form#updateUserClass").show();
       },
       success: function (response) {
         const res = response.data;
         console.log("user classes selected", res);
         selectUserCat.push(res);
         reponseArry = selectUserCat[0];
-        console.log(reponseArry)
+        console.log(reponseArry);
+        for (let r in reponseArry) {
+
+          $(" select#selectUserCategoryUpdate").append(
+            '<option value="' + reponseArry[r].id + '">' + reponseArry[r].title + "</option>"
+          );
+        }
       },
     });
 
@@ -1785,7 +1793,7 @@ $(document).ready(function () {
     $.ajax({
       type: "POST",
       cache: false,
-      url: serverUrl + "user/read.user.class.php",
+      url: serverUrl + "user/read.single.user.class.php?id="+userClassIdLoader,
       dataType: "JSON",
       beforeSend: function () {
         $("div#loaderSingleUserClass").show();
@@ -1799,9 +1807,9 @@ $(document).ready(function () {
         $("form#updateUserClass").html('<div class="row" id="formUser">\n' +
           '<div class="col-md-6 pr-0">\n' +
           '<div class="form-group ">\n' +
-          '<input id="userUpClassIdEdit" hidden type="text" class="form-control" placeholder="fill title" value="' + response.data[0].id + '">\n' +
+          '<input id="userUpClassIdEdit" hidden type="text" class="form-control" placeholder="fill title" value="' + response.id + '">\n' +
           '<label>Title</label>\n' +
-          '<input id="userUpClassTitleEdit" type="text" class="form-control" placeholder="fill title" value="' + response.data[0].classe_title + '">\n' +
+          '<input id="userUpClassTitleEdit" type="text" class="form-control" placeholder="fill title" value="' + response.title + '">\n' +
           '</div>\n' +
           '</div>\n' +
           '<div class="col-md-6 pr-0">\n' +
@@ -1817,19 +1825,19 @@ $(document).ready(function () {
           '<div class="col-md-12 pr-0">\n' +
           '<div class="form-group ">\n' +
           '<label>Age Range</label>\n' +
-          '<input id="userUpClassAgeEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].age_range + '">\n' +
+          '<input id="userUpClassAgeEdit" type="text" class="form-control" placeholder="fill age" value="' + response.age_range + '">\n' +
           '</div>\n' +
           '</div>\n' +
           '<div class="col-md-6 pr-0">\n' +
           '<div class="form-group ">\n' +
           '<label>Book per Week</label>\n' +
-          '<input id="bookperweekEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].number_of_per_week + '">\n' +
+          '<input id="bookperweekEdit" type="text" class="form-control" placeholder="fill age" value="' + response.number_of_per_week + '">\n' +
           '</div>\n' +
           '</div>\n' +
           '<div class="col-md-6 pr-0">\n' +
           '<div class="form-group ">\n' +
           '<label>Book per month</label>\n' +
-          '<input id="bookpermonthEdit" type="text" class="form-control" placeholder="fill age" value="' + response.data[0].number_of_per_month + '">\n' +
+          '<input id="bookpermonthEdit" type="text" class="form-control" placeholder="fill age" value="' + response.number_of_per_month + '">\n' +
           '</div>\n' +
           '</div>\n' +
           '</div>\n' +
@@ -1843,12 +1851,7 @@ $(document).ready(function () {
           '</div>\n' +
           '</center>');
 
-        for (let r in reponseArry) {
-
-          $(" select#selectUserCategoryUpdate").append(
-            '<option value="' + reponseArry[r].id + '">' + reponseArry[r].title + "</option>"
-          );
-        }
+       
 
       }
 

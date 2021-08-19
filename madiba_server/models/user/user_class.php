@@ -59,12 +59,11 @@ class UserClasses
 
     public function readSingleCategory()
     {
-        $query = 'SELECT id, title, 
-        membership_fees,
+        $query = 'SELECT id, title, age_range,
         number_of_per_month,
         number_of_per_week
          FROM ' . $this->table . ' 
-         WHERE id = ? LIMIT O,1';
+         WHERE id = ?';
         $stmt = $this->conn->prepare($query);
 
         //  bind id 
@@ -80,7 +79,7 @@ class UserClasses
 
 
         $this->title = $row['title'];
-        $this->membership_fees = $row['membership_fees'];
+        $this->age_range = $row['age_range'];
         $this->number_of_per_month = $row['number_of_per_month'];
         $this->number_of_per_week = $row['number_of_per_week'];
     }

@@ -44,7 +44,7 @@ if (
     // $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
     // if (move_uploaded_file($avatar_tmp_name, $upload_name)) {
-        // $connect = mysqli_connect("localhost", "root", "", "madiba");
+         $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
           
     $phone = $_POST['phone'];
     $email = $_POST['email'];

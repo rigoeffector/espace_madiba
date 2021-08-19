@@ -12,7 +12,7 @@ try {
     // $user_name   = "root";
     // $password    = "";
 
-     // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+     // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
     $connection = new PDO($db_server, $user_name, $password);
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {

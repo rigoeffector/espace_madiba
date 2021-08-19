@@ -155,8 +155,8 @@ class Events
 
     public function bookPlace($id, $requestedDays)
     {
-        // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+         $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+            // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             };
@@ -208,8 +208,8 @@ class Events
     public function updatePlace($requested, $id)
 
     {
-        // $connect = mysqli_connect("localhost", "root", "", "madiba");
-            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "duhure");
+         $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+            // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             };
