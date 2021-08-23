@@ -274,7 +274,7 @@ class BookInformation
         $stmt->bindParam(":return_date", $this->return_date);
 
         if ($this->checkIfBorrowedBook($this->userId, $this->number_of_book_borrowed)) {
-            // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+            $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
             // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -320,7 +320,7 @@ class BookInformation
 
     public function checkIfBorrowedBook($userId, $numberBorrow)
     {
-        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
         // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -412,7 +412,7 @@ class BookInformation
     {
 
         // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
-        // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         };
@@ -448,7 +448,7 @@ class BookInformation
     public function updateNumberOfBooks($requested, $id)
 
     {
-        // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
+        $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
         // // $conn = mysqli_connect("localhost", "Toussaint", "digitaloceaN@00d", "madiba");
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -1019,7 +1019,7 @@ class BookInformation
 
     public function searchBook($keyword, $age)
     {
-        $SQL = "SELECT b.id, b.title,
+        $SQL = "SELECT b.id, b.title,b.image,
          b.numbers, b.taken_book ,
          b.authors, b.image,b.summary,
          b.languages,b.isAvailable, 

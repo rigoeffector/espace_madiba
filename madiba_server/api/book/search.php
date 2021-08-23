@@ -39,6 +39,7 @@ if ($num > 0) {
 
             "id" => $id,
             "title" => $title,
+            "image"=>$image,
             "numbers" => $numbers,
             "taken_book" => $taken_book,
             "authors" => $authors,
