@@ -18,7 +18,7 @@ $db = $database->connect();
 
 $book_info = new BookInformation($db);
 $book_info->age_range = isset($_GET['age_range']) ? $_GET['age_range'] : die();
-if(!NULL == $book_info->id){
+if(!NULL == $book_info->age_range){
 
     $result = $book_info->readBooksByAge($book_info->age_range);
 

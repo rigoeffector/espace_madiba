@@ -1061,11 +1061,12 @@ class BookInformation
         book_category bc
         ON
         b.book_categoryId = bc.id
-        where  uc.age_range = '$age' LIMIT 0,10";
+        where  uc.age_range = '$age'  
+        ORDER BY b.id DESC LIMIT 0,10 ";
 
 
         //    prepare statements 
-
+      
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
