@@ -78,8 +78,14 @@ if (!NULL == $book_info->age_range) {
             $response
         );
     } else {
+        $response = array(
+            "status" => "success",
+            "data" => $book_info_arr['data'],
+            "error" => false,
+            "message" => "no Books founds"
+        ); 
         echo  json_encode(
-            array("message" => "No  Books Found ")
+            $response
         );
     }
 }
