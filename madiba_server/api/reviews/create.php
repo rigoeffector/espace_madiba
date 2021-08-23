@@ -23,6 +23,7 @@ $data = json_decode(file_get_contents("php://input"));
 $reviews->userId = $data->userId;
 $reviews->bookId = $data->bookId;
 $reviews->helpful = $data->helpful;
+$reviews->age_range = $data->age_range;
 $reviews->description = $data->description;
 if ($reviews->createReview()) {
     $response = array(
