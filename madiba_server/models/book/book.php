@@ -63,6 +63,7 @@ class BookInformation
     public $number_of_per_month;
     public $number_of_book_borrowed;
     public $totalBookToBorrow;
+    public $helpful;
 
     // initialize a constructor to map with connection 
 
@@ -964,15 +965,17 @@ class BookInformation
 
     public function reviews()
     {
-        $query = "INSERT INTO reviews(userId,bookId,description) 
-        values(:userId,:bookId,:description) ";
+        $query = "INSERT INTO reviews(userId,bookId,description,helpful) 
+        values(:userId,:bookId,:description,helpful) ";
         $stmt = $this->conn->prepare($query);
         $this->userId = htmlspecialchars(strip_tags($this->userId));
         $this->bookId = htmlspecialchars(strip_tags($this->bookId));
         $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->helpful = htmlspecialchars(strip_tags($this->helpful));
         $stmt->bindParam(":userId", $this->userId);
         $stmt->bindParam(":bookId", $this->bookId);
         $stmt->bindParam(":description", $this->description);
+        $stmt->bindParam(":helpful", $this->helpful);
 
         if ($stmt->execute()) {
             return $stmt;
@@ -986,26 +989,17 @@ class BookInformation
 
     public function recommendedBooks($age)
     {
-        $query = "SELECT  COUNT(bookId) as totalReviews,
-        b.id as bookId,b.title,b.numbers,
-        b.taken_book,b.authors,
-        b.image,
-        b.summary,b.languages,
-        b.book_categoryId,
-        b.user_classesId,
-        b.isAvailable,
-        bc.title as bookCategory,
-        uc.title as userClass,
-        uc.age_range
-        FROM reviews r LEFT JOIN book b ON
-        r.bookId = b.id
-        LEFT JOIN user_classes uc
-        
-        ON b.user_classesId = uc.id
-        LEFT JOIN book_category bc
-        ON
-        b.book_categoryId = bc.id
-        where r.helpful = '1' and uc.age_range LIKE '%$age%'";
+        $query = "SELECT  SUM(r.helpful) as totalReviews, 
+        b.id as bookId,b.title,b.numbers, b.taken_book,b.authors, 
+        b.image, b.summary,b.languages, b.book_categoryId, 
+        b.user_classesId, b.isAvailable, bc.title as bookCategory,
+         uc.title as userClass, uc.age_range FROM reviews r
+          LEFT JOIN book b ON r.bookId = b.id LEFT JOIN user_classes uc
+           ON b.user_classesId = uc.id LEFT JOIN book_category bc ON
+         b.book_categoryId = bc.id where
+          r.bookId = b.id and r.age_range
+           LIKE '%$age%'
+            GROUP BY r.bookId";
         $stmt = $this->conn->prepare($query);
         if ($stmt->execute()) {
 

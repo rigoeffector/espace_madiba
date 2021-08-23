@@ -67,7 +67,7 @@ if (
                     );
                 
                 // close the result.
-                mysqli_free_result($result);
+                // mysqli_free_result($result);
             }else{
                 $db_query = "INSERT INTO book
                 (title, numbers, authors, image, summary, languages,
@@ -90,7 +90,7 @@ if (
                     "error" => false,
                     "message" => "File uploaded successfully and book info is saved ",
                     "url" => $server_url . "/" . $upload_name,
-                    "result" => var_dump($result)
+                    // "result" => var_dump($result)
                 );
                 echo json_encode(
                     $response

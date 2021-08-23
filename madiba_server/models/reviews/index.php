@@ -18,6 +18,7 @@ class Reviews
     public $image;
     public $description;
     public $helpful;
+    public $age_range;
 
 
 
@@ -33,20 +34,22 @@ class Reviews
 
     public function createReview()
     {
-        $query = "INSERT INTO `reviews`(`userId`, `bookId`, `description`,`helpful`)
-         VALUES(:userId,:bookId,:description,:helpful)";
+        $query = "INSERT INTO `reviews`(`userId`, `bookId`, `description`,`helpful,`age_range`)
+         VALUES(:userId,:bookId,:description,:helpful,:age_range)";
 
         $stmt = $this->conn->prepare($query);
          $this->userId = htmlspecialchars(strip_tags($this->userId));
         $this->bookId = htmlspecialchars(strip_tags($this->bookId));
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->helpful = htmlspecialchars(strip_tags($this->helpful));
+        $this->age_range = htmlspecialchars(strip_tags($this->age_range));
      
         // bind data 
         $stmt->bindParam(":userId", $this->userId);
         $stmt->bindParam(":bookId", $this->bookId);
         $stmt->bindParam(":description", $this->description);
         $stmt->bindParam(":helpful", $this->helpful);
+        $stmt->bindParam(":age_range", $this->age_range);
     
         $stmt->execute();
 
