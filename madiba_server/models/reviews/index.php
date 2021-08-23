@@ -34,7 +34,7 @@ class Reviews
 
     public function createReview()
     {
-        $query = "INSERT INTO `reviews`(`userId`, `bookId`, `description`,`helpful,`age_range`)
+        $query = "INSERT INTO `reviews`(`userId`, `bookId`, `description`,`helpful`,`age_range`)
          VALUES(:userId,:bookId,:description,:helpful,:age_range)";
 
         $stmt = $this->conn->prepare($query);
